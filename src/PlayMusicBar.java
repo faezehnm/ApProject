@@ -1,24 +1,39 @@
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
+import javazoom.jl.player.advanced.AdvancedPlayer;
+import javazoom.jl.player.advanced.PlaybackEvent;
+import javazoom.jl.player.advanced.PlaybackListener;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
 
-public class PlayMusicBar extends JPanel {
+public class PlayMusicBar extends JPanel implements ActionListener ,Runnable{
+    File file = new File("src/music/Happier.mp3");
+    FileInputStream fs = new FileInputStream(file);
+    BufferedInputStream bi = new BufferedInputStream(fs) ;
+    AdvancedPlayer player = new AdvancedPlayer(bi);
+    private int pausedOnFrame = 0;
+
     JButton btnPlay ;
     JButton btnNext ;
     JButton btnPrevious ;
     JButton btnRepeat ;
     JButton btnShuffle ;
 
+    ImageIcon imPlay =new ImageIcon("src/Icons/play-button.png");
+    ImageIcon imNext =new ImageIcon("src/Icons/next.png");
+    ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
+    ImageIcon imRepeat =new ImageIcon("src/Icons/repeat.png");
+    ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
+    ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
 
-    ImageIcon imPlay =new ImageIcon("C:\\Users\\naimi\\Desktop\\Icons\\play-button.png");
-    ImageIcon imNext =new ImageIcon("C:\\Users\\naimi\\Desktop\\Icons\\next.png");
-    ImageIcon imPrevious =new ImageIcon("C:\\Users\\naimi\\Desktop\\Icons\\back.png");
-    ImageIcon imRepeat =new ImageIcon("C:\\Users\\naimi\\Desktop\\Icons\\repeat.png");
-    ImageIcon imShuffle =new ImageIcon("C:\\Users\\naimi\\Desktop\\Icons\\shuffle.png");
-    ImageIcon imPause = new ImageIcon("C:\\Users\\naimi\\Desktop\\Icons\\pause.png");
+    private boolean isItPlaying;
 
-    public PlayMusicBar(){
-        super();
-        setBackground(Color.WHITE);
+    public PlayMusicBar() throws FileNotFoundException, JavaLayerException {
+        super(new GridLayout(1,8,10,0));
         btnPlay = new JButton(imPlay);
         btnNext = new JButton(imNext);
         btnPrevious = new JButton(imPrevious);
@@ -43,6 +58,79 @@ public class PlayMusicBar extends JPanel {
         add(btnNext);
         add(btnRepeat);
 
+        btnShuffle.addActionListener(this);
+        btnPrevious.addActionListener(this);
+        btnPlay.addActionListener(this);
+        btnNext.addActionListener(this);
+        btnRepeat.addActionListener(this);
+
+        isItPlaying = false;
+
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if( e.getSource()==btnShuffle){
+        /*
+        :)
+         */
+        }
+        if( e.getSource()==btnPrevious){
+            /*
+            :)
+             */
+        }
+        Thread thread= new Thread(this);
+        if( e.getSource()==btnPlay){
+            if (!isItPlaying) {
+                getPlayButton().setIcon(imPause);
+                thread.start();
+
+            } else {
+                getPlayButton().setIcon(imPlay);
+                thread.start();
+            }
+        }
+        if( e.getSource()==btnNext){
+            /*
+            :)
+             */
+        }
+        if( e.getSource()==btnRepeat){
+            /*
+
+             */
+        }
+    }
+
+    public JButton getPlayButton() {
+    return btnPlay;
+    }
+
+    @Override
+    public void run() {
+
+        System.out.println(isItPlaying);
+        System.out.println(pausedOnFrame);
+        if( !isItPlaying){
+            try {
+                isItPlaying = true;
+                player.play(pausedOnFrame, Integer.MAX_VALUE);
+            } catch (JavaLayerException e) {
+                e.printStackTrace();
+            }
+        }
+        else if( isItPlaying){
+            player.setPlayBackListener(new PlaybackListener() {
+               @Override
+               public void playbackFinished(PlaybackEvent event) {
+                   pausedOnFrame = event.getFrame();
+               }
+           });
+            player.stop();
+            isItPlaying = false;
+       }
 
     }
 }
