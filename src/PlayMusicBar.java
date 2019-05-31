@@ -14,7 +14,7 @@ import java.net.URISyntaxException;
 
 public class PlayMusicBar extends JPanel implements ActionListener {
     File file = new File("src/music/Happier.mp3");
-    MusicPlayer player2 = new MusicPlayer();
+    MusicPlayer player = new MusicPlayer();
     private int pausedOnFrame = 0;
     private boolean isItPlaying;
     private boolean firstTime=true;
@@ -89,7 +89,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
                 if( firstTime ) {
                     firstTime=false ;
                     try {
-                        player2.play("src/music/Happier.mp3");
+                        player.play("src/music/Happier.mp3");
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     } catch (JavaLayerException e2) {
@@ -102,7 +102,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
                 }
                 else{
                     try {
-                        player2.resume();
+                        player.resume();
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     } catch (JavaLayerException e2) {
@@ -117,20 +117,19 @@ public class PlayMusicBar extends JPanel implements ActionListener {
 
             } else {
                 getPlayButton().setIcon(imPlay);
-                player2.pause();
+                player.pause();
                 isItPlaying= false ;
             }
 
         }
+
         if( e.getSource()==btnNext){
             /*
             :)
              */
         }
         if( e.getSource()==btnRepeat){
-            /*
-
-             */
+            player.setRepeat(true);
         }
     }
 
