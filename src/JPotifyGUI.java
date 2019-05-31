@@ -10,7 +10,7 @@ public class JPotifyGUI extends JFrame {
 
     PlayMusicBar playMusicBar = new PlayMusicBar();
 
-    public JPotifyGUI(){
+    public JPotifyGUI() throws Exception {
         super();
         setTitle("JPotify");
         setExtendedState(JFrame.MAXIMIZED_BOTH);

@@ -16,8 +16,10 @@ public class PlayMusicBar extends JPanel implements ActionListener {
     File file = new File("src/music/Happier.mp3");
     MusicPlayer player = new MusicPlayer();
     private int pausedOnFrame = 0;
-    private boolean isItPlaying;
+    private boolean isItPlaying=false;
     private boolean firstTime=true;
+    Song song = new Song("src/music/Happier.mp3");
+    DisplayInformation displayInformation = new DisplayInformation(song.getMusicName(),song.getAlbumnane(),song.getArtist());
 
     JButton btnPlay ;
     JButton btnNext ;
@@ -32,7 +34,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
     ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
 
 
-    public PlayMusicBar()  {
+    public PlayMusicBar() throws Exception {
         super(new GridLayout(1,8,10,0));
 
         btnPlay = new JButton(imPlay);
@@ -53,19 +55,19 @@ public class PlayMusicBar extends JPanel implements ActionListener {
         btnRepeat.setBackground(Color.white);
         btnShuffle.setBackground(Color.white);
 
+        add(displayInformation);
         add(btnShuffle);
         add(btnPrevious);
         add(btnPlay);
         add(btnNext);
         add(btnRepeat);
 
+
         btnShuffle.addActionListener(this);
         btnPrevious.addActionListener(this);
         btnPlay.addActionListener(this);
         btnNext.addActionListener(this);
         btnRepeat.addActionListener(this);
-
-        isItPlaying = false;
 
 
     }
@@ -132,7 +134,6 @@ public class PlayMusicBar extends JPanel implements ActionListener {
             player.setRepeat(true);
         }
     }
-
 
     public JButton getPlayButton() {
         return btnPlay;
