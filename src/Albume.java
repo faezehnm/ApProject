@@ -4,11 +4,12 @@ public class Albume {
 
     private String albumeName;
     private ArrayList<Song> songs = new ArrayList<Song>();
-    // art work??
+    private byte[] artwork;
 
     public Albume(Song song , String albumeName){
         this.albumeName = albumeName;
         songs.add(song);
+        artwork = song.getArtwork();
     }
 
     public String getAlbumeName(){
@@ -31,7 +32,11 @@ public class Albume {
         }
     }
 
-    // get art work??
+    public byte[] getArtwork(){
+        return artwork;
+    }
 
-    // set artwork??
+    public void setArtwork(){
+        artwork = songs.get(0).getArtwork();
+    }
 }

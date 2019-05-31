@@ -30,6 +30,7 @@ public class PlayList {
         }
     }
 
-
-
+    public int getNumberOfSongs(){
+        return songs.size();
+    }
 }
