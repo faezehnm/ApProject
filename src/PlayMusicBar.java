@@ -9,20 +9,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.URISyntaxException;
 
-public class PlayMusicBar extends JPanel implements ActionListener ,Runnable{
+
+public class PlayMusicBar extends JPanel implements ActionListener {
     File file = new File("src/music/Happier.mp3");
-    FileInputStream fs = new FileInputStream(file);
-    BufferedInputStream bi = new BufferedInputStream(fs) ;
-    AdvancedPlayer player = new AdvancedPlayer(bi);
+    MusicPlayer player2 = new MusicPlayer();
     private int pausedOnFrame = 0;
+    private boolean isItPlaying;
+    private boolean firstTime=true;
 
     JButton btnPlay ;
     JButton btnNext ;
     JButton btnPrevious ;
     JButton btnRepeat ;
     JButton btnShuffle ;
-
     ImageIcon imPlay =new ImageIcon("src/Icons/play-button.png");
     ImageIcon imNext =new ImageIcon("src/Icons/next.png");
     ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
@@ -30,10 +31,10 @@ public class PlayMusicBar extends JPanel implements ActionListener ,Runnable{
     ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
     ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
 
-    private boolean isItPlaying;
 
-    public PlayMusicBar() throws FileNotFoundException, JavaLayerException {
+    public PlayMusicBar()  {
         super(new GridLayout(1,8,10,0));
+
         btnPlay = new JButton(imPlay);
         btnNext = new JButton(imNext);
         btnPrevious = new JButton(imPrevious);
@@ -81,16 +82,45 @@ public class PlayMusicBar extends JPanel implements ActionListener ,Runnable{
             :)
              */
         }
-        Thread thread= new Thread(this);
         if( e.getSource()==btnPlay){
             if (!isItPlaying) {
                 getPlayButton().setIcon(imPause);
-                thread.start();
+                isItPlaying=true ;
+                if( firstTime ) {
+                    firstTime=false ;
+                    try {
+                        player2.play("src/music/Happier.mp3");
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (JavaLayerException e2) {
+                        e2.printStackTrace();
+                    } catch (IOException e3) {
+                        e3.printStackTrace();
+                    } catch (URISyntaxException e4) {
+                        e4.printStackTrace();
+                    }
+                }
+                else{
+                    try {
+                        player2.resume();
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (JavaLayerException e2) {
+                        e2.printStackTrace();
+                    } catch (IOException e3) {
+                        e3.printStackTrace();
+                    } catch (URISyntaxException e4) {
+                        e4.printStackTrace();
+                    }
+
+                }
 
             } else {
                 getPlayButton().setIcon(imPlay);
-                thread.start();
+                player2.pause();
+                isItPlaying= false ;
             }
+
         }
         if( e.getSource()==btnNext){
             /*
@@ -104,33 +134,9 @@ public class PlayMusicBar extends JPanel implements ActionListener ,Runnable{
         }
     }
 
+
     public JButton getPlayButton() {
-    return btnPlay;
+        return btnPlay;
     }
 
-    @Override
-    public void run() {
-
-        System.out.println(isItPlaying);
-        System.out.println(pausedOnFrame);
-        if( !isItPlaying){
-            try {
-                isItPlaying = true;
-                player.play(pausedOnFrame, Integer.MAX_VALUE);
-            } catch (JavaLayerException e) {
-                e.printStackTrace();
-            }
-        }
-        else if( isItPlaying){
-            player.setPlayBackListener(new PlaybackListener() {
-               @Override
-               public void playbackFinished(PlaybackEvent event) {
-                   pausedOnFrame = event.getFrame();
-               }
-           });
-            player.stop();
-            isItPlaying = false;
-       }
-
-    }
 }

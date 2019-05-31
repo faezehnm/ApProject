@@ -7,16 +7,7 @@ import java.io.FileNotFoundException;
 public class JPotifyGUI extends JFrame {
     Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");
 
-    PlayMusicBar playMusicBar;
-    {
-        try {
-            playMusicBar = new PlayMusicBar();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
-        }
-    }
+    PlayMusicBar playMusicBar = new PlayMusicBar();
 
     public JPotifyGUI(){
         super();
