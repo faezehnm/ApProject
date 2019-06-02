@@ -3,7 +3,6 @@ import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -20,6 +19,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
     private boolean firstTime=true;
     Song song = new Song("src/music/Happier.mp3");
     DisplayInformation displayInformation = new DisplayInformation(song.getMusicName(),song.getAlbumnane(),song.getArtist());
+    PlaySlider playSlider = new PlaySlider();
 
     JButton btnPlay ;
     JButton btnNext ;
@@ -61,6 +61,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
         add(btnPlay);
         add(btnNext);
         add(btnRepeat);
+        add(playSlider,BorderLayout.PAGE_END);
 
 
         btnShuffle.addActionListener(this);
@@ -92,6 +93,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
                     firstTime=false ;
                     try {
                         player.play("src/music/Happier.mp3");
+                        playSlider.play();
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     } catch (JavaLayerException e2) {
