@@ -21,17 +21,18 @@ public class PlayMusicBar extends JPanel implements ActionListener {
     DisplayInformation displayInformation = new DisplayInformation(song.getMusicName(),song.getAlbumnane(),song.getArtist());
     PlaySlider playSlider = new PlaySlider();
 
-    JButton btnPlay ;
-    JButton btnNext ;
-    JButton btnPrevious ;
-    JButton btnRepeat ;
-    JButton btnShuffle ;
-    ImageIcon imPlay =new ImageIcon("src/Icons/play-button.png");
-    ImageIcon imNext =new ImageIcon("src/Icons/next.png");
-    ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
-    ImageIcon imRepeat =new ImageIcon("src/Icons/repeat.png");
-    ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
-    ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
+    private JButton btnPlay ;
+    private JButton btnNext ;
+    private JButton btnPrevious ;
+    private JButton btnRepeat ;
+    private JButton btnShuffle ;
+    private ImageIcon imPlay =new ImageIcon("src/Icons/play-button.png");
+    private ImageIcon imNext =new ImageIcon("src/Icons/next.png");
+    private ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
+    private ImageIcon imRepeat =new ImageIcon("src/Icons/repeat.png");
+    private ImageIcon imRepeat1 =new ImageIcon("src/Icons/repeat1.png");
+    private ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
+    private ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
 
 
     public PlayMusicBar() throws Exception {
@@ -40,7 +41,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
         btnPlay = new JButton(imPlay);
         btnNext = new JButton(imNext);
         btnPrevious = new JButton(imPrevious);
-        btnRepeat = new JButton(imRepeat);
+        btnRepeat = new JButton(imRepeat1);
         btnShuffle = new JButton(imShuffle) ;
 
         btnPlay.setPreferredSize(new Dimension(34, 34));
@@ -107,6 +108,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
                 else{
                     try {
                         player.resume();
+                        playSlider.resume();
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();
                     } catch (JavaLayerException e2) {
@@ -122,6 +124,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
             } else {
                 getPlayButton().setIcon(imPlay);
                 player.pause();
+                playSlider.pause();
                 isItPlaying= false ;
             }
 
@@ -133,12 +136,24 @@ public class PlayMusicBar extends JPanel implements ActionListener {
              */
         }
         if( e.getSource()==btnRepeat){
-            player.setRepeat(true);
+            if( player.getRepeat()==false) {
+                player.setRepeat(true);
+                playSlider.setRepeat(true);
+                getRepeatButton().setIcon(imRepeat);
+            }
+            else if(player.getRepeat()== true){
+                player.setRepeat(false);
+                playSlider.setRepeat(false);
+                getRepeatButton().setIcon(imRepeat1);
+            }
         }
     }
 
     public JButton getPlayButton() {
         return btnPlay;
+    }
+    public JButton getRepeatButton() {
+        return btnRepeat;
     }
 
 }

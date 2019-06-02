@@ -11,7 +11,7 @@ public class MusicPlayer
 
     private FileInputStream is;
     private Player player;
-    private boolean repeat;
+    private boolean repeat=false;
     private boolean paused;
     private long pauseLocation;
     private long totalSongLength;
@@ -127,6 +127,10 @@ public class MusicPlayer
 
     public void setRepeat(boolean repeat) {
         this.repeat = repeat;
+    }
+
+    public boolean getRepeat() {
+        return repeat;
     }
 
     public boolean isPaused() {

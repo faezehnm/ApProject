@@ -19,7 +19,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
     private JLabel finishLable = new JLabel(":)") ;
     private boolean repeat ;
     private boolean paused = false ;
-    private int pausedTime ;
+    private int pausedTime = 0;
 
 
     public PlaySlider() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException {
@@ -51,11 +51,23 @@ public class PlaySlider extends JPanel implements ChangeListener {
             @Override
             public void run()
             {
-                for (int i = 0; i <= duration; i++) {
+                for (int i = pausedTime; i <= duration; i++) {
                     jSlider.setValue(i);
-                    startLable.setText("" + i);
+                    if(paused)
+                        stop();
+                    if(i<60)
+                        startLable.setText("" + i);
+                    else if( i>=60 ){
+                        int min = i/60 ;
+                        int sc = i -(min*60) ;
+                        startLable.setText(""+ min + ":" + sc);
+                    }
                     try {
                         sleep(1000);
+                        if( i==duration && repeat ) {
+                            play();
+                            pausedTime=0;
+                        }
 
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -67,9 +79,14 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     }
 
-    public void Pause(){
+    public void resume(){
+        setPaused(false);
+        play();
+    }
+
+    public void pause(){
         pausedTime = jSlider.getValue();
-        setPaused();
+        setPaused(true);
     }
 
     private String getTimeInMinute(int duration){
@@ -87,10 +104,9 @@ public class PlaySlider extends JPanel implements ChangeListener {
         this.repeat = repeat;
     }
 
-    public void setPaused() {
-        this.paused= true ;
+    public void setPaused( boolean paused) {
+        this.paused= paused ;
     }
-
 
     @Override
     public void stateChanged(ChangeEvent e) {
