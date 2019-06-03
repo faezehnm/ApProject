@@ -6,8 +6,7 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
-public class MusicPlayer
-{
+public class MusicPlayer {
 
     private FileInputStream is;
     private Player player;
@@ -84,8 +83,6 @@ public class MusicPlayer
         }.start();
 
     }
-
-
 
     public void stop()
     {

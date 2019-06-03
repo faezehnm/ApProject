@@ -8,12 +8,12 @@ public class DisplayInformation extends JPanel {
     DefaultListModel<String> artWorkList = new DefaultListModel<>();
 
     public DisplayInformation(String songName , String albumName ,String artist){
-        songNameLable.setText("song: "+ songName +"\n");
-        albumNameLable.setText("album: "+ albumName +"\n");
-        artistNameLable.setText("artist: "+ artist);
+        songNameLable.setText  ("song   : "+ songName +"\n");
+        albumNameLable.setText ("album : "+ albumName +"\n");
+        artistNameLable.setText("artist  : "+ artist);
         artWorkList.addElement(songNameLable.getText());
-        artWorkList.addElement(albumNameLable.getText());
         artWorkList.addElement(artistNameLable.getText());
+        artWorkList.addElement(albumNameLable.getText());
         JList jList = new JList(artWorkList);
         add(jList);
     }

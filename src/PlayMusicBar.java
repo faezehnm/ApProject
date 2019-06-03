@@ -36,7 +36,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
 
 
     public PlayMusicBar() throws Exception {
-        super(new GridLayout(1,8,10,0));
+        super(new GridLayout(1,7));
 
         btnPlay = new JButton(imPlay);
         btnNext = new JButton(imNext);
@@ -152,6 +152,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
     public JButton getPlayButton() {
         return btnPlay;
     }
+
     public JButton getRepeatButton() {
         return btnRepeat;
     }
