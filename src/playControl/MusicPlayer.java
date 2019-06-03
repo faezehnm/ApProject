@@ -1,10 +1,11 @@
+package playControl;
+
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-import javazoom.jl.player.advanced.AdvancedPlayer;
 
 public class MusicPlayer {
 
@@ -118,11 +119,11 @@ public class MusicPlayer {
 
     }
 
-    public void skip(int duration , int cureentTime) throws URISyntaxException, IOException, JavaLayerException
+    public void skip(int duration , int currentTime) throws URISyntaxException, IOException, JavaLayerException
     {
         pause();
 
-        pauseLocation=getLengthInStream(duration,cureentTime);
+        pauseLocation=getLengthInStream(duration,currentTime);
 
         resume();
     }

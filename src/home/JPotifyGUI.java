@@ -1,8 +1,11 @@
-import javazoom.jl.decoder.JavaLayerException;
+package home;
+
+import other.DisplayLists;
+import other.PlayList;
+import playControl.PlayMusicBar;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class JPotifyGUI extends JFrame {

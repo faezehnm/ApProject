@@ -1,9 +1,9 @@
+package playControl;
+
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import javazoom.jl.player.advanced.AdvancedPlayer;
-import javazoom.jl.player.advanced.PlaybackEvent;
-import javazoom.jl.player.advanced.PlaybackListener;
-import javax.imageio.ImageIO;
+import other.Song;
+import playControl.PlaySlider;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -88,7 +88,8 @@ public class PlayMusicBar extends JPanel implements ActionListener {
             :)
              */
         }
-        if( e.getSource()==btnPlay){
+        if( e.getSource()==btnPlay)
+        {
             if (!isItPlaying) {
                 getPlayButton().setIcon(imPause);
                 isItPlaying=true ;
@@ -137,7 +138,8 @@ public class PlayMusicBar extends JPanel implements ActionListener {
             :)
              */
         }
-        if( e.getSource()==btnRepeat){
+        if( e.getSource()==btnRepeat)
+        {
             if( player.getRepeat()==false) {
                 player.setRepeat(true);
                 playSlider.setRepeat(true);

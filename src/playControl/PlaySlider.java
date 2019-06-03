@@ -1,3 +1,5 @@
+package playControl;
+
 import javazoom.jl.decoder.JavaLayerException;
 import org.jaudiotagger.audio.*;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
@@ -148,8 +150,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
-    }
+    public void stateChanged(ChangeEvent e) { }
 
 
 }

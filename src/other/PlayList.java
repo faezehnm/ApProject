@@ -1,3 +1,7 @@
+package other;
+
+import other.Song;
+
 import java.util.ArrayList;
 
 public class PlayList {

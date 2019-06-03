@@ -1,8 +1,4 @@
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import sun.audio.AudioStream;
-
-import java.io.IOException;
+import home.JPotifyGUI;
 
 public class Main {
     public static JPotifyGUI jPotifyGUI ;

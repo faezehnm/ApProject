@@ -1,3 +1,5 @@
+package playControl;
+
 import javax.swing.*;
 
 public class DisplayInformation extends JPanel {
