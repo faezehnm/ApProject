@@ -9,11 +9,12 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class JPotifyGUI extends JFrame {
+
     private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");
     //Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/JPotify.jpg");
 
     private PlayMusicBar playMusicBar = new PlayMusicBar();
-    private DisplayLists displayLists = new DisplayLists(new ArrayList<PlayList>());
+    private DisplayLists displayLists = new DisplayLists();
 
     public JPotifyGUI() throws Exception {
         super();
@@ -25,4 +26,5 @@ public class JPotifyGUI extends JFrame {
         add(displayLists , BorderLayout.WEST);
         setVisible(true);
     }
+
 }
