@@ -24,8 +24,8 @@ public class MusicPlayer {
         is = new FileInputStream(musicFilePath);
 
         totalSongLength =  is.available();
+       // System.out.println(totalSongLength);
         player = new Player( is );
-
 
 
         new Thread()
@@ -115,6 +115,23 @@ public class MusicPlayer {
             }
 
         }
+
+    }
+
+    public void skip(int duration , int cureentTime) throws URISyntaxException, IOException, JavaLayerException
+    {
+        pause();
+
+        pauseLocation=getLengthInStream(duration,cureentTime);
+
+        resume();
+    }
+
+    public Long getLengthInStream(int duration,int currentTime)
+    {
+
+      pauseLocation= totalSongLength-((totalSongLength/duration)*currentTime);
+      return pauseLocation ;
 
     }
 

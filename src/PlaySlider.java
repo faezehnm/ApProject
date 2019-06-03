@@ -7,6 +7,7 @@ import org.jaudiotagger.tag.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.util.Hashtable;
 import static java.lang.Thread.sleep;
 
@@ -20,10 +21,13 @@ public class PlaySlider extends JPanel implements ChangeListener {
     private boolean repeat ;
     private boolean paused = false ;
     private int pausedTime = 0;
+    MusicPlayer player ;
 
 
-    public PlaySlider() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException {
+    public PlaySlider(MusicPlayer player) throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException
+    {
 
+        this.player= player ;
         duration=getTime();
 
         jSlider= new JSlider();
@@ -42,7 +46,8 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     }
 
-    public void play(){
+    public void play()
+    {
         new Thread()
         {
             @Override
@@ -51,9 +56,22 @@ public class PlaySlider extends JPanel implements ChangeListener {
                 for (int i = pausedTime; i <= duration; i++) {
                     if(paused)
                         stop();
-                    //System.out.println(jSlider.getValue()+","+i);
-                    if(jSlider.getValue()-i>1 || i-jSlider.getValue()>1)
-                        i=jSlider.getValue();
+
+                    if(jSlider.getValue()-i>1 || i-jSlider.getValue()>1) {
+
+                        try {
+
+                             player.skip(duration,jSlider.getValue());
+
+                        } catch (URISyntaxException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JavaLayerException e) {
+                            e.printStackTrace();
+                        }
+                        i = jSlider.getValue();
+                    }
 
                     jSlider.setValue(i);
 
@@ -87,17 +105,20 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     }
 
-    public void resume(){
+    public void resume()
+    {
         setPaused(false);
         play();
     }
 
-    public void pause(){
+    public void pause()
+    {
         pausedTime = jSlider.getValue();
         setPaused(true);
     }
 
-    private String getTimeInMinute(int duration){
+    private String getTimeInMinute(int duration)
+    {
         String result ;
         int min ;
         int sec ;
@@ -108,15 +129,18 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     }
 
-    public void setRepeat(boolean repeat) {
+    public void setRepeat(boolean repeat)
+    {
         this.repeat = repeat;
     }
 
-    public void setPaused( boolean paused) {
+    public void setPaused( boolean paused)
+    {
         this.paused= paused ;
     }
 
-    public int getTime() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException {
+    public int getTime() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException
+    {
         File file=new File("src/music/Happier.mp3");
         AudioFile audioFile = AudioFileIO.read(file);
         duration= audioFile.getAudioHeader().getTrackLength();
@@ -125,13 +149,6 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-       // System.out.println(jSlider.getValue());
-//        if( e.getSource()==jSlider && paused==tr) {
-//            System.out.println("****");
-            //pause();
-//           duration = jSlider.getValue();
-//        resume();
-        //}
     }
 
 
