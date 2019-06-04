@@ -23,6 +23,7 @@ public class JPotifyGUI extends JFrame {
         setIconImage(icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         add(playMusicBar,BorderLayout.PAGE_END);
+        getContentPane().add(displayLists);
         add(displayLists , BorderLayout.WEST);
         setVisible(true);
     }

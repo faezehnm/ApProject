@@ -1,6 +1,5 @@
 package other;
 
-import com.sun.deploy.ref.AppModel;
 import com.sun.javaws.jnl.JARDesc;
 import other.PlayList;
 
@@ -8,34 +7,62 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DisplayLists extends JPanel {
+public class DisplayLists extends JScrollPane {
 
+    private JPanel mainPanel;
     private JButton songsbutton;
     private JButton albumebutton;
     private JLabel playlistlbl;
-    private ArrayList<JButton> playlistsbtn;
+    private ArrayList<JButton> playlistsbtn = new ArrayList<JButton>();
     private ArrayList<Song> songs = new ArrayList<Song>();
     private ArrayList<Albume> albumes = new ArrayList<Albume>();
     private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
 
 
     public DisplayLists() {
-        setLayout(new GridLayout(10 , 1));
+        mainPanel = new JPanel();
+        setViewportView(mainPanel);
+        setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        setVisible(true);
+        mainPanel.setSize(new Dimension(2000 , 200));
+        PlayList p1 = new PlayList("1");
+        playlists.add(p1);
+        PlayList p2 = new PlayList("2");
+        playlists.add(p2);
+        PlayList p3 = new PlayList("3");
+        playlists.add(p3);
+        PlayList p4 = new PlayList("4");
+        playlists.add(p4);
+        PlayList p5 = new PlayList("5");
+        playlists.add(p5);
+        PlayList p6 = new PlayList("6");
+        playlists.add(p6);
+        PlayList p7 = new PlayList("7");
+        playlists.add(p7);
+        PlayList p8 = new PlayList("8");
+        playlists.add(p8);
+        PlayList p9 = new PlayList("9");
+        playlists.add(p9);
+        PlayList p10 = new PlayList("10");
+        playlists.add(p10);
+        GridLayout layout = new GridLayout(3 + playlists.size() , 1);
+        mainPanel.setLayout(layout);
         songsbutton = new JButton("Songs");
         albumebutton = new JButton("Albums");
         playlistlbl = new JLabel("Playlists :");
         songsbutton.setPreferredSize(new Dimension(200, 100));
         albumebutton.setPreferredSize(new Dimension(200 , 100));
         playlistlbl.setPreferredSize(new Dimension(200 , 50));
-        add(songsbutton);
-        add(albumebutton);
-        add(playlistlbl);
+        mainPanel.add(songsbutton);
+        mainPanel.add(albumebutton);
+        mainPanel.add(playlistlbl);
         if(playlists.size() != 0){
             for(PlayList pl : playlists){
                 JButton plbtn = new JButton(pl.getPlayListName());
                 plbtn.setBackground(Color.WHITE);
                 plbtn.setPreferredSize(new Dimension(200 , 100));
-                add(plbtn);
+                mainPanel.add(plbtn);
                 playlistsbtn.add(plbtn);
             }
         }
