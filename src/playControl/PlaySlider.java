@@ -27,9 +27,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
     MusicPlayer player ;
 
 
-    public PlaySlider(MusicPlayer player) throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException
-    {
-
+    public PlaySlider(MusicPlayer player) throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException {
         this.player= player ;
         duration=getTime();
 

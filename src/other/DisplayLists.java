@@ -5,7 +5,10 @@ import home.JPotifyGUI;
 import other.PlayList;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class DisplayLists extends JScrollPane {
@@ -18,15 +21,26 @@ public class DisplayLists extends JScrollPane {
     private ArrayList<Song> songs = new ArrayList<Song>();
     private ArrayList<Albume> albumes = new ArrayList<Albume>();
     private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
+    private JPotifyGUI jPotifyGUI;
 
 
-    public DisplayLists(JPotifyGUI gui) {
+    public DisplayLists(JPotifyGUI gui) throws Exception {
+        jPotifyGUI = gui;
+        Song s;
+        s = new Song("src/Saman Jalili - Lajbaz (128).mp3");
+        addSong(s);
+        Song s2 = new Song("src/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
+        addSong(s2);
+        Song s3 = new Song("src/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
+        addSong(s3);
+        Song s4 = new Song("src/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
+        addSong(s4);
         mainPanel = new JPanel();
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        PlayList p1 = new PlayList("1");
+        /*PlayList p1 = new PlayList("1");
         playlists.add(p1);
         PlayList p2 = new PlayList("2");
         playlists.add(p2);
@@ -45,15 +59,33 @@ public class DisplayLists extends JScrollPane {
         PlayList p9 = new PlayList("9");
         playlists.add(p9);
         PlayList p10 = new PlayList("10");
-        playlists.add(p10);
-        GridLayout layout = new GridLayout(3 + playlists.size() , 1);
+        playlists.add(p10);*/
+
+
+        GridLayout layout = new GridLayout(3 + playlists.size() ,1);
         mainPanel.setLayout(layout);
         songsbutton = new JButton("Songs");
         albumebutton = new JButton("Albums");
         playlistlbl = new JLabel("Playlists :");
+        songsbutton.setMaximumSize(new Dimension(200 , 100));
         songsbutton.setPreferredSize(new Dimension(200, 100));
         albumebutton.setPreferredSize(new Dimension(200 , 100));
         playlistlbl.setPreferredSize(new Dimension(200 , 50));
+        songsbutton.setBackground(Color.white);
+        albumebutton.setBackground(Color.white);
+        playlistlbl.setBackground(Color.white);
+        songsbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displaySongs(songs);
+            }
+        });
+        albumebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayAlbums();
+            }
+        });
         mainPanel.add(songsbutton);
         mainPanel.add(albumebutton);
         mainPanel.add(playlistlbl);
@@ -62,13 +94,16 @@ public class DisplayLists extends JScrollPane {
                 JButton plbtn = new JButton(pl.getPlayListName());
                 plbtn.setBackground(Color.WHITE);
                 plbtn.setPreferredSize(new Dimension(200 , 100));
+                plbtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        displaySongs(pl.getSongs());
+                    }
+                });
                 mainPanel.add(plbtn);
                 playlistsbtn.add(plbtn);
             }
         }
-        songsbutton.setBackground(Color.white);
-        albumebutton.setBackground(Color.white);
-        playlistlbl.setBackground(Color.white);
     }
 
     public void addSong(Song s){
@@ -121,5 +156,21 @@ public class DisplayLists extends JScrollPane {
 
     public void removePlaylist(PlayList pl){
         playlists.remove(pl);
+    }
+
+    private void displaySongs(ArrayList<Song> songsArrList){
+        DisplaySongs ds = new DisplaySongs(songsArrList);
+        jPotifyGUI.setVisible(true);
+        jPotifyGUI.getContentPane().add(ds);
+        //jPotifyGUI.add(ds , new CardLayout());
+        jPotifyGUI.add(ds , BorderLayout.CENTER);
+    }
+
+    private void displayAlbums(){
+        DisplayAlbumes da = new DisplayAlbumes(albumes);
+        jPotifyGUI.setVisible(true);
+        jPotifyGUI.getContentPane().add(da);
+        jPotifyGUI.add(da , BorderLayout.CENTER);
+        //jPotifyGUI.add(da , new CardLayout());
     }
 }
