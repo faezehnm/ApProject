@@ -20,7 +20,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
     private JSlider jSlider ;
     private int duration=0;
     private String time ;
-    private JLabel startLable = new JLabel("0:0") ;
+    private JLabel startLable = new JLabel("0:00") ;
     private JLabel finishLable = new JLabel(":)") ;
     private boolean repeat ;
     private boolean paused = false ;
@@ -28,7 +28,8 @@ public class PlaySlider extends JPanel implements ChangeListener {
     MusicPlayer player ;
 
 
-    public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException {
+    public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException
+    {
 
         this.player= player ;
         duration=getTime();

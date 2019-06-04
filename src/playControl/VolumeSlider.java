@@ -19,11 +19,12 @@ public class VolumeSlider extends JPanel implements ChangeListener {
         add(jLabel);
         add(jSlider);
         jSlider.addChangeListener(this);
-        jSlider.setPreferredSize(new Dimension(100,80));
+        jSlider.setPreferredSize(new Dimension(120,40));
     }
 
     @Override
-    public void stateChanged(ChangeEvent e) {
+    public void stateChanged(ChangeEvent e)
+    {
         updateImage();
     }
 
