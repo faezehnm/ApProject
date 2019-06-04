@@ -14,7 +14,7 @@ public class JPotifyGUI extends JFrame {
     //Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/JPotify.jpg");
 
     private PlayMusicBar playMusicBar = new PlayMusicBar();
-    private DisplayLists displayLists = new DisplayLists();
+    private DisplayLists displayLists = new DisplayLists(this);
 
     public JPotifyGUI() throws Exception {
         super();

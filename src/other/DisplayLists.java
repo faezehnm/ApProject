@@ -1,6 +1,7 @@
 package other;
 
 import com.sun.javaws.jnl.JARDesc;
+import home.JPotifyGUI;
 import other.PlayList;
 
 import javax.swing.*;
@@ -19,13 +20,12 @@ public class DisplayLists extends JScrollPane {
     private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
 
 
-    public DisplayLists() {
+    public DisplayLists(JPotifyGUI gui) {
         mainPanel = new JPanel();
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        mainPanel.setSize(new Dimension(2000 , 200));
         PlayList p1 = new PlayList("1");
         playlists.add(p1);
         PlayList p2 = new PlayList("2");
@@ -103,5 +103,23 @@ public class DisplayLists extends JScrollPane {
                 break;
             }
         }
+    }
+
+    public void removeSong(Song s){
+        if(s.getAlbume().getSongs().size() == 1){
+            removeAlbum(s.getAlbume());
+        }
+        else{
+            s.getAlbume().deletSong(s);
+        }
+        songs.remove(s);
+    }
+
+    public void removeAlbum(Albume a){
+        albumes.remove(a);
+    }
+
+    public void removePlaylist(PlayList pl){
+        playlists.remove(pl);
     }
 }
