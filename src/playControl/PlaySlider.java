@@ -60,43 +60,32 @@ public class PlaySlider extends JPanel implements ChangeListener {
                     if(paused)
                         stop();
 
-                    if(jSlider.getValue()-i>1 || i-jSlider.getValue()>1) {
-
-                        try {
-
-                             player.skip(duration,jSlider.getValue());
-
-                        } catch (URISyntaxException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (JavaLayerException e) {
-                            e.printStackTrace();
-                        }
-                        i = jSlider.getValue();
-                    }
-
-                    jSlider.setValue(i);
-
                     if(!paused) {
-                        if (i < 60)
-                            if( i<10)
-                                startLable.setText("0:0" + i);
-                            else
-                                startLable.setText("0:" + i);
-                        else if (i >= 60) {
-                            int min = i / 60;
-                            int sc = i - (min * 60);
-                            if(sc<10)
-                                startLable.setText("" + min + ":0" + sc);
-                            else
-                                startLable.setText("" + min + ":" + sc);
+                        manageLableText(i);
+
+                        if((jSlider.getValue()-i>1 || i-jSlider.getValue()>1)&& player.isCompeletIn()==false ) {
+                            try {
+                                player.skip(duration,jSlider.getValue());
+                                i = jSlider.getValue();
+
+                            } catch (URISyntaxException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } catch (JavaLayerException e) {
+                                e.printStackTrace();
+                            }
                         }
+
+                        jSlider.setValue(i);
+
                         try {
                             sleep(1000);
                             if (i == duration && repeat) {
-                                play();
                                 pausedTime = 0;
+                                jSlider.setValue(0);
+                                play();
+
                             }
                         } catch (InterruptedException e) {
                             e.printStackTrace();
@@ -148,6 +137,23 @@ public class PlaySlider extends JPanel implements ChangeListener {
         AudioFile audioFile = AudioFileIO.read(file);
         duration= audioFile.getAudioHeader().getTrackLength();
         return duration;
+    }
+
+    public void manageLableText(int i){
+        if (i < 60) {
+            if (i < 10)
+                startLable.setText("0:0" + i);
+            else
+                startLable.setText("0:" + i);
+        }
+        else if (i >= 60) {
+            int min = i / 60;
+            int sc = i - (min * 60);
+            if (sc < 10)
+                startLable.setText("" + min + ":0" + sc);
+            else
+                startLable.setText("" + min + ":" + sc);
+        }
     }
 
     @Override
