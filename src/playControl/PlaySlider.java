@@ -9,6 +9,7 @@ import org.jaudiotagger.tag.TagException;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import java.awt.*;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.Hashtable;
@@ -27,8 +28,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
     MusicPlayer player ;
 
 
-    public PlaySlider(MusicPlayer player) throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException
-    {
+    public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException {
 
         this.player= player ;
         duration=getTime();
@@ -44,6 +44,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
         hashtable.put( new Integer( jSlider.getMaximum() ), finishLable);
         jSlider.setLabelTable(hashtable);
         jSlider.setPaintLabels(true);
+        jSlider.setPreferredSize(new Dimension(600,32));
         add(jSlider);
 
 
