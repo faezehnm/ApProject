@@ -25,7 +25,7 @@ public class MusicPlayer {
         is = new FileInputStream(musicFilePath);
 
         totalSongLength =  is.available();
-       // System.out.println(totalSongLength);
+
         player = new Player( is );
 
 
@@ -75,8 +75,12 @@ public class MusicPlayer {
                 try
                 {
                     player.play();
+                    if( player.isComplete() && repeat )
+                    {
+                        play( musicFilePath );
+                    }
                 }
-                catch (JavaLayerException ex)
+                catch (JavaLayerException | IOException | URISyntaxException ex)
                 {
                     System.err.println("::: there was an error to play " + musicFilePath );
                 }
@@ -154,6 +158,9 @@ public class MusicPlayer {
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+    public boolean isCompeletIn(){
+        return player.isComplete();
     }
 
 }
