@@ -38,9 +38,9 @@ public class VolumeSlider extends JPanel implements ChangeListener {
 
         if( jSlider.getValue()==0)
             zero= true ;
-        else if(0<jSlider.getValue()&& jSlider.getValue()<=jSlider.getMaximum()/4)
+        else if(0<jSlider.getValue()&& jSlider.getValue()<=jSlider.getMaximum()/3)
             first= true;
-        else if(jSlider.getMaximum()/4<jSlider.getValue()&& jSlider.getValue()<=jSlider.getMaximum()/2)
+        else if(jSlider.getMaximum()/3<jSlider.getValue()&& jSlider.getValue()<=2*jSlider.getMaximum()/3)
             second= true;
         else
             third= true;
