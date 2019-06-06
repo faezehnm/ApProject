@@ -2,24 +2,20 @@ package playControl;
 import other.Song;
 import javax.swing.*;
 import java.awt.*;
-import java.io.*;
 
 
 public class PlayMusicGUI extends JPanel  {
 
-    MusicPlayer player = new MusicPlayer();
-    PlaySlider playSlider = new PlaySlider(player);
-    VolumeSlider volumeSlider = new VolumeSlider();
-    Song song = new Song("src/music/Happier.mp3");
+    private MusicPlayer player = new MusicPlayer();
+    private PlaySlider playSlider = new PlaySlider(player);
+    private VolumeSlider volumeSlider = new VolumeSlider();
+    private Song song = new Song("src/songs/Happier.mp3");
 
-    JPanel leftPanel = new JPanel() ;
-    JPanel rightPanel = new JPanel() ;
-    JPanel middlePanel = new JPanel(new GridLayout(2,1)) ;
-    JPanel middlePanelTop = new JPanel() ;
-    JPanel middletPanelDown = new JPanel() ;
-
-
-
+    private JPanel leftPanel = new JPanel() ;
+    private JPanel rightPanel = new JPanel() ;
+    private JPanel middlePanel = new JPanel(new GridLayout(2,1)) ;
+    private JPanel middlePanelTop = new JPanel() ;
+    private JPanel middletPanelDown = new JPanel() ;
 
     private JButton btnPlay ;
     private JButton btnNext ;
@@ -57,7 +53,7 @@ public class PlayMusicGUI extends JPanel  {
         btnRepeat.setBackground(Color.white);
         btnShuffle.setBackground(Color.white);
 
-        leftPanel.add( new DisplayInformation(song.getMusicName(),song.getAlbumnane(),song.getArtist()));
+        leftPanel.add( new DisplaySongInformation(song));
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
         middlePanelTop.add(btnShuffle);

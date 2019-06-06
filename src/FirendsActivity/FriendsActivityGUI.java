@@ -12,44 +12,29 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
 
     private JPanel mainPanel;
     private ArrayList<Friend> friends = new ArrayList<Friend>();
-    private ArrayList<JPanel> firendsPanel = new ArrayList<JPanel>();
-    private ImageIcon imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
+    private ArrayList<FriendPanel> friendsPanel = new ArrayList<FriendPanel>();
 
-    public FriendsActivityGUI(JPotifyGUI gui){
+    public FriendsActivityGUI(JPotifyGUI gui)
+    {
+        mainPanel = new JPanel(new GridLayout(friends.size(),1));
+        setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        mainPanel.setLayout(null);
 
+    }
+
+    public void creatFirendPanel()
+    {
         for( int i=0 ; i<friends.size() ; i++ ){
-            setFirendsPanel(friends.get(i));
+            friendsPanel.add(new FriendPanel(friends.get(i)));
         }
     }
 
-    public void setFirendsPanel(Friend friend ){
-
-        JPanel mainPanel = new JPanel(new GridLayout(2,1));
-        JPanel mainPanelUp = new JPanel(new GridLayout(1,2));
-        JPanel mainPanelDown = new JPanel();
-
-        JLabel friendName = new JLabel(friend.getName());
-
-        JLabel lastTime = new JLabel();
-        if(friend.isSongPlaying())
-            lastTime.setIcon(imSpeaker3);
-        if(!friend.isSongPlaying())
-            lastTime.setText(friend.getLastTimeSongPlaying());
-
-        JButton songInformation = new JButton(friend.getLastSong().getMusicName()+"\n"+friend.getLastSong().getArtist()+"\n"+friend.getLastSong().getAlbumnane());
-        songInformation.addActionListener(this);
-
-        mainPanelUp.add(friendName);
-        mainPanelUp.add(lastTime) ;
-        mainPanelDown.add(songInformation);
-        mainPanel.add(mainPanelUp);
-        mainPanel.add(mainPanelDown);
-
-        firendsPanel.add(mainPanel);
-
+    public void addFriendsPanel()
+    {
+        for( int i=0 ; i<friendsPanel.size() ; i++ ){
+            mainPanel.add(friendsPanel.get(i).getMainPanel());
+        }
     }
 
     public void addFriend(Friend friend){
@@ -58,10 +43,15 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for( int i=0 ; i<firendsPanel.size() ; i++ ){
-            if( e.getSource()== firendsPanel.get(i)){
+        for( int i=0 ; i<friendsPanel.size() ; i++ ){
+            if( e.getSource()== friendsPanel.get(i).getSongInformaton() ){
                 /*
                 play song
+                 */
+            }
+            if( e.getSource()== friendsPanel.get(i).getFriendName()){
+                /*
+                show sharedplaylist of friend
                  */
             }
         }

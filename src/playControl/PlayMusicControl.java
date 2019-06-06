@@ -1,10 +1,7 @@
 package playControl;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
+import other.Song;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,23 +10,27 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class PlayMusicControl implements ActionListener {
+
     private JButton btnPlay ;
     private JButton btnNext ;
     private JButton btnPrevious ;
     private JButton btnRepeat ;
     private JButton btnShuffle ;
-    MusicPlayer player = new MusicPlayer();
-    PlaySlider playSlider = new PlaySlider(player);
-    private int pausedOnFrame = 0;
-    private boolean isItPlaying=false;
-    private boolean firstTime=true;
     private ImageIcon imPause ;
     private ImageIcon imPlay ;
     private ImageIcon imRepeat ;
     private ImageIcon imRepeat1 ;
 
+    private MusicPlayer player = new MusicPlayer();
+    private PlaySlider playSlider = new PlaySlider(player);
+    private Song song ;
 
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player) throws ReadOnlyFileException, CannotReadException, TagException, InvalidAudioFrameException, IOException {
+    private int pausedOnFrame = 0;
+    private boolean isItPlaying=false;
+    private boolean firstTime=true;
+
+
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player) throws Exception {
         this.btnNext=btnNext ;
         this.btnPlay=btnPlay ;
         this.btnPrevious=btnPrevious;
@@ -47,6 +48,8 @@ public class PlayMusicControl implements ActionListener {
         btnPlay.addActionListener(this);
         btnNext.addActionListener(this);
         btnRepeat.addActionListener(this);
+
+        song = new Song("src/songs/Happier.mp3");
 
 
     }
@@ -71,7 +74,7 @@ public class PlayMusicControl implements ActionListener {
                 if( firstTime ) {
                     firstTime=false ;
                     try {
-                        player.play("src/music/Happier.mp3");
+                        player.play(song.getFileAddress());
                         playSlider.play();
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();

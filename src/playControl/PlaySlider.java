@@ -134,7 +134,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     public int getTime() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException
     {
-        File file=new File("src/music/Happier.mp3");
+        File file=new File("src/songs/Happier.mp3");
         AudioFile audioFile = AudioFileIO.read(file);
         duration= audioFile.getAudioHeader().getTrackLength();
         return duration;
