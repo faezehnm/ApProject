@@ -23,7 +23,8 @@ public class FriendPanel implements ActionListener {
         this.friend= friend ;
 
         //mainPanelUp = new JPanel(new GridLayout(1,2));
-        mainPanel = new JPanel(new GridLayout(2,1));
+        mainPanel = new JPanel(new GridLayout(2,1,0,0));
+       // mainPanel = new JPanel();
         mainPanel.setBackground(Color.white);
         mainPanelUp = new JPanel();
         mainPanelUp.setBackground(Color.white);

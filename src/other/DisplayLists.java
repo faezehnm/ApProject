@@ -5,6 +5,7 @@ import home.JPotifyGUI;
 import other.PlayList;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -69,6 +70,8 @@ public class DisplayLists extends JScrollPane {
         songsbutton.setBackground(Color.white);
         albumebutton.setBackground(Color.white);
         playlistlbl.setBackground(Color.white);
+        Border blackline = BorderFactory.createLineBorder(Color.GREEN);
+        mainPanel.setBorder(blackline);
     }
 
     public void addSong(Song s){

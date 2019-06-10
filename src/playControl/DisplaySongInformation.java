@@ -3,6 +3,8 @@ package playControl;
 import other.Song;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 
 public class DisplaySongInformation extends JPanel {
     private JLabel songNameLable = new JLabel();
@@ -13,6 +15,7 @@ public class DisplaySongInformation extends JPanel {
 
 
     public DisplaySongInformation(Song song){
+
         this.song= song ;
         songNameLable.setText  ("song   : "+ song.getMusicName() +"\n");
         albumNameLable.setText ("album : "+ song.getAlbumnane() +"\n");
@@ -24,5 +27,6 @@ public class DisplaySongInformation extends JPanel {
 
         JList jList = new JList(artWorkList);
         add(jList);
+
     }
 }

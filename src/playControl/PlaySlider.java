@@ -46,6 +46,8 @@ public class PlaySlider extends JPanel implements ChangeListener {
         jSlider.setPaintLabels(true);
         jSlider.setPreferredSize(new Dimension(600,32));
         add(jSlider);
+        setBackground(Color.white);
+        jSlider.setBackground(Color.white);
 
 
     }

@@ -20,6 +20,8 @@ public class VolumeSlider extends JPanel implements ChangeListener {
         add(jSlider);
         jSlider.addChangeListener(this);
         jSlider.setPreferredSize(new Dimension(120,40));
+        setBackground(Color.white);
+        jSlider.setBackground(Color.white);
     }
 
     @Override

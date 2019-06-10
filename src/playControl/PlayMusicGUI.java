@@ -1,6 +1,9 @@
 package playControl;
+import org.omg.CORBA.CODESET_INCOMPATIBLE;
 import other.Song;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 
@@ -29,6 +32,8 @@ public class PlayMusicGUI extends JPanel  {
     private ImageIcon imRepeat1 =new ImageIcon("src/Icons/repeat1.png");
     private ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
     private ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
+    private Border blackline = BorderFactory.createLineBorder(Color.GREEN);
+    private Border noline = new EmptyBorder(10, 10, 10, 10);
 
 
     public PlayMusicGUI() throws Exception
@@ -47,13 +52,31 @@ public class PlayMusicGUI extends JPanel  {
         btnRepeat.setPreferredSize(new Dimension(34, 34));
         btnShuffle.setPreferredSize(new Dimension(34, 34));
 
+        btnPlay.setBorder(noline);
+        btnNext.setBorder(noline);
+        btnPrevious.setBorder(noline);
+        btnRepeat.setBorder(noline);
+        btnShuffle.setBorder(noline);
+        setBorder(blackline);
+
+
         btnPlay.setBackground(Color.WHITE);
         btnNext.setBackground(Color.white);
         btnPrevious.setBackground(Color.white);
         btnRepeat.setBackground(Color.white);
         btnShuffle.setBackground(Color.white);
+        leftPanel.setBackground(Color.white);
+        rightPanel.setBackground(Color.white);
+        middlePanelTop.setBackground(Color.white);
+        middletPanelDown.setBackground(Color.white);
+        setBackground(Color.white);
 
-        leftPanel.add( new DisplaySongInformation(song));
+        JLabel displayInformation = new JLabel("<html>"+song.getMusicName()+"<br>"+song.getAlbumnane()+"<br>"+song.getArtist()+"<html>");
+        displayInformation.setBackground(Color.white);
+        displayInformation.setBackground(Color.white);
+
+        //leftPanel.add( new DisplaySongInformation(song));
+        leftPanel.add(displayInformation);
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
         middlePanelTop.add(btnShuffle);
