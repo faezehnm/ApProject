@@ -1,14 +1,13 @@
 package home;
 
 import FirendsActivity.Friend;
-import FirendsActivity.FriendPanel;
 import FirendsActivity.FriendsActivityGUI;
 import other.DisplayLists;
+import other.DisplayListsGUI;
 import other.Song;
 import playControl.PlayMusicGUI;
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class JPotifyGUI extends JFrame {
 
@@ -16,7 +15,7 @@ public class JPotifyGUI extends JFrame {
     private static final int WIDTH = 1850 , HEIGHT = 700;
 
     private PlayMusicGUI playMusicGUI = new PlayMusicGUI();
-    private DisplayLists displayLists = new DisplayLists(this);
+    private DisplayListsGUI displayListsGUI = new DisplayListsGUI();
     private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(this);
     Friend friend = new Friend("198.0.0.1","faezeh");
     Friend friend2 = new Friend("198.0.0.1","amirreza");
@@ -37,10 +36,9 @@ public class JPotifyGUI extends JFrame {
         setSize(new Dimension(WIDTH , HEIGHT));
         setIconImage(icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        add(playMusicBar,BorderLayout.PAGE_END);
-        getContentPane().add(displayLists);
-        add(displayLists , BorderLayout.WEST);
-
+        add(playMusicGUI,BorderLayout.PAGE_END);
+        getContentPane().add(displayListsGUI);
+        add(displayListsGUI , BorderLayout.WEST);
         friend.setLastSong(song);
         friend2.setLastSong(song);
         friend3.setLastSong(song);

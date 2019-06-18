@@ -2,6 +2,12 @@ package other;
 
 import com.mpatric.mp3agic.Mp3File;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 public class Song {
 
     private String fileAddress;
@@ -10,6 +16,7 @@ public class Song {
     private Albume albume;
     private String artist;
     private byte[] artwork;
+    private BufferedImage artwork2;
 
 
     public Song(String fileAddress)throws Exception {
@@ -21,6 +28,7 @@ public class Song {
         musicName = id3v1.getTitle();
         com.mpatric.mp3agic.ID3v2 id3v2 = mp3File.getId3v2Tag();
         artwork = id3v2.getAlbumImage();
+        setArtwprk2();
     }
 
     public String getFileAddress(){
@@ -43,11 +51,22 @@ public class Song {
         return artist;
     }
 
-    public byte[] getArtwork(){
-        return artwork;
-    }
-
     public void setAlbume(Albume albume){
         this.albume = albume;
+    }
+
+    public void setArtwprk2 (){
+        BufferedImage bufferedImage = null;
+        try {
+            InputStream inputStream = new ByteArrayInputStream(artwork);
+            bufferedImage = ImageIO.read(inputStream);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        artwork2 = bufferedImage;
+    }
+
+    public BufferedImage getArtwork2(){
+        return artwork2;
     }
 }

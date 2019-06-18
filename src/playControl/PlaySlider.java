@@ -9,6 +9,8 @@ import org.jaudiotagger.tag.TagException;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Hashtable;
 import static java.lang.Thread.sleep;
@@ -135,7 +137,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     public int getTime() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException
     {
-        File file=new File("src/music/Happier.mp3");
+        File file=new File("src/songs/Happier.mp3");
         AudioFile audioFile = AudioFileIO.read(file);
         duration= audioFile.getAudioHeader().getTrackLength();
         return duration;
