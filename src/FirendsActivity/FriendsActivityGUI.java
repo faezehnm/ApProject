@@ -21,8 +21,8 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        Border blackline = BorderFactory.createLineBorder(Color.GREEN);
-        setBorder(blackline);
+        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
+        setBorder(greenLIne);
 
     }
 
@@ -37,8 +37,8 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
     {
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             mainPanel.add(friendsPanel.get(i).getMainPanel());
-            Border blackline = BorderFactory.createLineBorder(Color.CYAN.brighter());
-            friendsPanel.get(i).getMainPanel().setBorder(blackline);
+            Border blueline = BorderFactory.createLineBorder(Color.CYAN.brighter());
+            friendsPanel.get(i).getMainPanel().setBorder(blueline);
         }
     }
 

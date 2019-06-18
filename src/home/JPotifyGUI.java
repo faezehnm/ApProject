@@ -48,6 +48,8 @@ public class JPotifyGUI extends JFrame {
         friend7.setLastSong(song);
         friend8.setLastSong(song);
         friend9.setLastSong(song);
+
+
         friendsActivityGUI.addFriend(friend);
         friendsActivityGUI.addFriend(friend2);
         friendsActivityGUI.addFriend(friend3);
@@ -57,6 +59,34 @@ public class JPotifyGUI extends JFrame {
         friendsActivityGUI.addFriend(friend7);
         friendsActivityGUI.addFriend(friend8);
         friendsActivityGUI.addFriend(friend9);
+        friendsActivityGUI.addFriend(friend5);
+        friendsActivityGUI.addFriend(friend6);
+        friendsActivityGUI.addFriend(friend7);
+        friendsActivityGUI.addFriend(friend8);
+        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend2);
+//        friendsActivityGUI.addFriend(friend3);
+//        friendsActivityGUI.addFriend(friend4);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
         friendsActivityGUI.creatFirendPanel();
         friendsActivityGUI.addFriendsPanel();
         add(friendsActivityGUI,BorderLayout.EAST);
