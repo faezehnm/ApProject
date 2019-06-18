@@ -143,7 +143,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
         return duration;
     }
 
-    public void manageLableText(int i){
+    private void manageLableText(int i){
         if (i < 60) {
             if (i < 10)
                 startLable.setText("0:0" + i);
