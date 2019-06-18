@@ -159,6 +159,7 @@ public class MusicPlayer {
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
+
     public boolean isCompeletIn(){
         return player.isComplete();
     }

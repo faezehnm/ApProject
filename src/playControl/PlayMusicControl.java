@@ -1,70 +1,47 @@
 package playControl;
-
 import javazoom.jl.decoder.JavaLayerException;
 import other.Song;
-import playControl.PlaySlider;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URISyntaxException;
 
-
-public class PlayMusicBar extends JPanel implements ActionListener {
-    File file = new File("src/music/Happier.mp3");
-    MusicPlayer player = new MusicPlayer();
-    private int pausedOnFrame = 0;
-    private boolean isItPlaying=false;
-    private boolean firstTime=true;
-    Song song = new Song("src/music/Happier.mp3");
-    DisplayInformation displayInformation = new DisplayInformation(song.getMusicName(),song.getAlbumnane(),song.getArtist());
-    PlaySlider playSlider = new PlaySlider(player);
+public class PlayMusicControl implements ActionListener {
 
     private JButton btnPlay ;
     private JButton btnNext ;
     private JButton btnPrevious ;
     private JButton btnRepeat ;
     private JButton btnShuffle ;
-    private ImageIcon imPlay =new ImageIcon("src/Icons/play-button.png");
-    private ImageIcon imNext =new ImageIcon("src/Icons/next.png");
-    private ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
-    private ImageIcon imRepeat =new ImageIcon("src/Icons/repeat.png");
-    private ImageIcon imRepeat1 =new ImageIcon("src/Icons/repeat1.png");
-    private ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
-    private ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
+    private ImageIcon imPause ;
+    private ImageIcon imPlay ;
+    private ImageIcon imRepeat ;
+    private ImageIcon imRepeat1 ;
+
+    private MusicPlayer player = new MusicPlayer();
+    private PlaySlider playSlider = new PlaySlider(player);
+    private Song song ;
+
+    private int pausedOnFrame = 0;
+    private boolean isItPlaying=false;
+    private boolean firstTime=true;
 
 
-    public PlayMusicBar() throws Exception
-    {
-        super(new GridLayout(1,7));
-
-        btnPlay = new JButton(imPlay);
-        btnNext = new JButton(imNext);
-        btnPrevious = new JButton(imPrevious);
-        btnRepeat = new JButton(imRepeat1);
-        btnShuffle = new JButton(imShuffle) ;
-
-        btnPlay.setPreferredSize(new Dimension(34, 34));
-        btnNext.setPreferredSize(new Dimension(34, 34));
-        btnPrevious.setPreferredSize(new Dimension(34, 34));
-        btnRepeat.setPreferredSize(new Dimension(34, 34));
-        btnShuffle.setPreferredSize(new Dimension(34, 34));
-
-        btnPlay.setBackground(Color.WHITE);
-        btnNext.setBackground(Color.white);
-        btnPrevious.setBackground(Color.white);
-        btnRepeat.setBackground(Color.white);
-        btnShuffle.setBackground(Color.white);
-
-        add(displayInformation);
-        add(btnShuffle);
-        add(btnPrevious);
-        add(btnPlay);
-        add(btnNext);
-        add(btnRepeat);
-        add(playSlider,BorderLayout.PAGE_END);
-
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player) throws Exception {
+        this.btnNext=btnNext ;
+        this.btnPlay=btnPlay ;
+        this.btnPrevious=btnPrevious;
+        this.btnRepeat= btnRepeat ;
+        this.btnShuffle=btnShuffle ;
+        this.imPause=imPause ;
+        this.imPlay = imPlay ;
+        this.imRepeat= imRepeat ;
+        this.imRepeat1 = imRepeat1 ;
+        this.playSlider=playSlider ;
+        this.player=player ;
 
         btnShuffle.addActionListener(this);
         btnPrevious.addActionListener(this);
@@ -72,12 +49,13 @@ public class PlayMusicBar extends JPanel implements ActionListener {
         btnNext.addActionListener(this);
         btnRepeat.addActionListener(this);
 
+        song = new Song("src/songs/Happier.mp3");
+
 
     }
 
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         if( e.getSource()==btnShuffle){
         /*
         :)
@@ -96,7 +74,7 @@ public class PlayMusicBar extends JPanel implements ActionListener {
                 if( firstTime ) {
                     firstTime=false ;
                     try {
-                        player.play("src/music/Happier.mp3");
+                        player.play(song.getFileAddress());
                         playSlider.play();
                     } catch (FileNotFoundException e1) {
                         e1.printStackTrace();

@@ -6,10 +6,9 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.TagException;
-
 import javax.swing.*;
 import javax.swing.event.*;
-import java.io.*;
+import java.awt.*;
 import java.net.URISyntaxException;
 import java.util.Hashtable;
 import static java.lang.Thread.sleep;
@@ -19,7 +18,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
     private JSlider jSlider ;
     private int duration=0;
     private String time ;
-    private JLabel startLable = new JLabel("0:0") ;
+    private JLabel startLable = new JLabel("0:00") ;
     private JLabel finishLable = new JLabel(":)") ;
     private boolean repeat ;
     private boolean paused = false ;
@@ -27,7 +26,9 @@ public class PlaySlider extends JPanel implements ChangeListener {
     MusicPlayer player ;
 
 
-    public PlaySlider(MusicPlayer player) throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException, CannotReadException, InvalidAudioFrameException {
+    public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException
+    {
+
         this.player= player ;
         duration=getTime();
 
@@ -42,7 +43,10 @@ public class PlaySlider extends JPanel implements ChangeListener {
         hashtable.put( new Integer( jSlider.getMaximum() ), finishLable);
         jSlider.setLabelTable(hashtable);
         jSlider.setPaintLabels(true);
+        jSlider.setPreferredSize(new Dimension(600,32));
         add(jSlider);
+        setBackground(Color.white);
+        jSlider.setBackground(Color.white);
 
 
     }
