@@ -3,6 +3,7 @@ package home;
 import FirendsActivity.Friend;
 import FirendsActivity.FriendPanel;
 import FirendsActivity.FriendsActivityGUI;
+import FirendsActivity.Network;
 import other.DisplayLists;
 import other.Song;
 import playControl.PlayMusicGUI;
@@ -48,17 +49,30 @@ public class JPotifyGUI extends JFrame {
         friend7.setLastSong(song);
         friend8.setLastSong(song);
         friend9.setLastSong(song);
-        friendsActivityGUI.addFriend(friend);
-        friendsActivityGUI.addFriend(friend2);
-        friendsActivityGUI.addFriend(friend3);
-        friendsActivityGUI.addFriend(friend4);
-        friendsActivityGUI.addFriend(friend5);
-        friendsActivityGUI.addFriend(friend6);
-        friendsActivityGUI.addFriend(friend7);
-        friendsActivityGUI.addFriend(friend8);
-        friendsActivityGUI.addFriend(friend9);
+
+
+        Friend.addFriend(friend);
+        Friend.addFriend(friend2);
+        Friend.addFriend(friend3);
+        Friend.addFriend(friend4);
+        Friend.addFriend(friend5);
+        Friend.addFriend(friend6);
+        Friend.addFriend(friend7);
+        Friend.addFriend(friend8);
+        Friend.addFriend(friend9);
+        Friend.addFriend(friend5);
+        Friend.addFriend(friend6);
+        Friend.addFriend(friend7);
+        Friend.addFriend(friend8);
+        Friend.addFriend(friend9);
+
+
         friendsActivityGUI.creatFirendPanel();
         friendsActivityGUI.addFriendsPanel();
+        /*
+        Network network = new Network(friendsActivityGUI,)
+        */
+
         add(friendsActivityGUI,BorderLayout.EAST);
         setVisible(true);
     }

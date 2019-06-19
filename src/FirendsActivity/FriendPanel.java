@@ -1,9 +1,12 @@
 package FirendsActivity;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class FriendPanel implements ActionListener {
     private Friend friend ;
@@ -14,7 +17,7 @@ public class FriendPanel implements ActionListener {
     private JLabel lastTime ;
     private JButton songInformaton ;
     private ImageIcon imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
-
+    private Border noline = new EmptyBorder(10, 10, 10, 10);
 
     public FriendPanel(Friend friend)
     {
@@ -35,6 +38,7 @@ public class FriendPanel implements ActionListener {
         friendName.setPreferredSize(new Dimension(140,30));
         friendName.setBackground(Color.white);
         friendName.addActionListener(this);
+        friendName.setBorder(noline);
 
         lastTime = new JLabel();
         setTimeIcon(lastTime);
@@ -42,6 +46,7 @@ public class FriendPanel implements ActionListener {
         songInformaton = new JButton("<html>"+friend.getLastSong().getMusicName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumnane()+"<html>");
         songInformaton.setBackground(Color.white);
         songInformaton.addActionListener(this);
+        songInformaton.setBorder(noline);
 
         mainPanelUp.add(friendName);
         mainPanelUp.add(lastTime) ;

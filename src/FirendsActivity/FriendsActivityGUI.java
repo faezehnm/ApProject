@@ -12,24 +12,24 @@ import java.util.ArrayList;
 public class FriendsActivityGUI extends JScrollPane implements ActionListener {
 
     private JPanel mainPanel;
-    private ArrayList<Friend> friends = new ArrayList<Friend>();
     private ArrayList<FriendPanel> friendsPanel = new ArrayList<FriendPanel>();
 
     public FriendsActivityGUI(JPotifyGUI gui)
     {
-        mainPanel = new JPanel(new GridLayout(friends.size(),1));
+
+        mainPanel = new JPanel(new GridLayout(0,1));
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        Border blackline = BorderFactory.createLineBorder(Color.GREEN);
-        setBorder(blackline);
+        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
+        setBorder(greenLIne);
 
     }
 
     public void creatFirendPanel()
     {
-        for( int i=0 ; i<friends.size() ; i++ ){
-            friendsPanel.add(new FriendPanel(friends.get(i)));
+        for( int i=0 ; i<Friend.getFriends().size() ; i++ ){
+            friendsPanel.add(new FriendPanel(Friend.getFriends().get(i)));
         }
     }
 
@@ -37,14 +37,11 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
     {
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             mainPanel.add(friendsPanel.get(i).getMainPanel());
-            Border blackline = BorderFactory.createLineBorder(Color.CYAN.brighter());
-            friendsPanel.get(i).getMainPanel().setBorder(blackline);
+            Border blueline = BorderFactory.createLineBorder(Color.CYAN.brighter());
+            friendsPanel.get(i).getMainPanel().setBorder(blueline);
         }
     }
 
-    public void addFriend(Friend friend){
-        friends.add(friend);
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
