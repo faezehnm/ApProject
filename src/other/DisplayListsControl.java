@@ -16,8 +16,26 @@ public class DisplayListsControl {
     private JPotifyGUI mainGUI;
 
     public DisplayListsControl(JPotifyGUI mainGUI)throws Exception{
-        Song s1 = new Song("src/Mohammad Alizadeh - Khateret Takht [128].mp3");
-        songs.add(s1);
+        Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
+        addSong(s1);
+        Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
+        addSong(s2);
+        Song s3 = new Song("src/songs/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
+        addSong(s3);
+        Song s4 = new Song("src/songs/Ashvan - Mano Daryab.mp3");
+        addSong(s4);
+        Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
+        addSong(s5);
+        PlayList p1 = new PlayList("p1");
+        playlists.add(p1);
+        PlayList p2 = new PlayList("p2");
+        playlists.add(p2);
+        PlayList p3 = new PlayList("p3");
+        playlists.add(p3);
+        PlayList p4 = new PlayList("p4");
+        playlists.add(p4);
+        PlayList p5 = new PlayList("p5");
+        playlists.add(p5);
         this.mainGUI = mainGUI;
     }
 
