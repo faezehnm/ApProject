@@ -8,13 +8,20 @@ import java.util.ArrayList;
 
 import static com.sun.javafx.fxml.expression.Expression.add;
 
-public class DisplayLists {
+public class DisplayListsControl {
 
     private ArrayList<Song> songs = new ArrayList<Song>();
     private ArrayList<Albume> albumes = new ArrayList<Albume>();
     private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
+    private JPotifyGUI mainGUI;
 
-    private void addSong(Song s){
+    public DisplayListsControl(JPotifyGUI mainGUI)throws Exception{
+        Song s1 = new Song("src/Mohammad Alizadeh - Khateret Takht [128].mp3");
+        songs.add(s1);
+        this.mainGUI = mainGUI;
+    }
+
+    public void addSong(Song s){
         songs.add(s);
         boolean albumeExists = false;
         for(Albume a : albumes){
@@ -30,16 +37,16 @@ public class DisplayLists {
         }
     }
 
-    private void addAlbum(Albume albume){
+    public void addAlbum(Albume albume){
         albumes.add(albume);
     }
 
-    private void addPlaylist(String playlistName){
+    public void addPlaylist(String playlistName){
         PlayList playList = new PlayList(playlistName);
         playlists.add(playList);
     }
 
-    private void addSongToPlaylist(Song song , PlayList playList){
+    public void addSongToPlaylist(Song song , PlayList playList){
         for(PlayList p : playlists){
             if(p.equals(playList)){
                 p.addSong(song);
@@ -76,5 +83,29 @@ public class DisplayLists {
 
     public ArrayList<PlayList> getPlaylists(){
         return playlists;
+    }
+
+    public void setDisplaySongs(){
+        DisplaySongs displaySongs = new DisplaySongs(songs);
+        mainGUI.getContentPane().add(displaySongs);
+        mainGUI.add(displaySongs , BorderLayout.CENTER);
+        mainGUI.revalidate();
+        mainGUI.repaint();
+    }
+
+    public void setDisplayAlbums(){
+        DisplayAlbumes displayAlbumes = new DisplayAlbumes(albumes);
+        mainGUI.getContentPane().add(displayAlbumes);
+        mainGUI.add(displayAlbumes , BorderLayout.CENTER);
+        mainGUI.revalidate();
+        mainGUI.repaint();
+    }
+
+    public void setDisplayPlaylist(PlayList playlist){
+        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs());
+        mainGUI.getContentPane().add(displaySongs);
+        mainGUI.add(displaySongs , BorderLayout.CENTER);
+        mainGUI.revalidate();
+        mainGUI.repaint();
     }
 }

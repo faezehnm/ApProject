@@ -3,13 +3,16 @@ import home.JPotifyGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static com.sun.javafx.fxml.expression.Expression.add;
 
 
 public class DisplayListsGUI extends JScrollPane {
-    private DisplayLists displayLists;
+
+    private DisplayListsControl displayListsControl;
     private JPanel listsPnl;
     private JButton addNewMusic;
     private JButton addNewPlaylist;
@@ -17,13 +20,14 @@ public class DisplayListsGUI extends JScrollPane {
     private JButton albumebutton;
     private JLabel playlistlbl;
     private ArrayList<JButton> playlistsbtn = new ArrayList<JButton>();
-    private ArrayList<Song> songs = new ArrayList<Song>();
-    private ArrayList<Albume> albumes = new ArrayList<Albume>();
-    private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
+    private JPotifyGUI mainGUI;
 
 
-    public DisplayListsGUI() {
-        displayLists = new DisplayLists();
+    public DisplayListsGUI(JPotifyGUI mainGUI) throws Exception{
+        displayListsControl = new DisplayListsControl(mainGUI);
+        this.mainGUI = mainGUI;
+        //JLabel label = new JLabel("ahmagh");
+        //mainGUI.add(label);
         listsPnl = new JPanel();
         creatListsPnl();
     }
@@ -33,13 +37,25 @@ public class DisplayListsGUI extends JScrollPane {
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        GridLayout layout = new GridLayout(5 + displayLists.getPlaylists().size() , 1);
+        GridLayout layout = new GridLayout(5 + displayListsControl.getPlaylists().size() , 1);
         listsPnl.setLayout(layout);
         addNewMusic = new JButton("Add music");
-        addNewMusic.setPreferredSize(new Dimension(200 , 100));
         songsbutton = new JButton("Songs");
+        songsbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayListsControl.setDisplaySongs();
+            }
+        });
         albumebutton = new JButton("Albums");
+        albumebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayListsControl.setDisplayAlbums();
+            }
+        });
         playlistlbl = new JLabel("Playlists :");
+        addNewMusic.setPreferredSize(new Dimension(200 , 100));
         songsbutton.setPreferredSize(new Dimension(200, 100));
         albumebutton.setPreferredSize(new Dimension(200 , 100));
         playlistlbl.setPreferredSize(new Dimension(200 , 50));
@@ -47,9 +63,15 @@ public class DisplayListsGUI extends JScrollPane {
         listsPnl.add(songsbutton);
         listsPnl.add(albumebutton);
         listsPnl.add(playlistlbl);
-        if(playlists.size() != 0){
-            for(PlayList pl : playlists){
+        if(displayListsControl.getPlaylists().size() != 0){
+            for(PlayList pl : displayListsControl.getPlaylists()){
                 JButton plbtn = new JButton(pl.getPlayListName());
+                plbtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        displayListsControl.setDisplayPlaylist(pl);
+                    }
+                });
                 plbtn.setBackground(Color.WHITE);
                 plbtn.setPreferredSize(new Dimension(200 , 100));
                 listsPnl.add(plbtn);
@@ -66,5 +88,7 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setBackground(Color.white);
         addNewPlaylist.setIcon(image);
         listsPnl.add(addNewPlaylist);
+        JLabel label = new JLabel("ahmagh");
+        mainGUI.add(label);
     }
 }
