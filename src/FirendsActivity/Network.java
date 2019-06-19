@@ -14,6 +14,7 @@ public class Network implements Runnable{
     private Friend friend ;
 
 
+
     public Network(FriendsActivityGUI friendsActivityGUI, Friend friend) {
         this.friendsActivityGUI = friendsActivityGUI ;
         this.friend = friend ;
