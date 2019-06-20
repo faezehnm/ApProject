@@ -2,14 +2,18 @@ package other;
 import home.JPotifyGUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static com.sun.javafx.fxml.expression.Expression.add;
 
 
 public class DisplayListsGUI extends JScrollPane {
-    private DisplayLists displayLists;
+
+    private DisplayListsControl displayListsControl;
     private JPanel listsPnl;
     private JButton addNewMusic;
     private JButton addNewPlaylist;
@@ -17,13 +21,12 @@ public class DisplayListsGUI extends JScrollPane {
     private JButton albumebutton;
     private JLabel playlistlbl;
     private ArrayList<JButton> playlistsbtn = new ArrayList<JButton>();
-    private ArrayList<Song> songs = new ArrayList<Song>();
-    private ArrayList<Albume> albumes = new ArrayList<Albume>();
-    private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
+    private JPotifyGUI mainGUI;
 
 
-    public DisplayListsGUI() {
-        displayLists = new DisplayLists();
+    public DisplayListsGUI(JPotifyGUI mainGUI) throws Exception{
+        displayListsControl = new DisplayListsControl(mainGUI);
+        this.mainGUI = mainGUI;
         listsPnl = new JPanel();
         creatListsPnl();
     }
@@ -33,38 +36,81 @@ public class DisplayListsGUI extends JScrollPane {
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        GridLayout layout = new GridLayout(5 + displayLists.getPlaylists().size() , 1);
+        GridBagLayout layout = new GridBagLayout();
+        GridBagConstraints gbc = new GridBagConstraints();
         listsPnl.setLayout(layout);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
+        setBorder(greenLIne);
         addNewMusic = new JButton("Add music");
-        addNewMusic.setPreferredSize(new Dimension(200 , 100));
         songsbutton = new JButton("Songs");
         albumebutton = new JButton("Albums");
-        playlistlbl = new JLabel("Playlists :");
+        playlistlbl = new JLabel("playlists :");
+        addNewMusic.setPreferredSize(new Dimension(200 , 100));
         songsbutton.setPreferredSize(new Dimension(200, 100));
         albumebutton.setPreferredSize(new Dimension(200 , 100));
         playlistlbl.setPreferredSize(new Dimension(200 , 50));
-        listsPnl.add(addNewMusic);
-        listsPnl.add(songsbutton);
-        listsPnl.add(albumebutton);
-        listsPnl.add(playlistlbl);
-        if(playlists.size() != 0){
-            for(PlayList pl : playlists){
-                JButton plbtn = new JButton(pl.getPlayListName());
-                plbtn.setBackground(Color.WHITE);
-                plbtn.setPreferredSize(new Dimension(200 , 100));
-                listsPnl.add(plbtn);
-                playlistsbtn.add(plbtn);
-            }
-        }
         songsbutton.setBackground(Color.white);
         albumebutton.setBackground(Color.white);
-        playlistlbl.setBackground(Color.white);
+        playlistlbl.setBackground(Color.BLUE);
         ImageIcon image = new ImageIcon("src/Icons/add2.png");
         addNewMusic.setIcon(image);
         addNewMusic.setBackground(Color.white);
+        addNewMusic.setBorder(greenLIne);
+        songsbutton.setBorder(greenLIne);
+        albumebutton.setBorder(greenLIne);
+        playlistlbl.setBorder(greenLIne);
+        songsbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayListsControl.setDisplaySongs();
+            }
+        });
+        albumebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayListsControl.setDisplayAlbums();
+            }
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        listsPnl.add(addNewMusic , gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        listsPnl.add(songsbutton , gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        listsPnl.add(albumebutton , gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        listsPnl.add(playlistlbl , gbc);
+        int counter = 0;
+        if(displayListsControl.getPlaylists().size() != 0){
+            for(PlayList pl : displayListsControl.getPlaylists()){
+                JButton plbtn = new JButton(pl.getPlayListName());
+                plbtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        displayListsControl.setDisplayPlaylist(pl);
+                    }
+                });
+                plbtn.setBackground(Color.WHITE);
+                plbtn.setBorder(greenLIne);
+                plbtn.setPreferredSize(new Dimension(200 , 100));
+                gbc.gridx = 0;
+                gbc.gridy = 4 + counter;
+                listsPnl.add(plbtn , gbc);
+                playlistsbtn.add(plbtn);
+                counter ++;
+            }
+        }
+        gbc.gridx = 0;
+        gbc.gridy = 4 + counter;
         addNewPlaylist = new JButton("new playlist");
         addNewPlaylist.setBackground(Color.white);
+        addNewPlaylist.setPreferredSize(new Dimension(200 , 100));
         addNewPlaylist.setIcon(image);
-        listsPnl.add(addNewPlaylist);
+        addNewPlaylist.setBorder(greenLIne);
+        listsPnl.add(addNewPlaylist , gbc);
     }
 }

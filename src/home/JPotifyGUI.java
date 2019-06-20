@@ -5,6 +5,8 @@ import FirendsActivity.FriendsActivityGUI;
 import FirendsActivity.Network;
 import other.DisplayLists;
 import other.DisplayListsGUI;
+import FirendsActivity.Network;
+import other.DisplayListsGUI;
 import other.Song;
 import playControl.PlayMusicGUI;
 import javax.swing.*;
@@ -16,7 +18,7 @@ public class JPotifyGUI extends JFrame {
     private static final int WIDTH = 1850 , HEIGHT = 700;
 
     private PlayMusicGUI playMusicGUI = new PlayMusicGUI();
-    private DisplayListsGUI displayListsGUI = new DisplayListsGUI();
+    private DisplayListsGUI displayListsGUI = new DisplayListsGUI(this);
     private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(this);
     Friend friend = new Friend("198.0.0.1","faezeh");
     Friend friend2 = new Friend("198.0.0.1","amirreza");
