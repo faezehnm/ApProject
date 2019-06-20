@@ -14,11 +14,9 @@ public class DisplayAlbumes extends JScrollPane {
 
     private JPanel panel;
     private ArrayList<JPanel> albumPanels = new ArrayList<JPanel>();
-    private DisplayListsControl displayListsControl;
     private PlayMusicGUI playMusicGUI;
 
-    public DisplayAlbumes(ArrayList<Albume> albumes , DisplayListsControl displayListsContro , PlayMusicGUI playMusicGUIl){
-        this.displayListsControl = displayListsControl;
+    public DisplayAlbumes(ArrayList<Albume> albumes , DisplayListsControl displayListsControl , PlayMusicGUI playMusicGUIl){
         this.playMusicGUI = playMusicGUIl;
         panel = new JPanel();
         panel.setBackground(Color.WHITE);
