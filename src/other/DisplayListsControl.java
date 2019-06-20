@@ -5,6 +5,7 @@ import playControl.PlayMusicGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 import static com.sun.javafx.fxml.expression.Expression.add;
@@ -32,10 +33,10 @@ public class DisplayListsControl {
         addSong(s6);
         Song s7 = new Song("src/songs/Happier.mp3");
         addSong(s7);
-//        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
-//        addSong(s8);
-//        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
-//        addSong(s9);
+        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
+        addSong(s8);
+        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
+        addSong(s9);
         PlayList p1 = new PlayList("p1");
         playlists.add(p1);
         PlayList p2 = new PlayList("p2");
@@ -49,8 +50,9 @@ public class DisplayListsControl {
         this.mainGUI = mainGUI;
     }
 
-    public void addSong(Song s){
+    private void addSong(Song s){
         songs.add(s);
+        System.out.println(songs.size());
         boolean albumeExists = false;
         for(Albume a : albumes){
             if(a.getAlbumeName().equals(s.getAlbumnane())){
@@ -65,7 +67,7 @@ public class DisplayListsControl {
         }
     }
 
-    public void addAlbum(Albume albume){
+    private void addAlbum(Albume albume){
         albumes.add(albume);
     }
 
@@ -148,4 +150,15 @@ public class DisplayListsControl {
         mainGUI.revalidate();
         mainGUI.repaint();
     }
+
+    public void addSong() throws Exception {
+        ChooseMusicFrame chooseMusicFrame = new ChooseMusicFrame();
+        File songFile = chooseMusicFrame.getNewSong();
+        if(songFile != null){
+            Song newSong = new Song(songFile.getPath());
+            addSong(newSong);
+        }
+    }
+
+
 }

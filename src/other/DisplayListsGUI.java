@@ -63,6 +63,15 @@ public class DisplayListsGUI extends JScrollPane {
         songsbutton.setBorder(greenLIne);
         albumebutton.setBorder(greenLIne);
         playlistlbl.setBorder(greenLIne);
+        addNewMusic.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    displayListsControl.addSong();
+                } catch (Exception e1) {
+                }
+            }
+        });
         songsbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
