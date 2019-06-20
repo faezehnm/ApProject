@@ -17,7 +17,7 @@ public class JPotifyGUI extends JFrame {
     private static final int WIDTH = 1850 , HEIGHT = 700;
 
     private PlayMusicGUI playMusicGUI = new PlayMusicGUI();
-    private DisplayListsGUI displayListsGUI = new DisplayListsGUI(this);
+    private DisplayListsGUI displayListsGUI = new DisplayListsGUI(this , playMusicGUI);
     private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(this);
     Friend friend = new Friend("198.0.0.1","faezeh");
     Friend friend2 = new Friend("198.0.0.1","amirreza");
@@ -47,8 +47,53 @@ public class JPotifyGUI extends JFrame {
 
         friend.setLastSong(song);
         friend2.setLastSong(song);
-        Friend.addFriend(friend);
-        Friend.addFriend(friend2);
+        friend3.setLastSong(song);
+        friend4.setLastSong(song);
+        friend5.setLastSong(song);
+        friend6.setLastSong(song);
+        friend7.setLastSong(song);
+        friend8.setLastSong(song);
+        friend9.setLastSong(song);
+
+
+       /* friendsActivityGUI.addFriend(friend);
+        friendsActivityGUI.addFriend(friend2);
+        friendsActivityGUI.addFriend(friend3);
+        friendsActivityGUI.addFriend(friend4);
+        friendsActivityGUI.addFriend(friend5);
+        friendsActivityGUI.addFriend(friend6);
+        friendsActivityGUI.addFriend(friend7);
+        friendsActivityGUI.addFriend(friend8);
+        friendsActivityGUI.addFriend(friend9);
+        friendsActivityGUI.addFriend(friend5);
+        friendsActivityGUI.addFriend(friend6);
+        friendsActivityGUI.addFriend(friend7);
+        friendsActivityGUI.addFriend(friend8);
+        friendsActivityGUI.addFriend(friend9);*/
+
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend2);
+//        friendsActivityGUI.addFriend(friend3);
+//        friendsActivityGUI.addFriend(friend4);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
+//        friendsActivityGUI.addFriend(friend5);
+//        friendsActivityGUI.addFriend(friend6);
+//        friendsActivityGUI.addFriend(friend7);
+//        friendsActivityGUI.addFriend(friend8);
+//        friendsActivityGUI.addFriend(friend9);
         friendsActivityGUI.creatFirendPanel();
 
         /*

@@ -2,6 +2,7 @@ package other;
 
 import home.JPotifyGUI;
 import other.Song;
+import playControl.PlayMusicGUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -15,8 +16,10 @@ public class DisplaySongs extends JScrollPane {
 
     private ArrayList<JPanel> songPanels = new ArrayList<JPanel>();
     private JPanel panel;
+    private PlayMusicGUI playMusicGUI;
 
-    public DisplaySongs(ArrayList<Song> songArrayList){
+    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI){
+        this.playMusicGUI = playMusicGUI;
         panel = new JPanel();
         panel.setBackground(Color.WHITE);
         setViewportView(panel);
@@ -40,6 +43,12 @@ public class DisplaySongs extends JScrollPane {
             btn.setIcon(resizedIcon);
             btn.setSize(new Dimension(370 , 370));
             btn.setBackground(Color.WHITE);
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    playMusicGUI.setSong(s);
+                }
+            });
             JLabel lbl = new JLabel(s.getMusicName() + "   " + s.getArtist() + "   " + s.getAlbumnane());
             lbl.setBorder(greenLIne);
             lbl.setBackground(Color.white);

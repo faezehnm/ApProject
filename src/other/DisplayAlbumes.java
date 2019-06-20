@@ -1,8 +1,12 @@
 package other;
 
+import playControl.PlayMusicGUI;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -10,8 +14,12 @@ public class DisplayAlbumes extends JScrollPane {
 
     private JPanel panel;
     private ArrayList<JPanel> albumPanels = new ArrayList<JPanel>();
+    private DisplayListsControl displayListsControl;
+    private PlayMusicGUI playMusicGUI;
 
-    public DisplayAlbumes(ArrayList<Albume> albumes){
+    public DisplayAlbumes(ArrayList<Albume> albumes , DisplayListsControl displayListsContro , PlayMusicGUI playMusicGUIl){
+        this.displayListsControl = displayListsControl;
+        this.playMusicGUI = playMusicGUIl;
         panel = new JPanel();
         panel.setBackground(Color.WHITE);
         setViewportView(panel);
@@ -35,6 +43,12 @@ public class DisplayAlbumes extends JScrollPane {
             btn.setSize(new Dimension(370 , 370));
             btn.setBackground(Color.WHITE);
             btn.setBorder(greenLIne);
+            btn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    displayListsControl.setDisplaySongs(a.getSongs() , playMusicGUI);
+                }
+            });
             JLabel lbl = new JLabel(a.getAlbumeName());
             lbl.setBackground(Color.white);
             lbl.setPreferredSize(new Dimension(370 , 50));

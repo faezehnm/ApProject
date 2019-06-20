@@ -1,5 +1,6 @@
 package other;
 import home.JPotifyGUI;
+import playControl.PlayMusicGUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -22,11 +23,13 @@ public class DisplayListsGUI extends JScrollPane {
     private JLabel playlistlbl;
     private ArrayList<JButton> playlistsbtn = new ArrayList<JButton>();
     private JPotifyGUI mainGUI;
+    private PlayMusicGUI playMusicGUI;
 
 
-    public DisplayListsGUI(JPotifyGUI mainGUI) throws Exception{
+    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception{
         displayListsControl = new DisplayListsControl(mainGUI);
         this.mainGUI = mainGUI;
+        this.playMusicGUI = playMusicGUI;
         listsPnl = new JPanel();
         creatListsPnl();
     }
@@ -63,13 +66,13 @@ public class DisplayListsGUI extends JScrollPane {
         songsbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayListsControl.setDisplaySongs();
+                displayListsControl.setDisplaySongs(displayListsControl.getSongs() , playMusicGUI);
             }
         });
         albumebutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                displayListsControl.setDisplayAlbums();
+                displayListsControl.setDisplayAlbums(playMusicGUI);
             }
         });
         gbc.gridx = 0;
@@ -91,7 +94,7 @@ public class DisplayListsGUI extends JScrollPane {
                 plbtn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        displayListsControl.setDisplayPlaylist(pl);
+                        displayListsControl.setDisplayPlaylist(pl , playMusicGUI);
                     }
                 });
                 plbtn.setBackground(Color.WHITE);

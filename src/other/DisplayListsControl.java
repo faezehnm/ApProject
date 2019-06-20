@@ -1,6 +1,7 @@
 package other;
 
 import home.JPotifyGUI;
+import playControl.PlayMusicGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,16 +18,16 @@ public class DisplayListsControl {
     private JScrollPane scrollPane = null;
 
     public DisplayListsControl(JPotifyGUI mainGUI)throws Exception{
-//        Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
-//        addSong(s1);
-//        Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
-//        addSong(s2);
-//        Song s3 = new Song("src/songs/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
-//        addSong(s3);
-//        Song s4 = new Song("src/songs/Ashvan - Mano Daryab.mp3");
-//        addSong(s4);
-//        Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
-//        addSong(s5);
+        Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
+        addSong(s1);
+        Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
+        addSong(s2);
+        Song s3 = new Song("src/songs/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
+        addSong(s3);
+        Song s4 = new Song("src/songs/Ashvan - Mano Daryab.mp3");
+        addSong(s4);
+        Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
+        addSong(s5);
         Song s6 = new Song("src/songs/Ashvan - Daram Ashegh Misham (128).mp3");
         addSong(s6);
         Song s7 = new Song("src/songs/Happier.mp3");
@@ -112,8 +113,8 @@ public class DisplayListsControl {
         return playlists;
     }
 
-    public void setDisplaySongs(){
-        DisplaySongs displaySongs = new DisplaySongs(songs);
+    public void setDisplaySongs(ArrayList<Song> songs , PlayMusicGUI playMusicGUI){
+        DisplaySongs displaySongs = new DisplaySongs(songs , playMusicGUI);
         if(scrollPane != null){
             mainGUI.remove(scrollPane);
         }
@@ -124,8 +125,8 @@ public class DisplayListsControl {
         mainGUI.repaint();
     }
 
-    public void setDisplayAlbums(){
-        DisplayAlbumes displayAlbumes = new DisplayAlbumes(albumes);
+    public void setDisplayAlbums(PlayMusicGUI playMusicGUI){
+        DisplayAlbumes displayAlbumes = new DisplayAlbumes(albumes ,this ,  playMusicGUI);
         if(scrollPane != null) {
             mainGUI.remove(scrollPane);
         }
@@ -136,8 +137,8 @@ public class DisplayListsControl {
         mainGUI.repaint();
     }
 
-    public void setDisplayPlaylist(PlayList playlist){
-        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs());
+    public void setDisplayPlaylist(PlayList playlist , PlayMusicGUI playMusicGUI){
+        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs() , playMusicGUI);
         if(scrollPane != null){
             mainGUI.remove(scrollPane);
         }
