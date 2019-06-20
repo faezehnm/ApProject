@@ -4,7 +4,7 @@ import FirendsActivity.Friend;
 import FirendsActivity.FriendsActivityGUI;
 import other.DisplayListsGUI;
 import FirendsActivity.Network;
-import other.DisplayLists;
+import other.DisplayListsGUI;
 import other.Song;
 import playControl.PlayMusicGUI;
 import javax.swing.*;
@@ -51,7 +51,7 @@ public class JPotifyGUI extends JFrame {
         friend9.setLastSong(song);
 
 
-        friendsActivityGUI.addFriend(friend);
+       /* friendsActivityGUI.addFriend(friend);
         friendsActivityGUI.addFriend(friend2);
         friendsActivityGUI.addFriend(friend3);
         friendsActivityGUI.addFriend(friend4);
@@ -64,7 +64,8 @@ public class JPotifyGUI extends JFrame {
         friendsActivityGUI.addFriend(friend6);
         friendsActivityGUI.addFriend(friend7);
         friendsActivityGUI.addFriend(friend8);
-        friendsActivityGUI.addFriend(friend9);
+        friendsActivityGUI.addFriend(friend9);*/
+
 //        friendsActivityGUI.addFriend(friend5);
 //        friendsActivityGUI.addFriend(friend6);
 //        friendsActivityGUI.addFriend(friend7);

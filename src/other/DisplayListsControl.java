@@ -14,6 +14,7 @@ public class DisplayListsControl {
     private ArrayList<Albume> albumes = new ArrayList<Albume>();
     private ArrayList<PlayList> playlists = new ArrayList<PlayList>();
     private JPotifyGUI mainGUI;
+    private JScrollPane scrollPane = null;
 
     public DisplayListsControl(JPotifyGUI mainGUI)throws Exception{
         Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
@@ -26,6 +27,14 @@ public class DisplayListsControl {
         addSong(s4);
         Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
         addSong(s5);
+        Song s6 = new Song("src/songs/Ashvan - Daram Ashegh Misham (128).mp3");
+        addSong(s6);
+        Song s7 = new Song("src/songs/Happier.mp3");
+        addSong(s7);
+        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
+        addSong(s8);
+        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
+        addSong(s9);
         PlayList p1 = new PlayList("p1");
         playlists.add(p1);
         PlayList p2 = new PlayList("p2");
@@ -105,24 +114,36 @@ public class DisplayListsControl {
 
     public void setDisplaySongs(){
         DisplaySongs displaySongs = new DisplaySongs(songs);
-        mainGUI.getContentPane().add(displaySongs);
-        mainGUI.add(displaySongs , BorderLayout.CENTER);
+        if(scrollPane != null){
+            mainGUI.remove(scrollPane);
+        }
+        scrollPane = displaySongs;
+        mainGUI.getContentPane().add(scrollPane);
+        mainGUI.add(scrollPane , BorderLayout.CENTER);
         mainGUI.revalidate();
         mainGUI.repaint();
     }
 
     public void setDisplayAlbums(){
         DisplayAlbumes displayAlbumes = new DisplayAlbumes(albumes);
-        mainGUI.getContentPane().add(displayAlbumes);
-        mainGUI.add(displayAlbumes , BorderLayout.CENTER);
+        if(scrollPane != null) {
+            mainGUI.remove(scrollPane);
+        }
+        scrollPane = displayAlbumes;
+        mainGUI.getContentPane().add(scrollPane);
+        mainGUI.add(scrollPane , BorderLayout.CENTER);
         mainGUI.revalidate();
         mainGUI.repaint();
     }
 
     public void setDisplayPlaylist(PlayList playlist){
         DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs());
-        mainGUI.getContentPane().add(displaySongs);
-        mainGUI.add(displaySongs , BorderLayout.CENTER);
+        if(scrollPane != null){
+            mainGUI.remove(scrollPane);
+        }
+        scrollPane = displaySongs;
+        mainGUI.getContentPane().add(scrollPane);
+        mainGUI.add(scrollPane , BorderLayout.CENTER);
         mainGUI.revalidate();
         mainGUI.repaint();
     }
