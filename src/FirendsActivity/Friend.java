@@ -10,10 +10,19 @@ public class Friend {
     private String name ;
     private PlayList sharedPlayList ;
     private Song lastSong ;
+    static ArrayList<Friend> friends = new ArrayList<Friend>();
 
     public Friend( String IP , String name ){
         this.IP = IP ;
         this.name = name ;
+    }
+
+    public static void addFriend(Friend friend){
+        friends.add(friend);
+    }
+
+    public static ArrayList<Friend> getFriends() {
+        return friends;
     }
 
     public String getIP() {
@@ -59,3 +68,4 @@ public class Friend {
         return res;
     }
 }
+

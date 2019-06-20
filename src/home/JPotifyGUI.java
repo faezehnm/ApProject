@@ -3,6 +3,8 @@ package home;
 import FirendsActivity.Friend;
 import FirendsActivity.FriendsActivityGUI;
 import other.DisplayListsGUI;
+import FirendsActivity.Network;
+import other.DisplayLists;
 import other.Song;
 import playControl.PlayMusicGUI;
 import javax.swing.*;
@@ -88,6 +90,10 @@ public class JPotifyGUI extends JFrame {
 //        friendsActivityGUI.addFriend(friend9);
         friendsActivityGUI.creatFirendPanel();
         friendsActivityGUI.addFriendsPanel();
+        /*
+        Network network = new Network(friendsActivityGUI,)
+        */
+
         add(friendsActivityGUI,BorderLayout.EAST);
         setVisible(true);
     }
