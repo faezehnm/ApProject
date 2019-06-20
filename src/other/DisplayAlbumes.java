@@ -2,6 +2,7 @@ package other;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class DisplayAlbumes extends JScrollPane {
@@ -25,18 +26,20 @@ public class DisplayAlbumes extends JScrollPane {
         for(Albume a : albumes){
             JButton btn = new JButton();
             ImageIcon imageIcon = new ImageIcon(a.getArtwork());
-            btn.setIcon(imageIcon);
-            btn.setSize(new Dimension(200 , 200));
+            Image resizedImg = (Image) scaledImage(imageIcon.getImage() , 350 , 350);
+            ImageIcon resizedIcon = new ImageIcon(resizedImg);
+            btn.setIcon(resizedIcon);
+            btn.setSize(new Dimension(350 , 350));
             btn.setBackground(Color.WHITE);
             JLabel lbl = new JLabel(a.getAlbumeName());
             lbl.setBackground(Color.white);
-            lbl.setPreferredSize(new Dimension(200 , 50));
+            lbl.setPreferredSize(new Dimension(350 , 50));
             JPanel pnl = new JPanel();
             GridBagLayout innerLayout = new GridBagLayout();
             GridBagConstraints innerGbc = new GridBagConstraints();
             innerGbc.fill = GridBagConstraints.VERTICAL;
             pnl.setLayout(innerLayout);
-            pnl.setSize(new Dimension(200 , 250));
+            pnl.setSize(new Dimension(350 , 400));
             innerGbc.gridx = 0;
             innerGbc.gridy = 0;
             pnl.add(btn);
@@ -49,5 +52,14 @@ public class DisplayAlbumes extends JScrollPane {
             albumPanels.add(pnl);
             counter++;
         }
+    }
+
+    private Image scaledImage(Image img , int width , int height){
+        BufferedImage resizedImage = new BufferedImage(width , height , BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2 = resizedImage.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION , RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+        g2.drawImage(img , 0 , 0 , width , height , null);
+        g2.dispose();
+        return resizedImage;
     }
 }
