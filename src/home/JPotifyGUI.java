@@ -3,7 +3,6 @@ package home;
 import FirendsActivity.Friend;
 import FirendsActivity.FriendsActivityGUI;
 import FirendsActivity.Network;
-import other.DisplayLists;
 import other.DisplayListsGUI;
 import FirendsActivity.Network;
 import other.DisplayListsGUI;
@@ -55,18 +54,6 @@ public class JPotifyGUI extends JFrame {
 
         Friend.addFriend(friend);
         Friend.addFriend(friend2);
-        Friend.addFriend(friend3);
-        Friend.addFriend(friend4);
-        Friend.addFriend(friend5);
-        Friend.addFriend(friend6);
-        Friend.addFriend(friend7);
-        Friend.addFriend(friend8);
-        Friend.addFriend(friend9);
-        Friend.addFriend(friend5);
-        Friend.addFriend(friend6);
-        Friend.addFriend(friend7);
-        Friend.addFriend(friend8);
-        Friend.addFriend(friend9);
 
 
         friendsActivityGUI.creatFirendPanel();

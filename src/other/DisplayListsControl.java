@@ -17,24 +17,24 @@ public class DisplayListsControl {
     private JScrollPane scrollPane = null;
 
     public DisplayListsControl(JPotifyGUI mainGUI)throws Exception{
-        Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
-        addSong(s1);
-        Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
-        addSong(s2);
-        Song s3 = new Song("src/songs/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
-        addSong(s3);
-        Song s4 = new Song("src/songs/Ashvan - Mano Daryab.mp3");
-        addSong(s4);
-        Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
-        addSong(s5);
+//        Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
+//        addSong(s1);
+//        Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
+//        addSong(s2);
+//        Song s3 = new Song("src/songs/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
+//        addSong(s3);
+//        Song s4 = new Song("src/songs/Ashvan - Mano Daryab.mp3");
+//        addSong(s4);
+//        Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
+//        addSong(s5);
         Song s6 = new Song("src/songs/Ashvan - Daram Ashegh Misham (128).mp3");
         addSong(s6);
         Song s7 = new Song("src/songs/Happier.mp3");
         addSong(s7);
-        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
-        addSong(s8);
-        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
-        addSong(s9);
+//        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
+//        addSong(s8);
+//        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
+//        addSong(s9);
         PlayList p1 = new PlayList("p1");
         playlists.add(p1);
         PlayList p2 = new PlayList("p2");
