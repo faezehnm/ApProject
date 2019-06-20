@@ -7,12 +7,20 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FriendsActivityGUI extends JScrollPane implements ActionListener {
 
     private JPanel mainPanel;
     private ArrayList<FriendPanel> friendsPanel = new ArrayList<FriendPanel>();
+
+    private JPanel topPanel ;
+    private JLabel jLabel =  new JLabel("Friend Activity") ;
+    private ImageIcon imgAdd = new ImageIcon("src/Icons/plus.png") ;
+    private JButton btnAddFriend = new JButton(imgAdd);
+
 
     public FriendsActivityGUI(JPotifyGUI gui)
     {
@@ -24,6 +32,13 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
         Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
         setBorder(greenLIne);
 
+        btnAddFriend.addActionListener(this);
+        topPanel = new JPanel();
+        topPanel.add(jLabel);
+        topPanel.add(btnAddFriend) ;
+        mainPanel.add(topPanel);
+
+
     }
 
     public void creatFirendPanel()
@@ -31,9 +46,10 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
         for( int i=0 ; i<Friend.getFriends().size() ; i++ ){
             friendsPanel.add(new FriendPanel(Friend.getFriends().get(i)));
         }
+        addFriendsPanel();
     }
 
-    public void addFriendsPanel()
+    private void addFriendsPanel()
     {
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             mainPanel.add(friendsPanel.get(i).getMainPanel());
@@ -42,9 +58,29 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
         }
     }
 
+    public void removeFrendsPanel(){
+        for( int i=0 ; i<friendsPanel.size() ; i++ ){
+            mainPanel.remove(friendsPanel.get(i).getMainPanel());
+        }
+    }
+
+    public void ActionToAddFriend(){
+        new AddFriendGUI() ;
+        removeFrendsPanel();
+        creatFirendPanel();
+        /*
+        action for network
+         */
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+        if( e.getSource()== btnAddFriend ){
+            ActionToAddFriend();
+        }
+
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             if( e.getSource()== friendsPanel.get(i).getSongInformaton() ){
                 /*
@@ -56,6 +92,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
                 show sharedplaylist of friend
                  */
             }
+
         }
     }
 

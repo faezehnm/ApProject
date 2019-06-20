@@ -38,26 +38,19 @@ public class JPotifyGUI extends JFrame {
         setSize(new Dimension(WIDTH , HEIGHT));
         setIconImage(icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        playMusicGUI.setSong(song);
         add(playMusicGUI,BorderLayout.PAGE_END);
+
         getContentPane().add(displayListsGUI);
         add(displayListsGUI , BorderLayout.WEST);
+
         friend.setLastSong(song);
         friend2.setLastSong(song);
-        friend3.setLastSong(song);
-        friend4.setLastSong(song);
-        friend5.setLastSong(song);
-        friend6.setLastSong(song);
-        friend7.setLastSong(song);
-        friend8.setLastSong(song);
-        friend9.setLastSong(song);
-
-
         Friend.addFriend(friend);
         Friend.addFriend(friend2);
-
-
         friendsActivityGUI.creatFirendPanel();
-        friendsActivityGUI.addFriendsPanel();
+
         /*
         Network network = new Network(friendsActivityGUI,)
         */

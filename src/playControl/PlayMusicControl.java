@@ -30,7 +30,7 @@ public class PlayMusicControl implements ActionListener {
     private boolean firstTime=true;
 
 
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player) throws Exception {
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ) throws Exception {
         this.btnNext=btnNext ;
         this.btnPlay=btnPlay ;
         this.btnPrevious=btnPrevious;
@@ -49,9 +49,11 @@ public class PlayMusicControl implements ActionListener {
         btnNext.addActionListener(this);
         btnRepeat.addActionListener(this);
 
-        song = new Song("src/songs/Happier.mp3");
 
+    }
 
+    public void setSong(Song song ){
+        this.song = song ;
     }
 
     @Override

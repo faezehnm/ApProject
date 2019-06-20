@@ -12,11 +12,12 @@ public class Network implements Runnable{
     private ObjectInputStream inputStream;
     private FriendsActivityGUI friendsActivityGUI ;
     private Friend friend ;
+    private ForServer forServer ;
 
 
-    public Network(FriendsActivityGUI friendsActivityGUI, Friend friend) {
+    public Network(FriendsActivityGUI friendsActivityGUI,ForServer forServer) {
         this.friendsActivityGUI = friendsActivityGUI ;
-        this.friend = friend ;
+        this.forServer = forServer ;
         String serverName = "localhost";
         int port = 2000;
         try
@@ -25,7 +26,7 @@ public class Network implements Runnable{
 
             outStream = new ObjectOutputStream(client.getOutputStream());
 
-            outStream.writeObject(friend);
+            outStream.writeObject(forServer);
 
         } catch (IOException e)
         {
@@ -63,7 +64,6 @@ public class Network implements Runnable{
                     case 0:
                         Friend.addFriend(forServer.getFriend());
                         friendsActivityGUI.creatFirendPanel();
-                        friendsActivityGUI.addFriendsPanel();
                         break;
                     case 1:
                         /*

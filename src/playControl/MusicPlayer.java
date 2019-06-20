@@ -135,8 +135,8 @@ public class MusicPlayer {
     public Long getLengthInStream(int duration,int currentTime)
     {
 
-      pauseLocation= totalSongLength-((totalSongLength/duration)*currentTime);
-      return pauseLocation ;
+        pauseLocation= totalSongLength-((totalSongLength/duration)*currentTime);
+        return pauseLocation ;
 
     }
 

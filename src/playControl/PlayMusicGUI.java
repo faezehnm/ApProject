@@ -12,13 +12,15 @@ public class PlayMusicGUI extends JPanel  {
     private MusicPlayer player = new MusicPlayer();
     private PlaySlider playSlider = new PlaySlider(player);
     private VolumeSlider volumeSlider = new VolumeSlider();
-    private Song song = new Song("src/songs/Happier.mp3");
+    private Song song ;
+    private PlayMusicControl playMusicControl ;
 
     private JPanel leftPanel = new JPanel() ;
     private JPanel rightPanel = new JPanel() ;
     private JPanel middlePanel = new JPanel(new GridLayout(2,1)) ;
     private JPanel middlePanelTop = new JPanel() ;
     private JPanel middletPanelDown = new JPanel() ;
+    private JLabel displayInformationLable ;
 
     private JButton btnPlay ;
     private JButton btnNext ;
@@ -71,12 +73,12 @@ public class PlayMusicGUI extends JPanel  {
         middletPanelDown.setBackground(Color.white);
         setBackground(Color.white);
 
-        JLabel displayInformation = new JLabel("<html>"+song.getMusicName()+"<br>"+song.getAlbumnane()+"<br>"+song.getArtist()+"<html>");
-        displayInformation.setBackground(Color.white);
-        displayInformation.setBackground(Color.white);
+        displayInformationLable = new JLabel() ;
+        displayInformationLable.setBackground(Color.white);
+        displayInformationLable.setBackground(Color.white);
 
         //leftPanel.add( new DisplaySongInformation(song));
-        leftPanel.add(displayInformation);
+        leftPanel.add(displayInformationLable);
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
         middlePanelTop.add(btnShuffle);
@@ -91,8 +93,22 @@ public class PlayMusicGUI extends JPanel  {
         add(middlePanel);
         add(rightPanel);
 
-        new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player );
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player );
 
+    }
+
+    public void setSong( Song song ){
+        this.song = song ;
+        playMusicControl.setSong(song);
+        updateSongInformation();
+    }
+
+    private void updateSongInformation(){
+        displayInformationLable.setText("<html>"+song.getMusicName()+"<br>"+song.getAlbumnane()+"<br>"+song.getArtist()+"<html>");
+    }
+
+    public PlayMusicControl getPlayMusicControl(){
+        return playMusicControl ;
     }
 
     public JButton getPlayButton()
