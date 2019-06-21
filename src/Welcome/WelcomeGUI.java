@@ -1,12 +1,17 @@
 package Welcome;
 
+import Network.Network;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 public class WelcomeGUI extends JFrame implements ActionListener{
+
+    private Network network ;
 
     private static final int WIDTH = 500 , HEIGHT = 200;
     private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");
@@ -18,7 +23,8 @@ public class WelcomeGUI extends JFrame implements ActionListener{
     private JButton logIn ;
 
 
-    public WelcomeGUI(){
+    public WelcomeGUI() throws IOException
+    {
         super();
         setLayout(new GridLayout(2,1));
         setVisible(true);
@@ -35,20 +41,25 @@ public class WelcomeGUI extends JFrame implements ActionListener{
         logIn.addActionListener(this);
         add(logIn);
 
+        network = new Network();
+
     }
 
-    private void actionToLogin(){
-        logInGUI = new LogInGUI();
+    private void actionToLogin()
+    {
+        logInGUI = new LogInGUI(network);
         setVisible(false);
     }
 
-    private void actionToSignup(){
-        signUpGUI = new SignUpGUI();
+    private void actionToSignup()
+    {
+        signUpGUI = new SignUpGUI(network);
         setVisible(false);
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if( e.getSource()== signUp)
             actionToSignup();
         if( e.getSource()== logIn)

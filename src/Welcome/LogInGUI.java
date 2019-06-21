@@ -1,19 +1,41 @@
 package Welcome;
 
+import Network.Network;
+import Network.ForServer;
 import home.JPotifyGUI;
-import home.User;
+import Network.User;
 
 public class LogInGUI extends GoToJPotiy {
+    private Network network ;
+    private ForServer loginRequest ;
+    private ForServer fromServer;
     public static JPotifyGUI jPotifyGUI;
 
-    public LogInGUI() {
+
+    public LogInGUI(Network network) {
         super();
+        this.network = network ;
+
     }
 
+    @Override
     public void actionToDoForEeach(User user) throws Exception {
-        /*
-        actiod to sign up
-         */
+        loginRequest = new ForServer(3,user);
+        network.sendFile(loginRequest);
+
+        fromServer = (ForServer) network.getInputStream().readObject();
+        if( fromServer.getType()==4 ){
+            /*
+            show a window with the message that pass is inCorrect
+             */
+        }
+        if( fromServer.getType()==5 ){
+            GO();
+        }
+
+    }
+
+    private void GO() throws Exception {
         jPotifyGUI = new JPotifyGUI();
         this.setVisible(false);
     }
