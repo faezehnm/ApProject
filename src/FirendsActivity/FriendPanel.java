@@ -43,7 +43,7 @@ public class FriendPanel implements ActionListener {
         lastTime = new JLabel();
         setTimeIcon(lastTime);
 
-        songInformaton = new JButton("<html>"+friend.getLastSong().getMusicName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumnane()+"<html>");
+        songInformaton = new JButton("<html>"+friend.getLastSong().getMusicName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
         songInformaton.setBackground(Color.white);
         songInformaton.addActionListener(this);
         songInformaton.setBorder(noline);

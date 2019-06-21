@@ -103,7 +103,7 @@ public class PlayMusicGUI extends JPanel  {
     }
 
     private void updateSongInformation(){
-        displayInformationLable.setText("<html>"+song.getMusicName()+"<br>"+song.getAlbumnane()+"<br>"+song.getArtist()+"<html>");
+        displayInformationLable.setText("<html>"+song.getMusicName()+"<br>"+song.getAlbumeName()+"<br>"+song.getArtist()+"<html>");
     }
 
     public PlayMusicControl getPlayMusicControl(){

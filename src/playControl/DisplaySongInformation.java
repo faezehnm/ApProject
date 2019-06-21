@@ -18,7 +18,7 @@ public class DisplaySongInformation extends JPanel {
 
         this.song= song ;
         songNameLable.setText  ("song   : "+ song.getMusicName() +"\n");
-        albumNameLable.setText ("album : "+ song.getAlbumnane() +"\n");
+        albumNameLable.setText ("album : "+ song.getAlbumeName() +"\n");
         artistNameLable.setText("artist  : "+ song.getArtist());
         artWorkList.addElement(songNameLable.getText());
         artWorkList.addElement(artistNameLable.getText());
