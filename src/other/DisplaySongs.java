@@ -18,7 +18,7 @@ public class DisplaySongs extends JScrollPane {
     private JPanel panel;
     private PlayMusicGUI playMusicGUI;
 
-    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI){
+    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , DisplaySongsSituation situation , PlayList playList){
         this.playMusicGUI = playMusicGUI;
         panel = new JPanel();
         panel.setBackground(Color.WHITE);
@@ -54,7 +54,12 @@ public class DisplaySongs extends JScrollPane {
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    playMusicGUI.setSong(s);
+                    if(situation.equals(DisplaySongsSituation.PLAYING)) {
+                        playMusicGUI.setSong(s);
+                    }
+                    else{
+                        playList.addSong(s);
+                    }
                 }
             });
             JLabel lbl = new JLabel(s.getMusicName() + "   " + s.getArtist() + "   " + s.getAlbumnane());

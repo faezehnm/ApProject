@@ -71,9 +71,10 @@ public class DisplayListsControl {
         albumes.add(albume);
     }
 
-    public void addPlaylist(String playlistName){
+    public PlayList addPlaylist(String playlistName){
         PlayList playList = new PlayList(playlistName);
         playlists.add(playList);
+        return playList;
     }
 
     public void addSongToPlaylist(Song song , PlayList playList){
@@ -116,7 +117,7 @@ public class DisplayListsControl {
     }
 
     public void setDisplaySongs(ArrayList<Song> songs , PlayMusicGUI playMusicGUI){
-        DisplaySongs displaySongs = new DisplaySongs(songs , playMusicGUI);
+        DisplaySongs displaySongs = new DisplaySongs(songs , playMusicGUI , DisplaySongsSituation.PLAYING , null);
         if(scrollPane != null){
             mainGUI.remove(scrollPane);
         }
@@ -140,7 +141,7 @@ public class DisplayListsControl {
     }
 
     public void setDisplayPlaylist(PlayList playlist , PlayMusicGUI playMusicGUI){
-        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs() , playMusicGUI);
+        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs() , playMusicGUI , DisplaySongsSituation.PLAYING , null);
         if(scrollPane != null){
             mainGUI.remove(scrollPane);
         }
@@ -169,5 +170,23 @@ public class DisplayListsControl {
         }
     }
 
+    public void setSelectSongs(PlayMusicGUI playMusicGUI , PlayList playList){
+        DisplaySongs displaySongs = new DisplaySongs(songs , playMusicGUI , DisplaySongsSituation.SELECTION, playList);
+        if(scrollPane != null){
+            mainGUI.remove(scrollPane);
+        }
+        scrollPane = displaySongs;
+        mainGUI.add(scrollPane , BorderLayout.CENTER);
+        mainGUI.revalidate();
+        mainGUI.repaint();
+    }
 
+    public void clean(){
+        if(scrollPane != null){
+            mainGUI.remove(scrollPane);
+            mainGUI.revalidate();
+            mainGUI.repaint();
+            scrollPane = null;
+        }
+    }
 }

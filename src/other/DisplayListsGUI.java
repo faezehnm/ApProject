@@ -123,6 +123,53 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setPreferredSize(new Dimension(200 , 100));
         addNewPlaylist.setIcon(image);
         addNewPlaylist.setBorder(greenLIne);
+        addNewPlaylist.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel createPlPanel = new JPanel();
+                createPlPanel.setPreferredSize(new Dimension(200 , 100));
+                createPlPanel.setBackground(Color.WHITE);
+                createPlPanel.setBorder(greenLIne);
+                createPlPanel.setLayout(new GridLayout(2 , 1));
+                JTextField textField = new JTextField();
+                textField.setEditable(true);
+                textField.setPreferredSize(new Dimension(200 , 50));
+                textField.setBackground(Color.WHITE);
+                textField.setBorder(greenLIne);
+                createPlPanel.add(textField);
+                JButton createPlBtn = new JButton("create");
+                createPlBtn.setBackground(Color.WHITE);
+                createPlBtn.setBorder(greenLIne);
+                createPlBtn.setPreferredSize(new Dimension(200 , 50));
+                createPlBtn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        textField.setEditable(false);
+                        PlayList playList = displayListsControl.addPlaylist(textField.getText());
+                        displayListsControl.setSelectSongs(playMusicGUI , playList);
+                        listsPnl.remove(createPlPanel);
+                        JButton finishedbtn = new JButton("finished");
+                        finishedbtn.setPreferredSize(new Dimension(200 , 100));
+                        finishedbtn.setBorder(greenLIne);
+                        finishedbtn.setBackground(Color.WHITE);
+                        listsPnl.add(finishedbtn , gbc);
+                        finishedbtn.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                displayListsControl.clean();
+                                listsPnl.remove(finishedbtn);
+                                listsPnl.add(addNewPlaylist , gbc);
+                            }
+                        });
+                    }
+                });
+                createPlPanel.add(createPlBtn);
+                listsPnl.remove(addNewPlaylist);
+                listsPnl.add(createPlPanel , gbc);
+                mainGUI.revalidate();
+                mainGUI.repaint();
+            }
+        });
         listsPnl.add(addNewPlaylist , gbc);
     }
 }
