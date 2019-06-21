@@ -25,7 +25,7 @@ public class DisplaySongs extends JScrollPane {
         setViewportView(panel);
         setBackground(Color.WHITE);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        //setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         setVisible(true);
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
@@ -37,10 +37,18 @@ public class DisplaySongs extends JScrollPane {
         for(Song s : songArrayList){
             JButton btn = new JButton();
             btn.setBorder(greenLIne);
-            ImageIcon imageIcon = new ImageIcon(s.getArtwork2());
-            Image resizedImg = (Image) scaledImage(imageIcon.getImage() , 370 , 370);
-            ImageIcon resizedIcon = new ImageIcon(resizedImg);
-            btn.setIcon(resizedIcon);
+            if(s.getArtwork2() != null) {
+                ImageIcon imageIcon = new ImageIcon(s.getArtwork2());
+                Image resizedImg = (Image) scaledImage(imageIcon.getImage(), 370, 370);
+                ImageIcon resizedIcon = new ImageIcon(resizedImg);
+                btn.setIcon(resizedIcon);
+            }
+            else{
+                ImageIcon musicIcon = new ImageIcon("src/Icons/music icon.png");
+                Image resizedImg = scaledImage(musicIcon.getImage() , 370 , 370);
+                ImageIcon resizedIcon = new ImageIcon(resizedImg);
+                btn.setIcon(resizedIcon);
+            }
             btn.setSize(new Dimension(370 , 370));
             btn.setBackground(Color.WHITE);
             btn.addActionListener(new ActionListener() {

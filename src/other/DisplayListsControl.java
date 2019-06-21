@@ -155,8 +155,17 @@ public class DisplayListsControl {
         ChooseMusicFrame chooseMusicFrame = new ChooseMusicFrame();
         File songFile = chooseMusicFrame.getNewSong();
         if(songFile != null){
-            Song newSong = new Song(songFile.getPath());
-            addSong(newSong);
+            boolean fileExists = false;
+            for(Song s : songs){
+                if(s.getFileAddress().equals(songFile.getPath())){
+                    fileExists = true;
+                    break;
+                }
+            }
+            if(! fileExists) {
+                Song newSong = new Song(songFile.getPath());
+                addSong(newSong);
+            }
         }
     }
 
