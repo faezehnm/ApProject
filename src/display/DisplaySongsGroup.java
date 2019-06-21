@@ -1,4 +1,4 @@
-package other;
+package display;
 
 import playControl.PlayMusicGUI;
 
@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
+import music.*;
 
 public abstract class DisplaySongsGroup extends JScrollPane {
 
@@ -14,7 +15,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
     protected ArrayList<JPanel> musicsPanels;
     protected PlayMusicGUI playMusicGUI;
 
-    public DisplaySongsGroup(ArrayList<? extends Music> musics , PlayMusicGUI playMusicGUI){
+    public DisplaySongsGroup(ArrayList<? extends Music> musics , PlayMusicGUI playMusicGUI) throws Exception {
         panel = new JPanel();
         musicsPanels = new ArrayList<JPanel>();
         this.musics = musics;
@@ -42,7 +43,9 @@ public abstract class DisplaySongsGroup extends JScrollPane {
             pnl.setSize(new Dimension(370 , 420));
             innerGbc.gridx = 0;
             innerGbc.gridy = 0;
-            pnl.add(createButton(music) , innerGbc);
+            JButton btn = createButton(music);
+            pnl.add(btn , innerGbc);
+            addActionListeners(btn , music);
             innerGbc.gridx = 0;
             innerGbc.gridy = 1;
             pnl.add(createLabel(music) , innerGbc);
@@ -86,6 +89,6 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         return lbl;
     }
 
-    protected abstract void addActionListeners(JButton btn , Music music);
+    protected abstract void addActionListeners(JButton btn , Music music) throws Exception;
 
 }

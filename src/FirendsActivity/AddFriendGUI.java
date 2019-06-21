@@ -1,6 +1,6 @@
 package FirendsActivity;
 
-import other.Song;
+import music.Song;
 
 import javax.swing.*;
 import java.awt.*;

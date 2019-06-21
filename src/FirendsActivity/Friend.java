@@ -1,7 +1,7 @@
 package FirendsActivity;
 
-import other.PlayList;
-import other.Song;
+import music.PlayList;
+import music.Song;
 
 import java.util.ArrayList;
 

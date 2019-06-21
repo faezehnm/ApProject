@@ -1,6 +1,6 @@
 package playControl;
 
-import other.Song;
+import music.Song;
 
 import javax.swing.*;
 import javax.swing.border.Border;
