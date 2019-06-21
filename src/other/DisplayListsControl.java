@@ -33,6 +33,16 @@ public class DisplayListsControl {
         addSong(s6);
         Song s7 = new Song("src/songs/Happier.mp3");
         addSong(s7);
+//        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
+//        addSong(s8);
+//        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
+//        addSong(s9);
+        Song s10 = new Song("src/songs/Ehaam - Bezan Baran (128).mp3");
+        addSong(s10);
+        Song s11 = new Song("src/songs/Ehaam - Haale Man (128).mp3");
+        addSong(s11);
+
+
         Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
         addSong(s8);
         Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");

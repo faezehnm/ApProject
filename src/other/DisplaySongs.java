@@ -1,6 +1,10 @@
 package other;
 
 import home.JPotifyGUI;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
 import other.Song;
 import playControl.PlayMusicGUI;
 
@@ -10,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class DisplaySongs extends JScrollPane {
@@ -33,6 +38,7 @@ public class DisplaySongs extends JScrollPane {
         panel.setLayout(layout);
         Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
         setBorder(greenLIne);
+
         int counter = 0;
         for(Song s : songArrayList){
             JButton btn = new JButton();
@@ -54,14 +60,36 @@ public class DisplaySongs extends JScrollPane {
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if(situation.equals(DisplaySongsSituation.PLAYING)) {
+
+                    try {
                         playMusicGUI.setSong(s);
+                    } catch (TagException e1) {
+                        e1.printStackTrace();
+                    } catch (ReadOnlyFileException e1) {
+                        e1.printStackTrace();
+                    } catch (CannotReadException e1) {
+                        e1.printStackTrace();
+                    } catch (InvalidAudioFrameException e1) {
+                        e1.printStackTrace();
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+
+                    if(situation.equals(DisplaySongsSituation.PLAYING)) {
+                        try {
+                            playMusicGUI.setSong(s);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
                     }
                     else{
                         playList.addSong(s);
                     }
                 }
             });
+
             JLabel lbl = new JLabel(s.getMusicName() + "   " + s.getArtist() + "   " + s.getAlbumnane());
             lbl.setBorder(greenLIne);
             lbl.setBackground(Color.white);
@@ -72,12 +100,6 @@ public class DisplaySongs extends JScrollPane {
             GridBagConstraints innerGbc = new GridBagConstraints();
             pnl.setLayout(innerLayout);
             pnl.setSize(new Dimension(370 , 420));
-            btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-
-                }
-            });
             innerGbc.gridy = 0;
             innerGbc.gridx = 0;
             pnl.add(btn , innerGbc);
@@ -101,4 +123,5 @@ public class DisplaySongs extends JScrollPane {
         g2.dispose();
         return resizedImage;
     }
+
 }

@@ -6,6 +6,9 @@ import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.TagException;
+import other.Song;
+
+import javax.jws.soap.SOAPBinding;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.awt.*;
@@ -19,38 +22,41 @@ import static java.lang.Thread.sleep;
 public class PlaySlider extends JPanel implements ChangeListener {
     private JSlider jSlider ;
     private int duration=0;
-    private String time ;
+    Hashtable hashtable = new Hashtable();
     private JLabel startLable = new JLabel("0:00") ;
-    private JLabel finishLable = new JLabel(":)") ;
+    private JLabel finishLable = new JLabel("0:00") ;
     private boolean repeat ;
     private boolean paused = false ;
+    private boolean stop = false ;
     private int pausedTime = 0;
     MusicPlayer player ;
+    Song song;
 
 
     public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException
     {
 
         this.player= player ;
-        duration=getTime();
 
         jSlider= new JSlider();
         jSlider.addChangeListener(this);
         jSlider.setValue(0);
-        jSlider.setMaximum(duration);
-        Hashtable hashtable = new Hashtable();
-        hashtable.put( new Integer( 0 ), startLable );
-        time = getTimeInMinute(duration);
-        finishLable.setText(time);
-        hashtable.put( new Integer( jSlider.getMaximum() ), finishLable);
+
+        hashtable.put( 0 , startLable );
+        hashtable.put( jSlider.getMaximum() , finishLable);
+
         jSlider.setLabelTable(hashtable);
         jSlider.setPaintLabels(true);
         jSlider.setPreferredSize(new Dimension(600,32));
-        add(jSlider);
-        setBackground(Color.white);
         jSlider.setBackground(Color.white);
 
+        add(jSlider);
+        setBackground(Color.white);
 
+    }
+
+    public void setSong(Song song){
+        this.song = song ;
     }
 
     public void play()
@@ -60,11 +66,25 @@ public class PlaySlider extends JPanel implements ChangeListener {
             @Override
             public void run()
             {
+                try {
+                    updateSlider();
+                } catch (ReadOnlyFileException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (TagException e) {
+                    e.printStackTrace();
+                } catch (InvalidAudioFrameException e) {
+                    e.printStackTrace();
+                } catch (CannotReadException e) {
+                    e.printStackTrace();
+                }
                 for (int i = pausedTime; i <= duration; i++) {
-                    if(paused)
+
+                    if(paused || stop )
                         stop();
 
-                    if(!paused) {
+                    if(!paused && !stop ) {
                         manageLableText(i);
 
                         if((jSlider.getValue()-i>1 || i-jSlider.getValue()>1)&& player.isCompeletIn()==false ) {
@@ -85,20 +105,31 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
                         try {
                             sleep(1000);
-                            if (i == duration && repeat) {
-                                pausedTime = 0;
-                                jSlider.setValue(0);
-                                play();
-
-                            }
+                            if (i == duration && repeat)
+                                actionToRepeat();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+
+
                     }
                 }
             }
         }.start();
 
+    }
+
+    public void stopForAnotherSong(){
+
+        setStop(true);
+        pausedTime=0 ;
+
+    }
+
+    private void actionToRepeat(){
+        pausedTime = 0;
+        jSlider.setValue(0);
+        play();
     }
 
     public void resume()
@@ -135,9 +166,21 @@ public class PlaySlider extends JPanel implements ChangeListener {
         this.paused= paused ;
     }
 
+    public void setStop(boolean stop)
+    {
+        this.stop = stop ;
+    }
+
+    public void actionAfterStop(){
+        pausedTime=0;
+        jSlider.setValue(0);
+        setStop(false);
+    }
+
     public int getTime() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException
     {
-        File file=new File("src/songs/Happier.mp3");
+
+        File file=new File(song.getFileAddress());
         AudioFile audioFile = AudioFileIO.read(file);
         duration= audioFile.getAudioHeader().getTrackLength();
         return duration;
@@ -158,6 +201,15 @@ public class PlaySlider extends JPanel implements ChangeListener {
             else
                 startLable.setText("" + min + ":" + sc);
         }
+    }
+
+    private void updateSlider() throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException {
+        duration= getTime();
+        jSlider.setMaximum(duration);
+        finishLable.setText(getTimeInMinute(duration));
+        hashtable.clear();
+        hashtable.put( 0 , startLable );
+        hashtable.put( jSlider.getMaximum() , finishLable);
     }
 
     @Override

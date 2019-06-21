@@ -1,6 +1,11 @@
 package playControl;
 import javazoom.jl.decoder.JavaLayerException;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
+import org.jaudiotagger.tag.TagException;
 import other.Song;
+import sun.management.counter.perf.PerfLongArrayCounter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,9 +33,12 @@ public class PlayMusicControl implements ActionListener {
     private int pausedOnFrame = 0;
     private boolean isItPlaying=false;
     private boolean firstTime=true;
+    private boolean nextSong = false ;
 
 
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ) throws Exception {
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player  ) throws Exception {
+
+
         this.btnNext=btnNext ;
         this.btnPlay=btnPlay ;
         this.btnPrevious=btnPrevious;
@@ -43,6 +51,7 @@ public class PlayMusicControl implements ActionListener {
         this.playSlider=playSlider ;
         this.player=player ;
 
+
         btnShuffle.addActionListener(this);
         btnPrevious.addActionListener(this);
         btnPlay.addActionListener(this);
@@ -52,8 +61,10 @@ public class PlayMusicControl implements ActionListener {
 
     }
 
-    public void setSong(Song song ){
+    public void setSong(Song song ) {
         this.song = song ;
+        actionToPlayerAnotherSong();
+        actionToPlaySliderAnotherSong();
     }
 
     @Override
@@ -70,45 +81,11 @@ public class PlayMusicControl implements ActionListener {
         }
         if( e.getSource()==btnPlay)
         {
-            if (!isItPlaying) {
-                getPlayButton().setIcon(imPause);
-                isItPlaying=true ;
-                if( firstTime ) {
-                    firstTime=false ;
-                    try {
-                        player.play(song.getFileAddress());
-                        playSlider.play();
-                    } catch (FileNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (JavaLayerException e2) {
-                        e2.printStackTrace();
-                    } catch (IOException e3) {
-                        e3.printStackTrace();
-                    } catch (URISyntaxException e4) {
-                        e4.printStackTrace();
-                    }
-                }
-                else{
-                    try {
-                        player.resume();
-                        playSlider.resume();
-                    } catch (FileNotFoundException e1) {
-                        e1.printStackTrace();
-                    } catch (JavaLayerException e2) {
-                        e2.printStackTrace();
-                    } catch (IOException e3) {
-                        e3.printStackTrace();
-                    } catch (URISyntaxException e4) {
-                        e4.printStackTrace();
-                    }
-
-                }
-
-            } else {
-                getPlayButton().setIcon(imPlay);
-                player.pause();
-                playSlider.pause();
-                isItPlaying= false ;
+            if(!nextSong) {
+                actionToButtonPlay();
+            }
+            if(nextSong){
+                actionToButtonPlayAnotherSong();
             }
 
         }
@@ -119,18 +96,7 @@ public class PlayMusicControl implements ActionListener {
              */
         }
         if( e.getSource()==btnRepeat)
-        {
-            if( player.getRepeat()==false) {
-                player.setRepeat(true);
-                playSlider.setRepeat(true);
-                getRepeatButton().setIcon(imRepeat);
-            }
-            else if(player.getRepeat()== true){
-                player.setRepeat(false);
-                playSlider.setRepeat(false);
-                getRepeatButton().setIcon(imRepeat1);
-            }
-        }
+            actionToButtonRepeat();
     }
 
     public JButton getPlayButton()
@@ -138,8 +104,92 @@ public class PlayMusicControl implements ActionListener {
         return btnPlay;
     }
 
-    public JButton getRepeatButton() {
+    public JButton getRepeatButton()
+    {
         return btnRepeat;
     }
 
+    private void actionToButtonPlay(){
+
+        if (!isItPlaying) {
+            getPlayButton().setIcon(imPause);
+            isItPlaying=true ;
+            if( firstTime ) {
+                firstTime=false ;
+                try {
+                    player.play(song.getFileAddress());
+                    playSlider.play();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (JavaLayerException e2) {
+                    e2.printStackTrace();
+                } catch (IOException e3) {
+                    e3.printStackTrace();
+                } catch (URISyntaxException e4) {
+                    e4.printStackTrace();
+                }
+            }
+            else{
+                try {
+                    player.resume();
+                    playSlider.resume();
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (JavaLayerException e2) {
+                    e2.printStackTrace();
+                } catch (IOException e3) {
+                    e3.printStackTrace();
+                } catch (URISyntaxException e4) {
+                    e4.printStackTrace();
+                }
+
+            }
+
+        } else {
+            getPlayButton().setIcon(imPlay);
+            player.pause();
+            playSlider.pause();
+            isItPlaying= false ;
+        }
+
+    }
+
+    private void actionToButtonPlayAnotherSong(){
+        setNextSong(false);
+        isItPlaying = false ;
+        firstTime = true ;
+        playSlider.actionAfterStop();
+        actionToButtonPlay();
+    }
+
+    private void actionToButtonRepeat(){
+        if( player.getRepeat()==false) {
+            player.setRepeat(true);
+            playSlider.setRepeat(true);
+            getRepeatButton().setIcon(imRepeat);
+        }
+        else if(player.getRepeat()== true){
+            player.setRepeat(false);
+            playSlider.setRepeat(false);
+            getRepeatButton().setIcon(imRepeat1);
+        }
+    }
+
+    private void actionToPlayerAnotherSong(){
+        player.stop();
+        setNextSong(true);
+    }
+
+    private void actionToPlaySliderAnotherSong(){
+
+        playSlider.setSong(song);
+        playSlider.stopForAnotherSong();
+        playSlider.setPaused(false);
+
+    }
+
+    public void setNextSong(boolean nextSong)
+    {
+        this.nextSong = nextSong;
+    }
 }

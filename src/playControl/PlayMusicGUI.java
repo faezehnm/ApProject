@@ -1,5 +1,5 @@
 package playControl;
-import org.omg.CORBA.CODESET_INCOMPATIBLE;
+import VolumeControl.VolumeSlider;
 import other.Song;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -77,7 +77,6 @@ public class PlayMusicGUI extends JPanel  {
         displayInformationLable.setBackground(Color.white);
         displayInformationLable.setBackground(Color.white);
 
-        //leftPanel.add( new DisplaySongInformation(song));
         leftPanel.add(displayInformationLable);
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
@@ -97,7 +96,7 @@ public class PlayMusicGUI extends JPanel  {
 
     }
 
-    public void setSong( Song song ){
+    public void setSong( Song song ) throws Exception {
         this.song = song ;
         playMusicControl.setSong(song);
         updateSongInformation();
