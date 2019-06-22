@@ -9,6 +9,12 @@ import java.awt.*;
 
 public class PlayMusicGUI extends JPanel  {
 
+    private GridBagConstraints gbc;
+    private GridBagConstraints gbc2;
+    private JPanel junk = new JPanel();
+    private JPanel junk2 = new JPanel();
+    private JPanel junk3 = new JPanel();
+
     private MusicPlayer player = new MusicPlayer();
     private PlaySlider playSlider = new PlaySlider(player);
     private VolumeSlider volumeSlider = new VolumeSlider();
@@ -42,6 +48,10 @@ public class PlayMusicGUI extends JPanel  {
     public PlayMusicGUI() throws Exception
     {
         super(new GridLayout(1,3));
+
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc2 = new GridBagConstraints();
 
         imageLable = new JLabel();
 
@@ -78,19 +88,21 @@ public class PlayMusicGUI extends JPanel  {
 
         displayInformationLable = new JLabel() ;
         displayInformationLable.setBackground(Color.white);
-        displayInformationLable.setBackground(Color.white);
 
+        setLeftPanelLayout();
 
-        leftPanel.add(imageLable,BorderLayout.WEST);
-        leftPanel.add(displayInformationLable);
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
+
         middlePanelTop.add(btnShuffle);
         middlePanelTop.add(btnPrevious);
         middlePanelTop.add(btnPlay);
         middlePanelTop.add(btnNext);
+
         middlePanelTop.add(btnRepeat);
+
         middletPanelDown.add(playSlider);
+
         rightPanel.add(volumeSlider);
 
         add(leftPanel);
@@ -99,6 +111,42 @@ public class PlayMusicGUI extends JPanel  {
 
         playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player );
 
+    }
+
+    private void setLeftPanelLayout(){
+        leftPanel.setLayout(new GridLayout());
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        leftPanel.add(imageLable,gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        leftPanel.add(displayInformationLable,gbc);
+        gbc2.gridx = 3;
+        gbc2.gridy = 0;
+        gbc2.ipady = 0;
+        gbc2.weighty = 1.0;
+        gbc2.anchor = GridBagConstraints.EAST;
+        gbc2.insets = new Insets(10, 0, 0, 0);
+        junk.setBackground(Color.white);
+        leftPanel.add(junk,gbc2);
+
+        gbc2.gridx = 4;
+        gbc2.gridy = 0;
+        gbc2.ipady = 0;
+        gbc2.weighty = 1.0;
+        gbc2.anchor = GridBagConstraints.EAST;
+        gbc2.insets = new Insets(10, 0, 0, 0);
+        junk2.setBackground(Color.white);
+        leftPanel.add(junk2,gbc2);
+
+        gbc2.gridx = 5;
+        gbc2.gridy = 0;
+        gbc2.ipady = 0;
+        gbc2.weighty = 1.0;
+        gbc2.anchor = GridBagConstraints.EAST;
+        gbc2.insets = new Insets(10, 0, 0, 0);
+        junk3.setBackground(Color.white);
+        leftPanel.add(junk3,gbc2);
     }
 
     public void setSong( Song song ) throws Exception {
