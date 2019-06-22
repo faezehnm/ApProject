@@ -1,15 +1,20 @@
-package home;
+package Network;
 
 import java.util.ArrayList;
 
 public class User {
     private String name ;
     private String password ;
+    private UserState userState ;
     static ArrayList<User> users = new ArrayList<User>();
+    /*
+    shared playlist and last song
+     */
 
-    public User(String name, String password){
+    public User(String name, String password , UserState userState){
         this.name = name ;
         this.password = password ;
+        this.userState = userState ;
     }
 
     public static ArrayList<User> getUsers() {
@@ -24,16 +29,13 @@ public class User {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public UserState getUserState() {
+        return userState;
     }
+
 
 }
