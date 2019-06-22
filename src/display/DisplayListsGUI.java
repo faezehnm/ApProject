@@ -30,7 +30,8 @@ public class DisplayListsGUI extends JScrollPane {
     private JButton createPlaylistButton;
     private JButton finishedCooshingBtn;
     private GridBagConstraints gbc;
-
+    private GridBagConstraints gbc2;
+    private int numberOfPlaylists;
 
     public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception{
         displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
@@ -48,6 +49,7 @@ public class DisplayListsGUI extends JScrollPane {
         setVisible(true);
         GridBagLayout layout = new GridBagLayout();
         gbc = new GridBagConstraints();
+        gbc2 = new GridBagConstraints();
         listsPnl.setLayout(layout);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
@@ -81,24 +83,24 @@ public class DisplayListsGUI extends JScrollPane {
         gbc.gridx = 0;
         gbc.gridy = 3;
         listsPnl.add(playlistlbl, gbc);
-        int counter = 0;
+        numberOfPlaylists = 0;
         if (displayListsControl.getPlaylists().size() != 0) {
             for (PlayList playList : displayListsControl.getPlaylists()) {
                 JButton playlistbtn = new JButton(playList.getPlayListName());
                 setPlaylistButton(playlistbtn, playList);
                 gbc.gridx = 0;
-                gbc.gridy = 4 + counter;
+                gbc.gridy = 4 + numberOfPlaylists;
                 listsPnl.add(playlistbtn, gbc);
-                counter++;
+                numberOfPlaylists++;
             }
         }
-        gbc.gridx = 0;
-        gbc.gridy = 4 + counter;
-        gbc.ipady = 0;       //reset to default
-        gbc.weighty = 1.0;   //request any extra vertical space
-        gbc.anchor = GridBagConstraints.PAGE_END; //bottom of space
-        gbc.insets = new Insets(10, 0, 0, 0);  //top padding
-        listsPnl.add(addNewPlaylist, gbc);
+        gbc2.gridx = 0;
+        gbc2.gridy = 4 + numberOfPlaylists;
+        gbc2.ipady = 0;       //reset to default
+        gbc2.weighty = 1.0;   //request any extra vertical space
+        gbc2.anchor = GridBagConstraints.PAGE_END; //bottom of space
+        gbc2.insets = new Insets(10, 0, 0, 0);  //top padding
+        listsPnl.add(addNewPlaylist, gbc2);
     }
 
 
@@ -180,7 +182,7 @@ public class DisplayListsGUI extends JScrollPane {
                 createPlaylistPanel.add(createPlaylistTextField);
                 createPlaylistPanel.add(createPlaylistButton);
                 listsPnl.remove(addNewPlaylist);
-                listsPnl.add(createPlaylistPanel , gbc);
+                listsPnl.add(createPlaylistPanel , gbc2);
                 mainGUI.revalidate();
                 mainGUI.repaint();
             }
@@ -197,7 +199,7 @@ public class DisplayListsGUI extends JScrollPane {
                     e1.printStackTrace();
                 }
                 listsPnl.remove(createPlaylistPanel);
-                listsPnl.add(finishedCooshingBtn, gbc);
+                listsPnl.add(finishedCooshingBtn, gbc2);
             }
         });
 
@@ -206,7 +208,19 @@ public class DisplayListsGUI extends JScrollPane {
             public void actionPerformed(ActionEvent e) {
                 displayListsControl.clean();
                 listsPnl.remove(finishedCooshingBtn);
-                listsPnl.add(addNewPlaylist , gbc);
+                gbc.gridx = 0;
+                gbc.gridy = numberOfPlaylists + 4;
+                System.out.println(numberOfPlaylists+4);
+                JButton newPlaylist = new JButton(displayListsControl.getPlaylists().get(numberOfPlaylists).getPlayListName());
+                setPlaylistButton(newPlaylist , displayListsControl.getPlaylists().get(numberOfPlaylists));
+                System.out.println(displayListsControl.getPlaylists().get(numberOfPlaylists).getPlayListName());
+                listsPnl.add(newPlaylist , gbc);
+                mainGUI.revalidate();
+                mainGUI.repaint();
+                System.out.println(3);
+                numberOfPlaylists ++;
+                gbc2.gridy = 4 + numberOfPlaylists;
+                listsPnl.add(addNewPlaylist, gbc2);
             }
         });
     }

@@ -41,7 +41,7 @@ public class DisplayListsControl {
         this.addSong(s10);
         Song s11 = new Song("src/songs/Ehaam - Haale Man (128).mp3");
         this.addSong(s11);
-        PlayList p1 = new PlayList("p1");
+       /* PlayList p1 = new PlayList("p1");
         this.playlists.add(p1);
         PlayList p2 = new PlayList("p2");
         this.playlists.add(p2);
@@ -50,7 +50,7 @@ public class DisplayListsControl {
         PlayList p4 = new PlayList("p4");
         this.playlists.add(p4);
         PlayList p5 = new PlayList("p5");
-        this.playlists.add(p5);
+        this.playlists.add(p5);*/
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
     }
@@ -118,7 +118,7 @@ public class DisplayListsControl {
     }
 
     public void setDisplaySongs(ArrayList<Song> songs) throws Exception {
-        DisplaySongs displaySongs = new DisplaySongs(songs, playMusicGUI, true, (PlayList)null);
+        DisplaySongs displaySongs = new DisplaySongs(songs, playMusicGUI, true, (PlayList)null , this);
         this.clean();
         this.displaySongsGroup = displaySongs;
         this.mainGUI.getContentPane().add(this.displaySongsGroup);
@@ -138,7 +138,7 @@ public class DisplayListsControl {
     }
 
     public void setDisplayPlaylist(PlayList playlist, PlayMusicGUI playMusicGUI) throws Exception {
-        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI, true, (PlayList)null);
+        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI, true, (PlayList)null , this);
         this.clean();
         this.displaySongsGroup = displaySongs;
         this.mainGUI.getContentPane().add(this.displaySongsGroup);
@@ -165,12 +165,12 @@ public class DisplayListsControl {
             if (!fileExists) {
                 Song newSong = new Song(songFile.getPath());
                 this.addSong(newSong);
-                updateVersion1(newSong);
+                update(newSong);
             }
         }
     }
 
-    private void updateVersion1(Song song) throws Exception {
+    private void update(Song song) throws Exception {
         if(displaySongsGroup != null){
             if(displaySongsGroup instanceof DisplayAlbumes){
                 setDisplayAlbums();
@@ -185,7 +185,7 @@ public class DisplayListsControl {
     }
 
     public void setSelectSongs(PlayMusicGUI playMusicGUI, PlayList playList) throws Exception {
-        DisplaySongs displaySongs = new DisplaySongs(this.songs, playMusicGUI, false, playList);
+        DisplaySongs displaySongs = new DisplaySongs(this.songs, playMusicGUI, false, playList , this);
         this.clean();
         this.displaySongsGroup = displaySongs;
         this.mainGUI.add(this.displaySongsGroup, "Center");
@@ -201,5 +201,25 @@ public class DisplayListsControl {
             this.displaySongsGroup = null;
         }
 
+    }
+
+    public void replace(Song song) throws Exception {
+        songs.remove(song);
+        songs.add(0 , song);
+        Albume albume = song.getAlbume();
+        albumes.remove(albume);
+        albumes.add(0 , albume);
+        update();
+    }
+
+    private void update() throws Exception {
+        if(displaySongsGroup != null){
+            if(displaySongsGroup instanceof DisplayAlbumes){
+                setDisplayAlbums();
+            }
+            else if(displaySongsGroup.getMusics().size() == songs.size()){
+                setDisplaySongs(songs);
+            }
+        }
     }
 }
