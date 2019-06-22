@@ -21,6 +21,7 @@ public class PlayMusicGUI extends JPanel  {
     private JPanel middlePanelTop = new JPanel() ;
     private JPanel middletPanelDown = new JPanel() ;
     private JLabel displayInformationLable ;
+    private JLabel imageLable ;
 
     private JButton btnPlay ;
     private JButton btnNext ;
@@ -41,6 +42,8 @@ public class PlayMusicGUI extends JPanel  {
     public PlayMusicGUI() throws Exception
     {
         super(new GridLayout(1,3));
+
+        imageLable = new JLabel();
 
         btnPlay = new JButton(imPlay);
         btnNext = new JButton(imNext);
@@ -77,6 +80,8 @@ public class PlayMusicGUI extends JPanel  {
         displayInformationLable.setBackground(Color.white);
         displayInformationLable.setBackground(Color.white);
 
+
+        leftPanel.add(imageLable,BorderLayout.WEST);
         leftPanel.add(displayInformationLable);
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
@@ -103,6 +108,9 @@ public class PlayMusicGUI extends JPanel  {
     }
 
     private void updateSongInformation(){
+        Image resizedImg = song.scaledImage(100, 100);
+        ImageIcon resizedIcon = new ImageIcon(resizedImg);
+        imageLable.setIcon(resizedIcon);
         displayInformationLable.setText("<html>"+song.getMusicName()+"<br>"+song.getAlbumeName()+"<br>"+song.getArtist()+"<html>");
     }
 

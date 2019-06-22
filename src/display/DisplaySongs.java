@@ -30,8 +30,6 @@ public class DisplaySongs extends DisplaySongsGroup {
     public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , boolean playing , PlayList playList , DisplayListsControl displayListsControl) throws Exception{
         super(songArrayList , playMusicGUI);
         this.playing = playing;
-        //System.out.println(this.situation);
-        //System.out.println(situation);
         this.playList = playList;
         this.displayListsControl = displayListsControl;
     }

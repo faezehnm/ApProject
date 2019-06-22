@@ -25,9 +25,8 @@ public class FriendPanel implements ActionListener {
 
         this.friend= friend ;
 
-        //mainPanelUp = new JPanel(new GridLayout(1,2));
-        mainPanel = new JPanel(new GridLayout(2,1,0,0));
-        // mainPanel = new JPanel();
+
+        mainPanel = new JPanel();
         mainPanel.setBackground(Color.white);
         mainPanelUp = new JPanel();
         mainPanelUp.setBackground(Color.white);
@@ -52,8 +51,18 @@ public class FriendPanel implements ActionListener {
         mainPanelUp.add(lastTime) ;
         mainPanelDown.add(songInformaton);
 
-        mainPanel.add(mainPanelUp);
-        mainPanel.add(mainPanelDown);
+
+        GridBagLayout innerLayout = new GridBagLayout();
+        GridBagConstraints innerGbc = new GridBagConstraints();
+        mainPanel.setLayout(innerLayout);
+        mainPanel.setSize(new Dimension(370 , 420));
+        innerGbc.gridx = 0;
+        innerGbc.gridy = 0;
+        mainPanel.add(mainPanelUp,innerGbc);
+        innerGbc.gridx = 0;
+        innerGbc.gridy = 1;
+        mainPanel.add(mainPanelDown,innerGbc);
+
 
     }
 
@@ -89,12 +98,12 @@ public class FriendPanel implements ActionListener {
             jLabel.setText(friend.getLastTimeSongPlaying());
     }
 
-    public JPanel getMainPanel() {
+    public JPanel getMainPanel()
+    {
         return mainPanel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
     }
 }
