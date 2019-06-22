@@ -13,7 +13,7 @@ public class Song extends Music{
 
     private String fileAddress;
     private String albumeName;
-    //private Albume albume;
+    private Albume albume;
     private String artist;
 
 
@@ -48,17 +48,17 @@ public class Song extends Music{
         return albumeName;
     }
 
-   /* public Albume getAlbume(){
+    public Albume getAlbume(){
         return albume;
-    }*/
+    }
 
     public String getArtist(){
         return artist;
     }
 
-    /*public void setAlbume(Albume albume){
+    public void setAlbume(Albume albume){
         this.albume = albume;
-    }*/
+    }
 
     private void setArtwork (byte[] songImage){
         BufferedImage bufferedImage = null;

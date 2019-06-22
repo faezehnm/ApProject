@@ -16,8 +16,9 @@ public class DisplayListsControl {
     private ArrayList<PlayList> playlists = new ArrayList();
     private JPotifyGUI mainGUI;
     private DisplaySongsGroup displaySongsGroup = null;
+    private PlayMusicGUI playMusicGUI;
 
-    public DisplayListsControl(JPotifyGUI mainGUI) throws Exception {
+    public DisplayListsControl(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception {
         Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
         this.addSong(s1);
         Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
@@ -32,8 +33,8 @@ public class DisplayListsControl {
         this.addSong(s6);
         Song s7 = new Song("src/songs/Happier.mp3");
         this.addSong(s7);
-        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
-        this.addSong(s8);
+       // Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
+       // this.addSong(s8);
         Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
         this.addSong(s9);
         Song s10 = new Song("src/songs/Ehaam - Bezan Baran (128).mp3");
@@ -51,11 +52,11 @@ public class DisplayListsControl {
         PlayList p5 = new PlayList("p5");
         this.playlists.add(p5);
         this.mainGUI = mainGUI;
+        this.playMusicGUI = playMusicGUI;
     }
 
     private void addSong(Song s) {
         this.songs.add(s);
-        System.out.println(this.songs.size());
         boolean albumeExists = false;
         Iterator var3 = this.albumes.iterator();
 
@@ -63,6 +64,7 @@ public class DisplayListsControl {
             Albume a = (Albume)var3.next();
             if (a.getName().equals(s.getAlbumeName())) {
                 a.addSong(s);
+                s.setAlbume(a);
                 albumeExists = true;
                 break;
             }
@@ -71,6 +73,7 @@ public class DisplayListsControl {
         if (!albumeExists) {
             Albume albume = new Albume(s, s.getAlbumeName());
             this.addAlbum(albume);
+            s.setAlbume(albume);
         }
 
     }
@@ -114,7 +117,7 @@ public class DisplayListsControl {
         return this.playlists;
     }
 
-    public void setDisplaySongs(ArrayList<Song> songs, PlayMusicGUI playMusicGUI) throws Exception {
+    public void setDisplaySongs(ArrayList<Song> songs) throws Exception {
         DisplaySongs displaySongs = new DisplaySongs(songs, playMusicGUI, true, (PlayList)null);
         this.clean();
         this.displaySongsGroup = displaySongs;
@@ -124,7 +127,7 @@ public class DisplayListsControl {
         this.mainGUI.repaint();
     }
 
-    public void setDisplayAlbums(PlayMusicGUI playMusicGUI) throws Exception {
+    public void setDisplayAlbums() throws Exception {
         DisplayAlbumes displayAlbumes = new DisplayAlbumes(this.albumes, this, playMusicGUI);
         this.clean();
         this.displaySongsGroup = displayAlbumes;
@@ -149,10 +152,10 @@ public class DisplayListsControl {
         File songFile = chooseMusicFrame.getNewSong();
         if (songFile != null) {
             boolean fileExists = false;
-            Iterator var4 = this.songs.iterator();
+            Iterator iterator = this.songs.iterator();
 
-            while(var4.hasNext()) {
-                Song s = (Song)var4.next();
+            while(iterator.hasNext()) {
+                Song s = (Song)iterator.next();
                 if (s.getFileAddress().equals(songFile.getPath())) {
                     fileExists = true;
                     break;
@@ -162,9 +165,23 @@ public class DisplayListsControl {
             if (!fileExists) {
                 Song newSong = new Song(songFile.getPath());
                 this.addSong(newSong);
+                updateVersion1(newSong);
             }
         }
+    }
 
+    private void updateVersion1(Song song) throws Exception {
+        if(displaySongsGroup != null){
+            if(displaySongsGroup instanceof DisplayAlbumes){
+                setDisplayAlbums();
+            }
+            else if(displaySongsGroup.getMusics().size() == songs.size()){
+                setDisplaySongs(songs);
+            }
+            else if(((Song)(displaySongsGroup.getMusics().get(0))).getAlbume().equals(song.getAlbume()) && displaySongsGroup.getMusics().size() == song.getAlbume().getSongs().size()){
+                setDisplaySongs(song.getAlbume().getSongs());
+            }
+        }
     }
 
     public void setSelectSongs(PlayMusicGUI playMusicGUI, PlayList playList) throws Exception {

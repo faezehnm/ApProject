@@ -33,7 +33,7 @@ public class DisplayListsGUI extends JScrollPane {
 
 
     public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception{
-        displayListsControl = new DisplayListsControl(mainGUI);
+        displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
         playlistsbtn = new ArrayList<JButton>();
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
@@ -154,7 +154,7 @@ public class DisplayListsGUI extends JScrollPane {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    displayListsControl.setDisplaySongs(displayListsControl.getSongs() , playMusicGUI);
+                    displayListsControl.setDisplaySongs(displayListsControl.getSongs());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
@@ -164,7 +164,7 @@ public class DisplayListsGUI extends JScrollPane {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    displayListsControl.setDisplayAlbums(playMusicGUI);
+                    displayListsControl.setDisplayAlbums();
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

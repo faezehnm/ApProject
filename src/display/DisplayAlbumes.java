@@ -28,7 +28,7 @@ public class DisplayAlbumes extends DisplaySongsGroup {
             public void actionPerformed(ActionEvent e){
                 System.out.println(":|");
                 try {
-                    displayListsControl.setDisplaySongs(albume.getSongs() , playMusicGUI);
+                    displayListsControl.setDisplaySongs(albume.getSongs());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

@@ -84,11 +84,14 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         lbl.setBorder(greenLIne);
         lbl.setText(music.getName());
         if(music instanceof Song){
-            lbl.setText(lbl.getText() + " " + ((Song) music).getAlbumeName() + " " + ((Song) music).getArtist());
+            lbl.setText(lbl.getText() + "   " + ((Song) music).getAlbumeName() + "   " + ((Song) music).getArtist());
         }
         return lbl;
     }
 
     protected abstract void addActionListeners(JButton btn , Music music) throws Exception;
 
+    public ArrayList<? extends Music> getMusics() {
+        return musics;
+    }
 }
