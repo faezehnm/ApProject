@@ -6,6 +6,9 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ *The PlayMusicGUI provides a variety of features such as music playlists, playback capabilities, music podcasts and streaming music, as well as playback of the next and previous music, as well as music repetition and music overlays.
+ */
 
 public class PlayMusicGUI extends JPanel  {
 
@@ -109,11 +112,12 @@ public class PlayMusicGUI extends JPanel  {
         add(middlePanel);
         add(rightPanel);
 
-        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player );
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this);
 
     }
 
-    private void setLeftPanelLayout(){
+    private void setLeftPanelLayout()
+    {
         leftPanel.setLayout(new GridLayout());
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -149,13 +153,15 @@ public class PlayMusicGUI extends JPanel  {
         leftPanel.add(junk3,gbc2);
     }
 
-    public void setSong( Song song ) throws Exception {
+    public void setSong( Song song ) throws Exception
+    {
         this.song = song ;
         playMusicControl.setSong(song);
         updateSongInformation();
     }
 
-    private void updateSongInformation(){
+    private void updateSongInformation()
+    {
         Image resizedImg = song.scaledImage(100, 100);
         ImageIcon resizedIcon = new ImageIcon(resizedImg);
         imageLable.setIcon(resizedIcon);

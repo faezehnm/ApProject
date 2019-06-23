@@ -3,6 +3,7 @@ package Network;
 import java.io.Serializable;
 
 public class ForServer implements Serializable {
+
     private int type;
     private User user;
 

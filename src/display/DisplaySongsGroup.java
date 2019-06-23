@@ -11,7 +11,7 @@ import music.*;
 public abstract class DisplaySongsGroup extends JScrollPane {
 
     protected JPanel panel;
-    protected ArrayList<? extends Music> musics;
+    protected static ArrayList<? extends Music> musics;
     protected ArrayList<JPanel> musicsPanels;
     protected PlayMusicGUI playMusicGUI;
 
@@ -95,7 +95,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         return musics;
     }
 
-    public Song returnNext(Song song){
+    public static Song returnNext(Song song){
         int index = musics.indexOf(song);
         if(index + 1 != musics.size()) {
             return (Song) musics.get(index + 1);
@@ -105,7 +105,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         }
     }
 
-    public Song returnPrevious(Song song){
+    public static Song returnPrevious(Song song){
         int index = musics.indexOf(song);
         if(index == 0){
             return null;

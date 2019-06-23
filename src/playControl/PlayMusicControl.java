@@ -1,4 +1,5 @@
 package playControl;
+import display.DisplaySongsGroup;
 import javazoom.jl.decoder.JavaLayerException;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class PlayMusicControl implements ActionListener {
+
+    private PlayMusicGUI playMusicGUI ;
 
     private JButton btnPlay ;
     private JButton btnNext ;
@@ -36,9 +39,9 @@ public class PlayMusicControl implements ActionListener {
     private boolean nextSong = false ;
 
 
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player  ) throws Exception {
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ,PlayMusicGUI playMusicGUI ) throws Exception {
 
-
+        this.playMusicGUI= playMusicGUI ;
         this.btnNext=btnNext ;
         this.btnPlay=btnPlay ;
         this.btnPrevious=btnPrevious;
@@ -74,27 +77,22 @@ public class PlayMusicControl implements ActionListener {
         :)
          */
         }
-        if( e.getSource()==btnPrevious){
-            /*
-            :)
-             */
-        }
+        if( e.getSource()==btnPrevious)
+            ctionToButtonPrevious();
+
         if( e.getSource()==btnPlay)
         {
-            if(!nextSong) {
+            if(!nextSong)
                 actionToButtonPlay();
-            }
-            if(nextSong){
+
+            if(nextSong)
                 actionToButtonPlayAnotherSong();
-            }
 
         }
 
-        if( e.getSource()==btnNext){
-            /*
-            :)
-             */
-        }
+        if( e.getSource()==btnNext)
+           actionToButtonNext();
+
         if( e.getSource()==btnRepeat)
             actionToButtonRepeat();
     }
@@ -172,6 +170,22 @@ public class PlayMusicControl implements ActionListener {
             player.setRepeat(false);
             playSlider.setRepeat(false);
             getRepeatButton().setIcon(imRepeat1);
+        }
+    }
+
+    private void actionToButtonNext(){
+        try {
+            playMusicGUI.setSong(DisplaySongsGroup.returnNext(song));
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+    private void ctionToButtonPrevious(){
+        try {
+            playMusicGUI.setSong(DisplaySongsGroup.returnPrevious(song));
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
     }
 
