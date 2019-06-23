@@ -94,4 +94,24 @@ public abstract class DisplaySongsGroup extends JScrollPane {
     public ArrayList<? extends Music> getMusics() {
         return musics;
     }
+
+    public Song returnNext(Song song){
+        int index = musics.indexOf(song);
+        if(index + 1 != musics.size()) {
+            return (Song) musics.get(index + 1);
+        }
+        else{
+            return null;
+        }
+    }
+
+    public Song returnPrevious(Song song){
+        int index = musics.indexOf(song);
+        if(index == 0){
+            return null;
+        }
+        else{
+            return (Song) musics.get(index - 1);
+        }
+    }
 }
