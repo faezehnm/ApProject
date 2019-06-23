@@ -32,6 +32,11 @@ public class DisplayListsGUI extends JScrollPane {
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
     private int numberOfPlaylists;
+    private  JFrame newPlaylistFrame;
+    private JTextField newPlaylistTextField;
+    private JButton createNewPlaylistbtn;
+    private JButton cancelAddingPlaylist;
+
 
     public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception{
         displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
@@ -63,6 +68,14 @@ public class DisplayListsGUI extends JScrollPane {
         ImageIcon image = new ImageIcon("src/Icons/add2.png");
         addNewMusic.setIcon(image);
         addNewPlaylist.setIcon(image);
+        newPlaylistFrame = new JFrame("create new playlist");
+        newPlaylistFrame.setLayout(new GridLayout(3 , 1));
+        newPlaylistTextField = new JTextField();
+        createNewPlaylistbtn = new JButton("create !");
+        cancelAddingPlaylist = new JButton("cancel");
+        newPlaylistFrame.add(newPlaylistTextField);
+        newPlaylistFrame.add(createNewPlaylistbtn);
+        newPlaylistFrame.add(cancelAddingPlaylist);
 
         setSize();
         setColor();
@@ -109,6 +122,9 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setBackground(Color.white);
         createPlaylistPanel.setBackground(Color.WHITE);
         finishedCooshingBtn.setBackground(Color.WHITE);
+        newPlaylistTextField.setBackground(Color.WHITE);
+        createNewPlaylistbtn.setBackground(Color.WHITE);
+        cancelAddingPlaylist.setBackground(Color.WHITE);
     }
 
     private void setBorder(){
@@ -121,6 +137,9 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setBorder(greenLIne);
         createPlaylistPanel.setBorder(greenLIne);
         finishedCooshingBtn.setBorder(greenLIne);
+        createNewPlaylistbtn.setBorder(greenLIne);
+        newPlaylistTextField.setBorder(greenLIne);
+        cancelAddingPlaylist.setBorder(greenLIne);
     }
 
     private void setSize(){
@@ -131,6 +150,10 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setPreferredSize(new Dimension(200 , 100));
         createPlaylistPanel.setPreferredSize(new Dimension(200 , 100));
         finishedCooshingBtn.setPreferredSize(new Dimension(200 , 100));
+        newPlaylistFrame.setSize(new Dimension(200 , 300));
+        newPlaylistTextField.setSize(new Dimension(200 , 100));
+        createNewPlaylistbtn.setSize(new Dimension(200 , 100));
+        cancelAddingPlaylist.setSize(new Dimension(200 , 100));
     }
 
     private void addActionListeners(){
@@ -167,36 +190,37 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JFrame newPlaylistFrame = new JFrame("create new playlist");
-                newPlaylistFrame.setSize(200 , 200);
                 newPlaylistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                newPlaylistFrame.setLayout(new GridLayout(2 , 1));
-                JTextField textField = new JTextField();
-                textField.setEditable(true);
-                textField.setSize(200 , 100);
-                textField.setBackground(Color.WHITE);
-                JButton createNewPlaylistbtn = new JButton("create !");
-                createNewPlaylistbtn.setSize(200 , 100);
-                createNewPlaylistbtn.setBackground(Color.WHITE);
-                newPlaylistFrame.add(textField);
-                newPlaylistFrame.add(createNewPlaylistbtn);
+                newPlaylistTextField.setText("");
+                newPlaylistTextField.setEditable(true);
                 newPlaylistFrame.setVisible(true);
-                createNewPlaylistbtn.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        newPlaylistFrame.setVisible(false);
-                        PlayList playList = displayListsControl.addPlaylist(textField.getText());
-                        try {
-                            displayListsControl.setSelectSongs(playMusicGUI, playList);
-                        } catch (Exception e1) {
-                            e1.printStackTrace();
-                        }
-                        listsPnl.remove(addNewPlaylist);
-                        listsPnl.add(finishedCooshingBtn , gbc2);
-                        mainGUI.revalidate();
-                        mainGUI.repaint();
+            }
+        });
+
+        createNewPlaylistbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(! newPlaylistTextField.getText().equals("")) {
+                    newPlaylistFrame.setVisible(false);
+                    PlayList playList = displayListsControl.addPlaylist(newPlaylistTextField.getText());
+                    try {
+                        displayListsControl.setSelectSongs(playMusicGUI, playList);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
                     }
-                });
+                    listsPnl.remove(addNewPlaylist);
+                    listsPnl.add(finishedCooshingBtn, gbc2);
+                    mainGUI.revalidate();
+                    mainGUI.repaint();
+                }
+            }
+        });
+
+        cancelAddingPlaylist.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newPlaylistTextField.setText("");
+                newPlaylistFrame.setVisible(false);
             }
         });
 
@@ -207,12 +231,9 @@ public class DisplayListsGUI extends JScrollPane {
                 listsPnl.remove(finishedCooshingBtn);
                 gbc.gridx = 0;
                 gbc.gridy = numberOfPlaylists + 4;
-                System.out.println(numberOfPlaylists+4);
                 JButton newPlaylist = new JButton(displayListsControl.getPlaylists().get(numberOfPlaylists).getPlayListName());
                 setPlaylistButton(newPlaylist , displayListsControl.getPlaylists().get(numberOfPlaylists));
-                System.out.println(displayListsControl.getPlaylists().get(numberOfPlaylists).getPlayListName());
                 listsPnl.add(newPlaylist , gbc);
-                System.out.println(3);
                 numberOfPlaylists ++;
                 gbc2.gridy = 4 + numberOfPlaylists;
                 listsPnl.add(addNewPlaylist, gbc2);
@@ -262,18 +283,22 @@ public class DisplayListsGUI extends JScrollPane {
                 public void actionPerformed(ActionEvent e) {
                     JFrame renameFrame = new JFrame("rename");
                     renameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    renameFrame.setLayout(new GridLayout(2 , 1));
+                    renameFrame.setLayout(new GridLayout(3 , 1));
                     renameFrame.setBackground(Color.WHITE);
                     JTextField renameTextField = new JTextField();
-                    renameFrame.setSize(new Dimension(200 , 200));
+                    renameFrame.setSize(new Dimension(300 , 200));
                     renameTextField.setSize(new Dimension(200 , 100));
                     renameTextField.setBackground(Color.WHITE);
                     renameTextField.setEditable(true);
                     JButton done = new JButton("done");
                     done.setBackground(Color.WHITE);
                     done.setSize(200 , 100);
+                    JButton cancel = new JButton("cancel");
+                    cancel.setBackground(Color.WHITE);
+                    cancel.setSize(new Dimension(200 , 100));
                     renameFrame.add(renameTextField);
                     renameFrame.add(done);
+                    renameFrame.add(cancel);
                     renameFrame.setVisible(true);
                     done.addActionListener(new ActionListener() {
                         @Override
@@ -283,6 +308,12 @@ public class DisplayListsGUI extends JScrollPane {
                             renameFrame.setVisible(false);
                             mainGUI.revalidate();
                             mainGUI.repaint();
+                        }
+                    });
+                    cancel.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            renameFrame.setVisible(false);
                         }
                     });
                 }
