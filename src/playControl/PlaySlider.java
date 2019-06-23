@@ -18,8 +18,14 @@ import java.net.URISyntaxException;
 import java.util.Hashtable;
 import static java.lang.Thread.sleep;
 
-
+/**
+ *  PlaySlider of JPotify player
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2018
+ */
 public class PlaySlider extends JPanel implements ChangeListener {
+
     private JSlider jSlider ;
     private int duration=0;
     Hashtable hashtable = new Hashtable();
@@ -32,7 +38,15 @@ public class PlaySlider extends JPanel implements ChangeListener {
     MusicPlayer player ;
     Song song;
 
-
+    /**
+     * creat PlaySlider
+     * @param player player od song that match with playSlider
+     * @throws ReadOnlyFileException
+     * @throws IOException
+     * @throws TagException
+     * @throws InvalidAudioFrameException
+     * @throws CannotReadException
+     */
     public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException
     {
 
@@ -59,6 +73,9 @@ public class PlaySlider extends JPanel implements ChangeListener {
         this.song = song ;
     }
 
+    /**
+     * start moving knob of slider appropriate with music
+     */
     public void play()
     {
         new Thread()
@@ -119,31 +136,50 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
     }
 
-    public void stopForAnotherSong(){
+    /**
+     * actions when music change
+     */
+    public void stopForAnotherSong()
+    {
 
         setStop(true);
         pausedTime=0 ;
 
     }
 
-    private void actionToRepeat(){
+    /**
+     * actions moving knob of slider appropriate with repeat music
+     */
+    private void actionToRepeat()
+    {
         pausedTime = 0;
         jSlider.setValue(0);
         play();
     }
 
+    /**
+     * moving knob of slider appropriate with resume music
+     */
     public void resume()
     {
         setPaused(false);
         play();
     }
 
+    /**
+     * moving knob of slider appropriate with pause music
+     */
     public void pause()
     {
         pausedTime = jSlider.getValue();
         setPaused(true);
     }
 
+    /**
+     * change time from second to minute
+     * @param duration durattion of song
+     * @return string that show time in minute
+     */
     private String getTimeInMinute(int duration)
     {
         String result ;
@@ -171,12 +207,25 @@ public class PlaySlider extends JPanel implements ChangeListener {
         this.stop = stop ;
     }
 
-    public void actionAfterStop(){
+    /**
+     * actions when music stop
+     */
+    public void actionAfterStop()
+    {
         pausedTime=0;
         jSlider.setValue(0);
         setStop(false);
     }
 
+    /**
+     * get time of song
+     * @return time of song in duration
+     * @throws TagException
+     * @throws ReadOnlyFileException
+     * @throws CannotReadException
+     * @throws InvalidAudioFrameException
+     * @throws IOException
+     */
     public int getTime() throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException
     {
 
@@ -186,7 +235,12 @@ public class PlaySlider extends JPanel implements ChangeListener {
         return duration;
     }
 
-    private void manageLableText(int i){
+    /**
+     * update lable of sliders
+     * @param i cuurent situation of slider
+     */
+    private void manageLableText(int i)
+    {
         if (i < 60) {
             if (i < 10)
                 startLable.setText("0:0" + i);
@@ -203,6 +257,14 @@ public class PlaySlider extends JPanel implements ChangeListener {
         }
     }
 
+    /**
+     * update slider information whit new song
+     * @throws ReadOnlyFileException
+     * @throws IOException
+     * @throws TagException
+     * @throws InvalidAudioFrameException
+     * @throws CannotReadException
+     */
     private void updateSlider() throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException {
         duration= getTime();
         jSlider.setMaximum(duration);
@@ -211,6 +273,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
         hashtable.put( 0 , startLable );
         hashtable.put( jSlider.getMaximum() , finishLable);
     }
+
 
     @Override
     public void stateChanged(ChangeEvent e) { }

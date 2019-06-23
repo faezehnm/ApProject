@@ -6,10 +6,13 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-/**
- *The PlayMusicGUI provides a variety of features such as music playlists, playback capabilities, music podcasts and streaming music, as well as playback of the next and previous music, as well as music repetition and music overlays.
- */
 
+/**
+ * PlayMusicGUI display all components that you see in south of JPotift app
+ * @author faezeh naeimi
+ * @version 1.0
+ * @since 2018
+ */
 public class PlayMusicGUI extends JPanel  {
 
     private GridBagConstraints gbc;
@@ -48,7 +51,10 @@ public class PlayMusicGUI extends JPanel  {
     private Border blackline = BorderFactory.createLineBorder(Color.GREEN);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
 
-
+    /**
+     *creat a PlayMusicGUI
+     * @throws Exception if player is null
+     */
     public PlayMusicGUI() throws Exception
     {
         super(new GridLayout(1,3));
@@ -58,27 +64,33 @@ public class PlayMusicGUI extends JPanel  {
         gbc2 = new GridBagConstraints();
 
         imageLable = new JLabel();
-
         btnPlay = new JButton(imPlay);
         btnNext = new JButton(imNext);
         btnPrevious = new JButton(imPrevious);
         btnRepeat = new JButton(imRepeat1);
         btnShuffle = new JButton(imShuffle) ;
+        displayInformationLable = new JLabel() ;
 
-        btnPlay.setPreferredSize(new Dimension(34, 34));
-        btnNext.setPreferredSize(new Dimension(34, 34));
-        btnPrevious.setPreferredSize(new Dimension(34, 34));
-        btnRepeat.setPreferredSize(new Dimension(34, 34));
-        btnShuffle.setPreferredSize(new Dimension(34, 34));
+        setSizeOfButton();
+        setBorderToAll();
+        setBackgroundOfAll();
+        setLeftPanelLayout();
+        setMiddlePanelLayout();
+        setRightPanelLayout();
 
-        btnPlay.setBorder(noline);
-        btnNext.setBorder(noline);
-        btnPrevious.setBorder(noline);
-        btnRepeat.setBorder(noline);
-        btnShuffle.setBorder(noline);
-        setBorder(blackline);
+        add(leftPanel);
+        add(middlePanel);
+        add(rightPanel);
 
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1);
 
+    }
+
+    /**
+     * adjust background of all componets
+     */
+    private void setBackgroundOfAll()
+    {
         btnPlay.setBackground(Color.WHITE);
         btnNext.setBackground(Color.white);
         btnPrevious.setBackground(Color.white);
@@ -88,13 +100,47 @@ public class PlayMusicGUI extends JPanel  {
         rightPanel.setBackground(Color.white);
         middlePanelTop.setBackground(Color.white);
         middletPanelDown.setBackground(Color.white);
-        setBackground(Color.white);
-
-        displayInformationLable = new JLabel() ;
         displayInformationLable.setBackground(Color.white);
+        setBackground(Color.white);
+    }
 
-        setLeftPanelLayout();
+    /**
+     * adjust border of all components
+     */
+    private void setBorderToAll()
+    {
+        btnPlay.setBorder(noline);
+        btnNext.setBorder(noline);
+        btnPrevious.setBorder(noline);
+        btnRepeat.setBorder(noline);
+        btnShuffle.setBorder(noline);
+        setBorder(blackline);
+    }
 
+    /**
+     * adjust size of button
+     */
+    private void setSizeOfButton()
+    {
+        btnPlay.setPreferredSize(new Dimension(34, 34));
+        btnNext.setPreferredSize(new Dimension(34, 34));
+        btnPrevious.setPreferredSize(new Dimension(34, 34));
+        btnRepeat.setPreferredSize(new Dimension(34, 34));
+        btnShuffle.setPreferredSize(new Dimension(34, 34));
+    }
+
+    /**
+     * adjust layout of right panel in PlayMusicGUI
+     */
+    private void setRightPanelLayout(){
+        rightPanel.add(volumeSlider);
+    }
+
+    /**
+     * adjust layout of middle panel in PlayMusicGUI
+     */
+    private void setMiddlePanelLayout()
+    {
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
 
@@ -106,17 +152,11 @@ public class PlayMusicGUI extends JPanel  {
         middlePanelTop.add(btnRepeat);
 
         middletPanelDown.add(playSlider);
-
-        rightPanel.add(volumeSlider);
-
-        add(leftPanel);
-        add(middlePanel);
-        add(rightPanel);
-
-        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1);
-
     }
 
+    /**
+     * adjust layout of left panel in PlayMusicGUI
+     */
     private void setLeftPanelLayout()
     {
         leftPanel.setLayout(new GridLayout());
@@ -154,13 +194,20 @@ public class PlayMusicGUI extends JPanel  {
         leftPanel.add(junk3,gbc2);
     }
 
+    /**
+     * set song ( use when we want to play another music )
+     * @param song a song that we want to play
+     * @throws Exception if song is null
+     */
     public void setSong( Song song ) throws Exception
     {
         this.song = song ;
         playMusicControl.setSong(song);
         updateSongInformation();
     }
-
+    /**
+     * update song information when music change
+     */
     private void updateSongInformation()
     {
         Image resizedImg = song.scaledImage(100, 100);
@@ -169,55 +216,80 @@ public class PlayMusicGUI extends JPanel  {
         displayInformationLable.setText("<html>"+song.getMusicName()+"<br>"+song.getAlbumeName()+"<br>"+song.getArtist()+"<html>");
     }
 
-    public PlayMusicControl getPlayMusicControl(){
-        return playMusicControl ;
-    }
-
+    /**
+     * @return play Button
+     */
     public JButton getPlayButton()
     {
         return btnPlay;
     }
 
+    /**
+     * @return repeat Button
+     */
     public JButton getRepeatButton() {
         return btnRepeat;
     }
 
-    public JButton getBtnPlay() {
-        return btnPlay;
-    }
-
+    /**
+     * @return next Button
+     */
     public JButton getBtnNext() {
         return btnNext;
     }
 
+    /**
+     * @return Previous Button
+     */
     public JButton getBtnPrevious() {
         return btnPrevious;
     }
 
+    /**
+     * @return Repeat Button
+     */
     public JButton getBtnRepeat() {
         return btnRepeat;
     }
 
+    /**
+     * @return Shuffle Button
+     */
     public JButton getBtnShuffle() {
         return btnShuffle;
     }
 
+    /**
+     * @return image of play button
+     */
     public ImageIcon getImPlay() {
         return imPlay;
     }
 
+    /**
+     * @return image of Previous button
+     */
     public ImageIcon getImPrevious() {
         return imPrevious;
     }
 
+    /**
+     * @return image of Repeat button
+     */
     public ImageIcon getImRepeat() {
         return imRepeat;
     }
 
+    /**
+     * @return  image of Repeat button when it is on reoeat state
+     */
     public ImageIcon getImRepeat1() {
         return imRepeat1;
     }
 
+    /**
+     * @return image of pause button
+     */
     public ImageIcon getImPause() {
         return imPause;
     }
