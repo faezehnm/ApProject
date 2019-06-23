@@ -15,6 +15,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * PlayMusicControl controll all components that use in PlayMusicGUI
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2018
+ */
 public class PlayMusicControl implements ActionListener {
 
     private PlayMusicGUI playMusicGUI ;
@@ -41,8 +47,26 @@ public class PlayMusicControl implements ActionListener {
     private boolean firstTime=true;
     private boolean changeSong = false ;
 
-
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ,PlayMusicGUI playMusicGUI ,ImageIcon imShuffle ,ImageIcon imShuffle1) throws Exception {
+    /**
+     * creat PlayMusicControl
+     * @param btnPlay for play and pause music
+     * @param btnNext for play next music
+     * @param btnPrevious for play previous music
+     * @param btnRepeat for repeat current music
+     * @param btnShuffle for play a random music
+     * @param imPause image of btnPlay when music is paused
+     * @param imPlay image of btnPlay when music is resumed
+     * @param imRepeat image of btnPlay when a song is repeating
+     * @param imRepeat1 image of btnPlay when a song is not repeating
+     * @param playSlider slider to show music progress when playing
+     * @param player provids play,pause,stop,skip & resume music
+     * @param playMusicGUI GUI of all component that you see in south of JPotify app
+     * @param imShuffle image of btnPlay when no shuffle
+     * @param imShuffle1 image of btnPlay when shuffle
+     * @throws Exception if player is null
+     */
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ,PlayMusicGUI playMusicGUI ,ImageIcon imShuffle ,ImageIcon imShuffle1) throws Exception
+    {
 
         this.playMusicGUI= playMusicGUI ;
         this.btnNext=btnNext ;
@@ -69,14 +93,24 @@ public class PlayMusicControl implements ActionListener {
 
     }
 
-    public void setSong(Song song ) {
+    /**
+     * set song( use when current song change)
+     * @param song a song that is playing
+     */
+    public void setSong(Song song )
+    {
         this.song = song ;
         actionToPlayerAnotherSong();
         actionToPlaySliderAnotherSong();
     }
 
+    /**
+     * handle action listener of all buttons
+     * @param e click on button
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if( e.getSource()==btnShuffle){
             actionToButtonShuffle();
         /*
@@ -117,6 +151,9 @@ public class PlayMusicControl implements ActionListener {
         return btnShuffle;
     }
 
+    /**
+     * all actions that should happen when click on play button
+     */
     private void actionToButtonPlay()
     {
 
@@ -163,6 +200,9 @@ public class PlayMusicControl implements ActionListener {
 
     }
 
+    /**
+     * all actions that should happen when click on play button and music is changed
+     */
     private void actionToButtonPlayAnotherSong()
     {
         setchangeSong(false);
@@ -172,6 +212,9 @@ public class PlayMusicControl implements ActionListener {
         actionToButtonPlay();
     }
 
+    /**
+     * all actions that should happen when click on repeat button
+     */
     private void actionToButtonRepeat()
     {
 
@@ -187,6 +230,9 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
+    /**
+     * all actions that should happen when click on shuffle button
+     */
     private void actionToButtonShuffle()
     {
         if( player.getShuffle()== false ){
@@ -205,6 +251,9 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
+    /**
+     * all actions that should happen when click on next button
+     */
     private void actionToButtonNext()
     {
         try {
@@ -214,6 +263,9 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
+    /**
+     * all actions that should happen when click on Previous button
+     */
     private void ctionToButtonPrevious()
     {
         try {
@@ -223,12 +275,18 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
+    /**
+     * all actions which refrence to player that should happen when click on play button and song is changed
+     */
     private void actionToPlayerAnotherSong()
     {
         player.stop();
         setchangeSong(true);
     }
 
+    /**
+     * all actions which refrence to playeSlider and should happen when click on play button and song is changed
+     */
     private void actionToPlaySliderAnotherSong()
     {
 
@@ -238,6 +296,10 @@ public class PlayMusicControl implements ActionListener {
 
     }
 
+    /**
+     * set when song changed
+     * @param nextSong a boolean that show a song is changed
+     */
     public void setchangeSong(boolean nextSong)
     {
         this.changeSong = nextSong;
