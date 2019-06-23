@@ -7,6 +7,8 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import music.*;
 
@@ -200,6 +202,8 @@ public class DisplayListsGUI extends JScrollPane {
                 }
                 listsPnl.remove(createPlaylistPanel);
                 listsPnl.add(finishedCooshingBtn, gbc2);
+                mainGUI.revalidate();
+                mainGUI.repaint();
             }
         });
 
@@ -215,12 +219,12 @@ public class DisplayListsGUI extends JScrollPane {
                 setPlaylistButton(newPlaylist , displayListsControl.getPlaylists().get(numberOfPlaylists));
                 System.out.println(displayListsControl.getPlaylists().get(numberOfPlaylists).getPlayListName());
                 listsPnl.add(newPlaylist , gbc);
-                mainGUI.revalidate();
-                mainGUI.repaint();
                 System.out.println(3);
                 numberOfPlaylists ++;
                 gbc2.gridy = 4 + numberOfPlaylists;
                 listsPnl.add(addNewPlaylist, gbc2);
+                mainGUI.revalidate();
+                mainGUI.repaint();
             }
         });
     }
@@ -238,6 +242,60 @@ public class DisplayListsGUI extends JScrollPane {
                 }
             }
         });
+        if(playList.getPlaylistSituation().equals(PlaylistSituation.TEMPORARY)){
+            JPopupMenu popupMenu = new JPopupMenu();
+            JMenuItem delet = new JMenuItem("delet");
+            JMenuItem rename = new JMenuItem("rename");
+            popupMenu.add(delet);
+            popupMenu.add(rename);
+            playlistbtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    if(e.getButton() == MouseEvent.BUTTON3){
+                        popupMenu.show(playlistbtn , e.getX() , e.getY());
+                    }
+                }
+            });
+            delet.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    displayListsControl.deletPlaylist(playList);
+                    listsPnl.remove(playlistbtn);
+                    mainGUI.revalidate();
+                    mainGUI.repaint();
+                }
+            });
+            rename.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFrame renameFrame = new JFrame("rename playlist");
+                    renameFrame.setSize(200 , 200);
+                    renameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    renameFrame.setLayout(new GridLayout(2 , 1));
+                    JTextField textField = new JTextField();
+                    textField.setEditable(true);
+                    textField.setSize(200 , 100);
+                    textField.setBackground(Color.WHITE);
+                    JButton done = new JButton("done");
+                    done.setBackground(Color.WHITE);
+                    done.setSize(200 , 100);
+                    renameFrame.add(textField);
+                    renameFrame.add(done);
+                    renameFrame.setVisible(true);
+                    done.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            playList.setPlayListName(textField.getText());
+                            playlistbtn.setText(textField.getText());
+                            renameFrame.setVisible(false);
+                            mainGUI.revalidate();
+                            mainGUI.repaint();
+                        }
+                    });
+                }
+            });
+        }
         playlistbtn.setBackground(Color.WHITE);
         Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
         playlistbtn.setBorder(greenLIne);

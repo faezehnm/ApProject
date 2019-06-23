@@ -23,17 +23,15 @@ public class DisplaySongs extends DisplaySongsGroup {
 
     private DisplaySongsSituation displaySongsSituation;
     private PlayList playList;
-    private String situation;
-    private boolean playing;
     private DisplayListsControl displayListsControl;
 
-    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , boolean playing , PlayList playList , DisplayListsControl displayListsControl) throws Exception{
+    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation) throws Exception{
         super(songArrayList , playMusicGUI);
-        this.playing = playing;
         //System.out.println(this.situation);
         //System.out.println(situation);
         this.playList = playList;
         this.displayListsControl = displayListsControl;
+        this.displaySongsSituation = displaySongsSituation;
     }
 
 
@@ -43,7 +41,7 @@ public class DisplaySongs extends DisplaySongsGroup {
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(playing){
+                if(displaySongsSituation.equals(PLAYING)){
                     try {
                         playMusicGUI.setSong(song);
                         displayListsControl.replace(song);

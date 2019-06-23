@@ -1,9 +1,6 @@
 package display;
 
-import music.Song;
-import music.Albume;
-import music.PlayList;
-import music.Music;
+import music.*;
 import home.JPotifyGUI;
 import java.io.File;
 import java.util.ArrayList;
@@ -33,26 +30,17 @@ public class DisplayListsControl {
         this.addSong(s6);
         Song s7 = new Song("src/songs/Happier.mp3");
         this.addSong(s7);
-       // Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
-       // this.addSong(s8);
+        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
+        this.addSong(s8);
         Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
         this.addSong(s9);
         Song s10 = new Song("src/songs/Ehaam - Bezan Baran (128).mp3");
         this.addSong(s10);
         Song s11 = new Song("src/songs/Ehaam - Haale Man (128).mp3");
         this.addSong(s11);
-       /* PlayList p1 = new PlayList("p1");
-        this.playlists.add(p1);
-        PlayList p2 = new PlayList("p2");
-        this.playlists.add(p2);
-        PlayList p3 = new PlayList("p3");
-        this.playlists.add(p3);
-        PlayList p4 = new PlayList("p4");
-        this.playlists.add(p4);
-        PlayList p5 = new PlayList("p5");
-        this.playlists.add(p5);*/
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
+        setPermanentPlaylists();
     }
 
     private void addSong(Song s) {
@@ -83,12 +71,12 @@ public class DisplayListsControl {
     }
 
     public PlayList addPlaylist(String playlistName) {
-        PlayList playList = new PlayList(playlistName);
+        PlayList playList = new PlayList(playlistName , PlaylistSituation.TEMPORARY);
         this.playlists.add(playList);
         return playList;
     }
 
-    public void addSongToPlaylist(Song song, PlayList playList) {
+   /* public void addSongToPlaylist(Song song, PlayList playList) {
         Iterator var3 = this.playlists.iterator();
 
         while(var3.hasNext()) {
@@ -99,7 +87,7 @@ public class DisplayListsControl {
             }
         }
 
-    }
+    }*/
 
     public void removePlaylist(PlayList pl) {
         this.playlists.remove(pl);
@@ -118,7 +106,7 @@ public class DisplayListsControl {
     }
 
     public void setDisplaySongs(ArrayList<Song> songs) throws Exception {
-        DisplaySongs displaySongs = new DisplaySongs(songs, playMusicGUI, true, (PlayList)null , this);
+        DisplaySongs displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING);
         this.clean();
         this.displaySongsGroup = displaySongs;
         this.mainGUI.getContentPane().add(this.displaySongsGroup);
@@ -138,7 +126,7 @@ public class DisplayListsControl {
     }
 
     public void setDisplayPlaylist(PlayList playlist, PlayMusicGUI playMusicGUI) throws Exception {
-        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI, true, (PlayList)null , this);
+        DisplaySongs displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , (PlayList)null , this , DisplaySongsSituation.PLAYING);
         this.clean();
         this.displaySongsGroup = displaySongs;
         this.mainGUI.getContentPane().add(this.displaySongsGroup);
@@ -185,7 +173,7 @@ public class DisplayListsControl {
     }
 
     public void setSelectSongs(PlayMusicGUI playMusicGUI, PlayList playList) throws Exception {
-        DisplaySongs displaySongs = new DisplaySongs(this.songs, playMusicGUI, false, playList , this);
+        DisplaySongs displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION);
         this.clean();
         this.displaySongsGroup = displaySongs;
         this.mainGUI.add(this.displaySongsGroup, "Center");
@@ -222,4 +210,16 @@ public class DisplayListsControl {
             }
         }
     }
+
+    private void setPermanentPlaylists(){
+        PlayList share = new PlayList("Shared Playlist" , PlaylistSituation.PERMANENT);
+        PlayList favorate = new PlayList("Favorate Songs" , PlaylistSituation.PERMANENT);
+        playlists.add(share);
+        playlists.add(favorate);
+    }
+
+    public void deletPlaylist(PlayList playList){
+        playlists.remove(playList);
+    }
+
 }

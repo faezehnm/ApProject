@@ -8,9 +8,11 @@ public class PlayList {
 
     private String playListName;
     private ArrayList<Song> songs;
+    private PlaylistSituation playlistSituation;
 
-    public PlayList(String playListName){
+    public PlayList(String playListName , PlaylistSituation playlistSituation){
         this.playListName = playListName;
+        this.playlistSituation = playlistSituation;
         songs = new ArrayList<Song>();
     }
 
@@ -37,4 +39,13 @@ public class PlayList {
     /*public int getNumberOfSongs(){
         return songs.size();
     }*/
+
+    public PlaylistSituation getPlaylistSituation() {
+        return playlistSituation;
+    }
+
+    public void setPlayListName(String name){
+        playListName = name;
+    }
+
 }

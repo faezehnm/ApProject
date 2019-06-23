@@ -1,6 +1,7 @@
 package display;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
@@ -16,7 +17,10 @@ public class ChooseMusicFrame {
     public ChooseMusicFrame() {
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         fileChooser.setDialogTitle("add a new mp3 file to your library");
-        int returnValue = fileChooser.showSaveDialog(null);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("mp3 files", "mp3");
+        fileChooser.addChoosableFileFilter(filter);
+        int returnValue = fileChooser.showDialog(null, "open");
         if (returnValue == JFileChooser.APPROVE_OPTION){
             if(fileChooser.getSelectedFile().isFile()){
                 newSong = fileChooser.getSelectedFile();
