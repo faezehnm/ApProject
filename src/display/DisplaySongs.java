@@ -23,12 +23,13 @@ public class DisplaySongs extends DisplaySongsGroup {
 
     private DisplaySongsSituation displaySongsSituation;
     private PlayList playList;
+    private String situation;
+    private boolean playing;
     private DisplayListsControl displayListsControl;
 
     public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation) throws Exception{
         super(songArrayList , playMusicGUI);
-        //System.out.println(this.situation);
-        //System.out.println(situation);
+        this.playing = playing;
         this.playList = playList;
         this.displayListsControl = displayListsControl;
         this.displaySongsSituation = displaySongsSituation;

@@ -1,5 +1,7 @@
 package Network;
 
-public enum UserState {
+import java.io.Serializable;
+
+public enum UserState implements Serializable {
     ME , FRIEND ;
 }

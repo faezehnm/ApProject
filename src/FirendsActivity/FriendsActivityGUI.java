@@ -4,6 +4,7 @@ import home.JPotifyGUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FriendsActivityGUI extends JScrollPane implements ActionListener {
+
+    private GridBagConstraints gbc;
+    private GridBagConstraints gbc2;
+    private JPanel junk = new JPanel();
+    private Border noline = new EmptyBorder(10, 10, 10, 10);
 
     private JPanel mainPanel;
     private ArrayList<FriendPanel> friendsPanel = new ArrayList<FriendPanel>();
@@ -24,8 +30,13 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
 
     public FriendsActivityGUI(JPotifyGUI gui)
     {
+        gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc2 = new GridBagConstraints();
+        GridBagLayout layout = new GridBagLayout();
 
-        mainPanel = new JPanel(new GridLayout(0,1));
+        mainPanel = new JPanel();
+        mainPanel.setLayout(layout);
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setVisible(true);
@@ -36,7 +47,14 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
         topPanel = new JPanel();
         topPanel.add(jLabel);
         topPanel.add(btnAddFriend) ;
-        mainPanel.add(topPanel);
+        jLabel.setBackground(Color.white);
+        btnAddFriend.setBackground(Color.white);
+        btnAddFriend.setBorder(noline);
+        topPanel.setBackground(Color.white);
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        mainPanel.add(topPanel,gbc);
 
 
     }
@@ -51,11 +69,22 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener {
 
     private void addFriendsPanel()
     {
+
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
-            mainPanel.add(friendsPanel.get(i).getMainPanel());
+            gbc.gridx = 0;
+            gbc.gridy = 1 + i ;
+            mainPanel.add(friendsPanel.get(i).getMainPanel(),gbc);
             Border blueline = BorderFactory.createLineBorder(Color.CYAN.brighter());
             friendsPanel.get(i).getMainPanel().setBorder(blueline);
         }
+        gbc2.gridx = 0;
+        gbc2.gridy = 1+friendsPanel.size();
+        gbc2.ipady = 0;
+        gbc2.weighty = 1.0;
+        gbc2.anchor = GridBagConstraints.PAGE_END;
+        gbc2.insets = new Insets(10, 0, 0, 0);
+        mainPanel.add(junk,gbc2);
+
     }
 
     public void removeFrendsPanel(){

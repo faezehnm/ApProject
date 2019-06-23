@@ -105,7 +105,6 @@ public class DisplayListsGUI extends JScrollPane {
         listsPnl.add(addNewPlaylist, gbc2);
     }
 
-
     private void setColor(){
         songsbutton.setBackground(Color.white);
         albumebutton.setBackground(Color.white);
@@ -228,8 +227,6 @@ public class DisplayListsGUI extends JScrollPane {
             }
         });
     }
-
-
 
     private void setPlaylistButton(JButton playlistbtn , PlayList playList){
         playlistbtn.addActionListener(new ActionListener() {
