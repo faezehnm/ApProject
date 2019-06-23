@@ -1,20 +1,32 @@
 package VolumeControl;
 
+import com.sun.media.jfxmedia.Media;
+import music.Song;
+
+import javax.sound.sampled.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedList;
 
 public class VolumeSlider extends JPanel implements ChangeListener {
-    JSlider jSlider = new JSlider() ;
+    private JSlider jSlider;
     private ImageIcon imSpeaker0 =new ImageIcon("src/Icons/speaker0.png");
     private ImageIcon imSpeaker1 =new ImageIcon("src/Icons/speaker1.png");
     private ImageIcon imSpeaker2 =new ImageIcon("src/Icons/speaker2.png");
     private ImageIcon imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
-    JLabel jLabel = new JLabel();
+    private JLabel jLabel = new JLabel();
 
     public VolumeSlider()
     {
+        jSlider = new JSlider(JSlider.HORIZONTAL , 0 , 100 , 50);
+        jSlider.setMajorTickSpacing(50);
+        jSlider.setPaintTicks(true);
+        jSlider.setForeground(Color.CYAN);
         jLabel.setIcon(imSpeaker3);
         add(jLabel);
         add(jSlider);
@@ -27,6 +39,19 @@ public class VolumeSlider extends JPanel implements ChangeListener {
     @Override
     public void stateChanged(ChangeEvent e)
     {
+        Line.Info source = Port.Info.SPEAKER;
+        if(AudioSystem.isLineSupported(source)){
+            try {
+                Port outline = (Port) AudioSystem.getLine(source);
+                outline.open();
+                FloatControl volumeControl = (FloatControl) outline.getControl(FloatControl.Type.VOLUME);
+                volumeControl.setValue((float)jSlider.getValue() / 100);
+            } catch (LineUnavailableException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+
         updateImage();
     }
 
@@ -58,4 +83,7 @@ public class VolumeSlider extends JPanel implements ChangeListener {
             jLabel.setIcon(imSpeaker3);
 
     }
+    private static float limit(FloatControl control,float level)
+    { return Math.min(control.getMaximum(), Math.max(control.getMinimum(), level)); }
+
 }
