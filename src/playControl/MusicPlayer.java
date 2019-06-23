@@ -7,7 +7,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-
+/**
+ *  MusicPlayer provides a variety of features such as play,pause,resume,skip,stop & repeat music
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2018
+ */
 public class MusicPlayer {
 
     private FileInputStream is;
@@ -19,6 +24,14 @@ public class MusicPlayer {
     private long totalSongLength;
     private String musicFilePath;
 
+    /**
+     * play a song
+     * @param musicFilePath song's path that we want to play
+     * @throws FileNotFoundException if file of song not find
+     * @throws JavaLayerException all exceptions depend on jlayer
+     * @throws IOException for song's file
+     * @throws URISyntaxException for musicPlayer
+     */
     public void play( String musicFilePath ) throws FileNotFoundException, JavaLayerException, IOException, URISyntaxException
     {
 
@@ -58,6 +71,13 @@ public class MusicPlayer {
 
     }
 
+    /**
+     * resume a paused song
+     * @throws FileNotFoundException if file of song not find
+     * @throws JavaLayerException all exceptions depend on jlayer
+     * @throws IOException
+     * @throws URISyntaxException
+     */
     public void resume( ) throws FileNotFoundException, JavaLayerException, IOException, URISyntaxException
     {
 
@@ -91,6 +111,9 @@ public class MusicPlayer {
 
     }
 
+    /**
+     * close player and stop playing music
+     */
     public void stop()
     {
         paused = false;
@@ -105,6 +128,9 @@ public class MusicPlayer {
 
     }
 
+    /**
+     * pause music
+     */
     public void pause()
     {
 
@@ -125,6 +151,14 @@ public class MusicPlayer {
 
     }
 
+    /**
+     * skip song when situtaion of playSlider's knob change.
+     * @param duration durattion of song
+     * @param currentTime knob situation after skip
+     * @throws URISyntaxException
+     * @throws IOException
+     * @throws JavaLayerException( all exceptions depend on jlayer)
+     */
     public void skip(int duration , int currentTime) throws URISyntaxException, IOException, JavaLayerException
     {
         pause();
@@ -134,6 +168,12 @@ public class MusicPlayer {
         resume();
     }
 
+    /**
+     * change long of skip from second into byte for inputStream
+     * @param duration durattion of song
+     * @param currentTime knob situation after skip
+     * @return
+     */
     public Long getLengthInStream(int duration,int currentTime)
     {
 
@@ -142,6 +182,10 @@ public class MusicPlayer {
 
     }
 
+    /**
+     * if reapet button listen
+     * @return a boolean that show is in repeat state or not
+     */
     public boolean isRepeat() {
         return repeat;
     }
@@ -170,6 +214,10 @@ public class MusicPlayer {
         this.paused = paused;
     }
 
+    /**
+     * if player complet
+     * @return boolean from a method in Player class that show player is compelete or not
+     */
     public boolean isCompeletIn(){
         return player.isComplete();
     }
