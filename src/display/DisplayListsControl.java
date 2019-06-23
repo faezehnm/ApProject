@@ -76,18 +76,16 @@ public class DisplayListsControl {
         return playList;
     }
 
-   /* public void addSongToPlaylist(Song song, PlayList playList) {
-        Iterator var3 = this.playlists.iterator();
-
-        while(var3.hasNext()) {
-            PlayList p = (PlayList)var3.next();
-            if (p.equals(playList)) {
-                p.addSong(song);
+    public void addSongToPlaylist(Song song, String playListName) {
+        for(PlayList playList : playlists){
+            if(playList.getPlayListName().equals(playListName)){
+                if(! playList.getSongs().contains(song)){
+                    playList.addSong(song);
+                }
                 break;
             }
         }
-
-    }*/
+    }
 
     public void removePlaylist(PlayList pl) {
         this.playlists.remove(pl);
@@ -213,7 +211,7 @@ public class DisplayListsControl {
 
     private void setPermanentPlaylists(){
         PlayList share = new PlayList("Shared Playlist" , PlaylistSituation.PERMANENT);
-        PlayList favorate = new PlayList("Favorate Songs" , PlaylistSituation.PERMANENT);
+        PlayList favorate = new PlayList("Favorite Songs" , PlaylistSituation.PERMANENT);
         playlists.add(share);
         playlists.add(favorate);
     }
