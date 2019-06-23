@@ -28,6 +28,9 @@ public class PlayMusicControl implements ActionListener {
     private ImageIcon imPlay ;
     private ImageIcon imRepeat ;
     private ImageIcon imRepeat1 ;
+    private ImageIcon imShuffle ;
+    private ImageIcon imShuffle1 ;
+
 
     private MusicPlayer player = new MusicPlayer();
     private PlaySlider playSlider = new PlaySlider(player);
@@ -36,10 +39,10 @@ public class PlayMusicControl implements ActionListener {
     private int pausedOnFrame = 0;
     private boolean isItPlaying=false;
     private boolean firstTime=true;
-    private boolean nextSong = false ;
+    private boolean changeSong = false ;
 
 
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ,PlayMusicGUI playMusicGUI ) throws Exception {
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ,PlayMusicGUI playMusicGUI ,ImageIcon imShuffle ,ImageIcon imShuffle1) throws Exception {
 
         this.playMusicGUI= playMusicGUI ;
         this.btnNext=btnNext ;
@@ -51,6 +54,8 @@ public class PlayMusicControl implements ActionListener {
         this.imPlay = imPlay ;
         this.imRepeat= imRepeat ;
         this.imRepeat1 = imRepeat1 ;
+        this.imShuffle= imShuffle ;
+        this.imShuffle1 = imShuffle1 ;
         this.playSlider=playSlider ;
         this.player=player ;
 
@@ -73,6 +78,7 @@ public class PlayMusicControl implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if( e.getSource()==btnShuffle){
+            actionToButtonShuffle();
         /*
         :)
          */
@@ -82,12 +88,11 @@ public class PlayMusicControl implements ActionListener {
 
         if( e.getSource()==btnPlay)
         {
-            if(!nextSong)
+            if(!changeSong)
                 actionToButtonPlay();
 
-            if(nextSong)
+            if(changeSong)
                 actionToButtonPlayAnotherSong();
-
         }
 
         if( e.getSource()==btnNext)
@@ -107,7 +112,13 @@ public class PlayMusicControl implements ActionListener {
         return btnRepeat;
     }
 
-    private void actionToButtonPlay(){
+    public JButton getBtnShuffle()
+    {
+        return btnShuffle;
+    }
+
+    private void actionToButtonPlay()
+    {
 
         if (!isItPlaying) {
             getPlayButton().setIcon(imPause);
@@ -152,15 +163,18 @@ public class PlayMusicControl implements ActionListener {
 
     }
 
-    private void actionToButtonPlayAnotherSong(){
-        setNextSong(false);
+    private void actionToButtonPlayAnotherSong()
+    {
+        setchangeSong(false);
         isItPlaying = false ;
         firstTime = true ;
         playSlider.actionAfterStop();
         actionToButtonPlay();
     }
 
-    private void actionToButtonRepeat(){
+    private void actionToButtonRepeat()
+    {
+
         if( player.getRepeat()==false) {
             player.setRepeat(true);
             playSlider.setRepeat(true);
@@ -173,7 +187,26 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
-    private void actionToButtonNext(){
+    private void actionToButtonShuffle()
+    {
+        if( player.getShuffle()== false ){
+            player.setShuffle(true);
+            getBtnShuffle().setIcon(imShuffle1);
+            try {
+                playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if( player.getShuffle()== true ){
+            player.setShuffle(false);
+            getBtnShuffle().setIcon(imShuffle);
+        }
+    }
+
+    private void actionToButtonNext()
+    {
         try {
             playMusicGUI.setSong(DisplaySongsGroup.returnNext(song));
         } catch (Exception e1) {
@@ -181,7 +214,8 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
-    private void ctionToButtonPrevious(){
+    private void ctionToButtonPrevious()
+    {
         try {
             playMusicGUI.setSong(DisplaySongsGroup.returnPrevious(song));
         } catch (Exception e1) {
@@ -189,12 +223,14 @@ public class PlayMusicControl implements ActionListener {
         }
     }
 
-    private void actionToPlayerAnotherSong(){
+    private void actionToPlayerAnotherSong()
+    {
         player.stop();
-        setNextSong(true);
+        setchangeSong(true);
     }
 
-    private void actionToPlaySliderAnotherSong(){
+    private void actionToPlaySliderAnotherSong()
+    {
 
         playSlider.setSong(song);
         playSlider.stopForAnotherSong();
@@ -202,8 +238,8 @@ public class PlayMusicControl implements ActionListener {
 
     }
 
-    public void setNextSong(boolean nextSong)
+    public void setchangeSong(boolean nextSong)
     {
-        this.nextSong = nextSong;
+        this.changeSong = nextSong;
     }
 }

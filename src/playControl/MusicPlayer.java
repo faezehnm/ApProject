@@ -1,5 +1,6 @@
 package playControl;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
@@ -11,7 +12,8 @@ public class MusicPlayer {
 
     private FileInputStream is;
     private Player player;
-    private boolean repeat=false;
+    private boolean repeat = false;
+    private boolean shuffle = false ;
     private boolean paused;
     private long pauseLocation;
     private long totalSongLength;
@@ -150,6 +152,14 @@ public class MusicPlayer {
 
     public boolean getRepeat() {
         return repeat;
+    }
+
+    public boolean getShuffle(){
+        return shuffle ;
+    }
+
+    public void setShuffle(boolean shuffle){
+        this.shuffle = shuffle ;
     }
 
     public boolean isPaused() {

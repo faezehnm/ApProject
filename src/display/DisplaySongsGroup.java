@@ -122,7 +122,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         int random;
         do{
              random = rand.nextInt(musics.size());
-        }while (random != musics.indexOf(song));
+        }while (random == musics.indexOf(song));
         return (Song) musics.get(random);
     }
 }

@@ -42,8 +42,9 @@ public class PlayMusicGUI extends JPanel  {
     private ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
     private ImageIcon imRepeat =new ImageIcon("src/Icons/repeat.png");
     private ImageIcon imRepeat1 =new ImageIcon("src/Icons/repeat1.png");
-    private ImageIcon imShuffle =new ImageIcon("src/Icons/shuffle.png");
     private ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
+    private ImageIcon imShuffle = new ImageIcon("src/Icons/shuffle-arrows.png"); ;
+    private ImageIcon imShuffle1 =new ImageIcon("src/Icons/shuffle1.png");
     private Border blackline = BorderFactory.createLineBorder(Color.GREEN);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
 
@@ -112,7 +113,7 @@ public class PlayMusicGUI extends JPanel  {
         add(middlePanel);
         add(rightPanel);
 
-        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this);
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1);
 
     }
 
