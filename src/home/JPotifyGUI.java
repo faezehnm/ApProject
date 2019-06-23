@@ -32,7 +32,7 @@ public class JPotifyGUI extends JFrame {
         setIconImage(icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        playMusicGUI.setSong(song);
+
         add(playMusicGUI,BorderLayout.PAGE_END);
 
         getContentPane().add(displayListsGUI);
