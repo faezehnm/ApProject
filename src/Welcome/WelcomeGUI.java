@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class WelcomeGUI extends JFrame implements ActionListener{
 
-    private Network network ;
 
     private static final int WIDTH = 500 , HEIGHT = 200;
     private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");
@@ -41,19 +40,18 @@ public class WelcomeGUI extends JFrame implements ActionListener{
         logIn.addActionListener(this);
         add(logIn);
 
-        network = new Network();
 
     }
 
     private void actionToLogin()
     {
-        logInGUI = new LogInGUI(network);
+        logInGUI = new LogInGUI();
         setVisible(false);
     }
 
     private void actionToSignup()
     {
-        signUpGUI = new SignUpGUI(network);
+        signUpGUI = new SignUpGUI();
         setVisible(false);
     }
 

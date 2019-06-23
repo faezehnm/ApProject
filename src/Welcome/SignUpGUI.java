@@ -14,10 +14,9 @@ public class SignUpGUI extends GoToJPotiy {
     private ForServer signUpRequest ;
     private ForServer fromServer;
 
-    public SignUpGUI(Network network)
+    public SignUpGUI()
     {
         super();
-        this.network = network ;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class SignUpGUI extends GoToJPotiy {
     {
         User.addUser(user);
         signUpRequest = new ForServer(0,user);
-        network.sendFile(signUpRequest);
+        network = new Network(signUpRequest);
 
         fromServer = (ForServer) network.getInputStream().readObject();
         if( fromServer.getType()==1 ){

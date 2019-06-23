@@ -3,6 +3,7 @@ package Network;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class Network implements Runnable{
@@ -13,17 +14,22 @@ public class Network implements Runnable{
     private ObjectOutputStream outStream;
     private ObjectInputStream inputStream;
 
-    public Network() throws IOException
+    public Network(ForServer forServer) throws IOException
     {
 
         client = new Socket(serverName, port);
         outStream = new ObjectOutputStream(client.getOutputStream());
+        outStream.writeObject(forServer);
+//
+//        OutputStream outputStream = client.getOutputStream();
+//        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
     }
 
     public void sendFile(ForServer forServer) throws IOException
     {
         outStream.writeObject(forServer);
+
     }
 
     public ObjectInputStream getInputStream()

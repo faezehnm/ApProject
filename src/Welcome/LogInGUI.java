@@ -12,16 +12,14 @@ public class LogInGUI extends GoToJPotiy {
     public static JPotifyGUI jPotifyGUI;
 
 
-    public LogInGUI(Network network) {
+    public LogInGUI() {
         super();
-        this.network = network ;
-
     }
 
     @Override
     public void actionToDoForEeach(User user) throws Exception {
         loginRequest = new ForServer(3,user);
-        network.sendFile(loginRequest);
+        network = new Network(loginRequest);
 
         fromServer = (ForServer) network.getInputStream().readObject();
         if( fromServer.getType()==4 ){

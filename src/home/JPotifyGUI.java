@@ -2,9 +2,6 @@ package home;
 
 import FirendsActivity.Friend;
 import FirendsActivity.FriendsActivityGUI;
-import FirendsActivity.Network;
-import display.DisplayListsGUI;
-import FirendsActivity.Network;
 import display.DisplayListsGUI;
 import music.Song;
 import playControl.PlayMusicGUI;
