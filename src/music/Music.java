@@ -4,6 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * It represents a music and can be a song or albume and has a name and artwork.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class Music {
 
     protected String name;
@@ -16,6 +24,13 @@ public class Music {
     public BufferedImage getArtwork() {
         return artwork;
     }
+
+    /**
+     * Make an Image of artwork in the given size
+     * @param width is width of requested image
+     * @param height is height of requested image
+     * @return the requsted image in the given size
+     */
 
     public Image scaledImage(int width , int height){
         Image img;

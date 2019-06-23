@@ -10,6 +10,14 @@ import java.util.Random;
 
 import music.*;
 
+/**
+ * This class is for displaying musics(songs and albumes) in the center partr of the main frame.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public abstract class DisplaySongsGroup extends JScrollPane {
 
     protected JPanel panel;
@@ -17,7 +25,13 @@ public abstract class DisplaySongsGroup extends JScrollPane {
     protected ArrayList<JPanel> musicsPanels;
     protected PlayMusicGUI playMusicGUI;
 
-    public DisplaySongsGroup(ArrayList<? extends Music> musics , PlayMusicGUI playMusicGUI) throws Exception {
+    /**
+     * Creates an object of DisplaySongsGroup class and adjust all it's components including panels , buttons and labels.
+     * @param musics is a list musics to be displayed.
+     * @param playMusicGUI is an object of PlayMusicGUI class that is added to mainGUI.
+     */
+
+    public DisplaySongsGroup(ArrayList<? extends Music> musics , PlayMusicGUI playMusicGUI){
         panel = new JPanel();
         musicsPanels = new ArrayList<JPanel>();
         this.musics = musics;
@@ -47,7 +61,11 @@ public abstract class DisplaySongsGroup extends JScrollPane {
             innerGbc.gridy = 0;
             JButton btn = createButton(music);
             pnl.add(btn , innerGbc);
-            addActionListeners(btn , music);
+            try {
+                addActionListeners(btn , music);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             innerGbc.gridx = 0;
             innerGbc.gridy = 1;
             pnl.add(createLabel(music) , innerGbc);
@@ -58,6 +76,12 @@ public abstract class DisplaySongsGroup extends JScrollPane {
             counter++;
         }
     }
+
+    /**
+     * Creates a button for the given music
+     * @param music is the given music that we want to make a button for.
+     * @return the made button
+     */
 
     private JButton createButton(Music music){
         JButton btn = new JButton();
@@ -78,6 +102,12 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         return btn;
     }
 
+    /**
+     * Creates a label for the given music and displays it's information on the label.
+     * @param music is the given music that we want to make a label for.
+     * @return
+     */
+
     private JLabel createLabel(Music music) {
         JLabel lbl = new JLabel();
         lbl.setBackground(Color.white);
@@ -91,11 +121,23 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         return lbl;
     }
 
-    protected abstract void addActionListeners(JButton btn , Music music) throws Exception;
+    /**
+     * Adds actionlistener to each music button
+     * @param btn is the music button
+     * @param music is the music that we want add actionlistener to it's button
+     */
+
+    protected abstract void addActionListeners(JButton btn , Music music);
 
     public ArrayList<? extends Music> getMusics() {
         return musics;
     }
+
+    /**
+     * Finds and returns the next song in the playlist , albume or library
+     * @param song is the song which is playing now
+     * @return the next song.
+     */
 
     public static Song returnNext(Song song){
         int index = musics.indexOf(song);
@@ -107,6 +149,12 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         }
     }
 
+    /**
+     * Finds and returns the pervious song in the playlist , albume or library
+     * @param song is the song which is playing now
+     * @return the previous song.
+     */
+
     public static Song returnPrevious(Song song){
         int index = musics.indexOf(song);
         if(index == 0){
@@ -116,6 +164,12 @@ public abstract class DisplaySongsGroup extends JScrollPane {
             return (Song) musics.get(index - 1);
         }
     }
+
+    /**
+     * Returns a random song in the library , albume or playlist.
+     * @param song is the song which is playing now
+     * @return a random song
+     */
 
     public static Song returnShuffle(Song song){
         Random rand = new Random();

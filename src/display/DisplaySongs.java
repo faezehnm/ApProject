@@ -21,6 +21,15 @@ import java.util.ArrayList;
 
 import static display.DisplaySongsSituation.PLAYING;
 
+/**
+ * This class is used for displaying songs(All songs or a group of songs(songs of an albume or playlist))
+ * in the center part of the GUI to play them or select and add some of them to a new playlist.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class DisplaySongs extends DisplaySongsGroup {
 
     private DisplaySongsSituation displaySongsSituation;
@@ -28,6 +37,16 @@ public class DisplaySongs extends DisplaySongsGroup {
     private String situation;
     private boolean playing;
     private DisplayListsControl displayListsControl;
+
+    /**
+     * crates an object of this class.
+     * @param songArrayList an arraylist of songs to be displayed.
+     * @param playMusicGUI is an object of PlayMusic GUI which is added to the south of main frame
+     * @param playList is a playlist for times that we are working on a playlist and is null in other times.
+     * @param displayListsControl is an object of DisplayListsControl class that is controling the left panel
+     * @param displaySongsSituation shows if displaying is for playing songs or adding some songs to playlist.
+     * @throws Exception
+     */
 
     public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation) throws Exception{
         super(songArrayList , playMusicGUI);
@@ -37,6 +56,11 @@ public class DisplaySongs extends DisplaySongsGroup {
         this.displaySongsSituation = displaySongsSituation;
     }
 
+    /**
+     * Adds actionlistener and mouselistener to button according to the display situation(selection or playing)
+     * @param btn is the song button
+     * @param music is a music from song kind
+     */
 
     @Override
     protected void addActionListeners(JButton btn, Music music){
