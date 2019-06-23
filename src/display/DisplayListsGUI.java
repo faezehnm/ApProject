@@ -32,8 +32,6 @@ public class DisplayListsGUI extends JScrollPane {
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
     private int numberOfPlaylists;
-    private JFrame renameFrame;
-    private JTextField renameTextField;
 
     public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception{
         displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
@@ -61,8 +59,6 @@ public class DisplayListsGUI extends JScrollPane {
         playlistlbl = new JLabel("playlists :");
         addNewPlaylist = new JButton("new playlist");
         createPlaylistPanel = new JPanel();
-        renameFrame = new JFrame("rename playlist");
-        renameTextField = new JTextField();
         finishedCooshingBtn = new JButton("choosing finished");
         ImageIcon image = new ImageIcon("src/Icons/add2.png");
         addNewMusic.setIcon(image);
@@ -113,8 +109,6 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setBackground(Color.white);
         createPlaylistPanel.setBackground(Color.WHITE);
         finishedCooshingBtn.setBackground(Color.WHITE);
-        renameFrame.setBackground(Color.WHITE);
-        renameTextField.setBackground(Color.WHITE);
     }
 
     private void setBorder(){
@@ -127,7 +121,6 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setBorder(greenLIne);
         createPlaylistPanel.setBorder(greenLIne);
         finishedCooshingBtn.setBorder(greenLIne);
-        renameTextField.setBorder(greenLIne);
     }
 
     private void setSize(){
@@ -138,8 +131,6 @@ public class DisplayListsGUI extends JScrollPane {
         addNewPlaylist.setPreferredSize(new Dimension(200 , 100));
         createPlaylistPanel.setPreferredSize(new Dimension(200 , 100));
         finishedCooshingBtn.setPreferredSize(new Dimension(200 , 100));
-        renameFrame.setSize(new Dimension(200 , 200));
-        renameTextField.setSize(new Dimension(200 , 100));
     }
 
     private void addActionListeners(){
@@ -269,10 +260,15 @@ public class DisplayListsGUI extends JScrollPane {
             rename.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    JFrame renameFrame = new JFrame("rename");
                     renameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     renameFrame.setLayout(new GridLayout(2 , 1));
+                    renameFrame.setBackground(Color.WHITE);
+                    JTextField renameTextField = new JTextField();
+                    renameFrame.setSize(new Dimension(200 , 200));
+                    renameTextField.setSize(new Dimension(200 , 100));
+                    renameTextField.setBackground(Color.WHITE);
                     renameTextField.setEditable(true);
-                    renameTextField.setText("");
                     JButton done = new JButton("done");
                     done.setBackground(Color.WHITE);
                     done.setSize(200 , 100);

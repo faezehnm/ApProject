@@ -6,6 +6,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
+
 import music.*;
 
 public abstract class DisplaySongsGroup extends JScrollPane {
@@ -101,17 +103,26 @@ public abstract class DisplaySongsGroup extends JScrollPane {
             return (Song) musics.get(index + 1);
         }
         else{
-            return null;
+            return (Song) musics.get(0);
         }
     }
 
     public static Song returnPrevious(Song song){
         int index = musics.indexOf(song);
         if(index == 0){
-            return null;
+            return (Song) musics.get(musics.size() - 1);
         }
         else{
             return (Song) musics.get(index - 1);
         }
+    }
+
+    public static Song returnShuffle(Song song){
+        Random rand = new Random();
+        int random;
+        do{
+             random = rand.nextInt(musics.size());
+        }while (random != musics.indexOf(song));
+        return (Song) musics.get(random);
     }
 }
