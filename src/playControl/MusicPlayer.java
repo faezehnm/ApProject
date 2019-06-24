@@ -11,7 +11,7 @@ import javazoom.jl.player.Player;
  *  MusicPlayer provides a variety of features such as play,pause,resume,skip,stop & repeat music
  *  @author faezeh naeimi
  *  @version 1.0
- *  @since 2018
+ *  @since 2019
  */
 public class MusicPlayer {
 

@@ -19,7 +19,7 @@ import java.net.URISyntaxException;
  * PlayMusicControl controll all components that use in PlayMusicGUI
  *  @author faezeh naeimi
  *  @version 1.0
- *  @since 2018
+ *  @since 2019
  */
 public class PlayMusicControl implements ActionListener {
 

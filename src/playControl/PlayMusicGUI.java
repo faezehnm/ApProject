@@ -11,7 +11,7 @@ import java.awt.*;
  * PlayMusicGUI display all components that you see in south of JPotift app
  * @author faezeh naeimi
  * @version 1.0
- * @since 2018
+ * @since 2019
  */
 public class PlayMusicGUI extends JPanel  {
 

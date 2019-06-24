@@ -7,6 +7,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import static Network.UserState.ME;
+
 public class ClientHandler extends Thread{
 
     private Socket socket;
@@ -23,17 +25,16 @@ public class ClientHandler extends Thread{
         outputStream=  new ObjectOutputStream(client.getOutputStream());
         inputStream  = new ObjectInputStream(client.getInputStream());
 
-//        if( true)
-           //System.out.println(inputStream.readObject().getClass());
-//        else
-//            System.out.println(":)))");
 
         ForServer fromClient = (ForServer)inputStream.readObject();
-        System.out.println(fromClient.getUser().getName());
         user =  fromClient.getUser();
 
-        checkUserName(user);
 
+        if( fromClient.getType()== 0)
+            checkUserName(user);
+
+        if( fromClient.getType()== 3)
+            checkPass(user);
 
     }
 
@@ -60,19 +61,44 @@ public class ClientHandler extends Thread{
 
     }
 
-    private void checkUserName (User user) throws IOException {
+    private void checkUserName (User user) throws IOException
+    {
+
         boolean flag = false ;
+
         for( int i=0 ; i<users.size() ; i++ ){
-            if( user == users.get(i)){
+            if( user.getName().equals(users.get(i).getName()) ){
                 ForServer fromServer = new ForServer(1,user);
                 outputStream.writeObject(fromServer);
+                outputStream.flush();
                 flag = true;
             }
         }
+
         if( !flag ) {
             ForServer fromServer = new ForServer(2,user);
             outputStream.writeObject(fromServer);
+            outputStream.flush();
             users.add(user);
+        }
+
+    }
+
+    private void checkPass(User user) throws IOException
+    {
+        boolean flag = false ;
+        for(int i=0 ; i<users.size() ; i++ ){
+            if( users.get(i).getPassword().equals(user.getPassword())){
+                ForServer fromServer = new ForServer(5,user);
+                outputStream.writeObject(fromServer);
+                outputStream.flush();
+                flag = true ;
+            }
+        }
+        if( !flag ) {
+            ForServer fromServer = new ForServer(4,user);
+            outputStream.writeObject(fromServer);
+            outputStream.flush();
         }
     }
 }

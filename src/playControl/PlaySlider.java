@@ -22,7 +22,7 @@ import static java.lang.Thread.sleep;
  *  PlaySlider of JPotify player
  *  @author faezeh naeimi
  *  @version 1.0
- *  @since 2018
+ *  @since 2019
  */
 public class PlaySlider extends JPanel implements ChangeListener {
 

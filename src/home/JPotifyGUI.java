@@ -2,6 +2,7 @@ package home;
 
 import FirendsActivity.Friend;
 import FirendsActivity.FriendsActivityGUI;
+import TopPanle.TopPanle;
 import display.DisplayListsGUI;
 import music.Song;
 import playControl.PlayMusicGUI;
@@ -17,6 +18,7 @@ public class JPotifyGUI extends JFrame {
     private PlayMusicGUI playMusicGUI = new PlayMusicGUI();
     private DisplayListsGUI displayListsGUI = new DisplayListsGUI(this , playMusicGUI);
     private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(this);
+    private TopPanle topPanle = new TopPanle();
     Friend friend = new Friend("198.0.0.1","faezeh");
     Friend friend2 = new Friend("198.0.0.1","amirreza");
 
@@ -29,7 +31,7 @@ public class JPotifyGUI extends JFrame {
         setIconImage(icon);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+        add(topPanle,BorderLayout.PAGE_START);
         add(playMusicGUI,BorderLayout.PAGE_END);
 
         getContentPane().add(displayListsGUI);
@@ -52,4 +54,7 @@ public class JPotifyGUI extends JFrame {
         setVisible(true);
     }
 
+    public TopPanle getTopPanle() {
+        return topPanle;
+    }
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Server extends Thread {
 
     private ServerSocket serverSocket;
-    private ArrayList<Socket> clients = new ArrayList<>();
+    //private ArrayList<Socket> clients = new ArrayList<>();
 
 
     public Server(int port) throws IOException {
@@ -24,7 +24,7 @@ public class Server extends Thread {
                 client = serverSocket.accept();
                 System.out.println("new client accepted!");
 
-                clients.add(client);
+//                clients.add(client);
 
                 ClientHandler clientHandler = new ClientHandler(client);
                 clientHandler.start();

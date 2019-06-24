@@ -1,5 +1,10 @@
 package Network;
 
+import Welcome.GoToJPotiy;
+import Welcome.LogInGUI;
+import Welcome.SignUpGUI;
+import home.JPotifyGUI;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,6 +18,11 @@ public class Network implements Runnable{
     private String serverName = "localhost";
     private ObjectOutputStream outStream;
     private ObjectInputStream inputStream;
+    private Warning warning ;
+    public static JPotifyGUI jPotifyGUI ;
+
+    public static LogInGUI logInGUI ;
+    public static GoToJPotiy signUpGUI ;
 
     public Network(ForServer forServer) throws IOException
     {
@@ -20,9 +30,6 @@ public class Network implements Runnable{
         client = new Socket(serverName, port);
         outStream = new ObjectOutputStream(client.getOutputStream());
         outStream.writeObject(forServer);
-//
-//        OutputStream outputStream = client.getOutputStream();
-//        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
     }
 
@@ -30,11 +37,6 @@ public class Network implements Runnable{
     {
         outStream.writeObject(forServer);
 
-    }
-
-    public ObjectInputStream getInputStream()
-    {
-        return inputStream;
     }
 
     @Override
@@ -61,12 +63,22 @@ public class Network implements Runnable{
                         /*
                         have this user already
                          */
+                        signUpGUI = new SignUpGUI();
+                        warning= new Warning("have this user already");
                         break;
+
                     case 2:
                        /*
                        can add this user
                         */
+                        try {
+                            jPotifyGUI = new JPotifyGUI();
+                            jPotifyGUI.getTopPanle().setName(forServer.getUser().getName());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         break;
+
                     case 3:
                         /*
                         login request
@@ -75,11 +87,22 @@ public class Network implements Runnable{
                         /*
                         incorrect pass
                          */
+                        logInGUI = new LogInGUI();
+                        warning= new Warning("incorrect pass");
                         break;
+
                     case 5:
                         /*
                         correct pass
                          */
+                        try {
+                            jPotifyGUI = new JPotifyGUI();
+                            jPotifyGUI.getTopPanle().setName(forServer.getUser().getName());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
                     case 6:
                         /*
                         play Current/lastSong music for friends

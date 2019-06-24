@@ -7,9 +7,10 @@ import Network.User;
 
 import java.io.IOException;
 
+import static java.lang.Thread.sleep;
+
 public class SignUpGUI extends GoToJPotiy {
 
-    public static JPotifyGUI jPotifyGUI ;
     private Network network;
     private ForServer signUpRequest ;
     private ForServer fromServer;
@@ -25,22 +26,9 @@ public class SignUpGUI extends GoToJPotiy {
         User.addUser(user);
         signUpRequest = new ForServer(0,user);
         network = new Network(signUpRequest);
-
-        fromServer = (ForServer) network.getInputStream().readObject();
-        if( fromServer.getType()==1 ){
-            /*
-            show a window with a message that this user has Already exist
-             */
-        }
-        if( fromServer.getType()==2 ){
-            GO();
-        }
-
-    }
-
-    private void GO() throws Exception
-    {
-        jPotifyGUI = new JPotifyGUI();
+        new Thread(network).start();
         setVisible(false);
+
     }
+
 }
