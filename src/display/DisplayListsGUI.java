@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import music.*;
 
@@ -23,7 +24,7 @@ import static com.sun.javafx.fxml.expression.Expression.add;
  * @version 1.0
  */
 
-public class DisplayListsGUI extends JScrollPane {
+public class DisplayListsGUI extends JScrollPane implements Serializable {
 
     private DisplayListsControl displayListsControl;
     private JPanel listsPnl;

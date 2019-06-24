@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 
 /**
  * This class represents a single song. Each song has an address , album , artist , name and artwork.
@@ -17,7 +18,7 @@ import java.io.InputStream;
  * @version 1.0
  */
 
-public class Song extends Music{
+public class Song extends Music implements Serializable {
 
     private String fileAddress;
     private String albumeName;

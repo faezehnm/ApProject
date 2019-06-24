@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.io.Serializable;
 
 
 /**
@@ -13,7 +14,7 @@ import java.awt.*;
  * @version 1.0
  * @since 2019
  */
-public class PlayMusicGUI extends JPanel  {
+public class PlayMusicGUI extends JPanel implements Serializable {
 
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
@@ -213,7 +214,7 @@ public class PlayMusicGUI extends JPanel  {
         Image resizedImg = song.scaledImage(100, 100);
         ImageIcon resizedIcon = new ImageIcon(resizedImg);
         imageLable.setIcon(resizedIcon);
-        displayInformationLable.setText("<html>"+song.getMusicName()+"<br>"+song.getAlbumeName()+"<br>"+song.getArtist()+"<html>");
+        displayInformationLable.setText("<html>"+song.getName()+"<br>"+song.getAlbumeName()+"<br>"+song.getArtist()+"<html>");
     }
 
     /**

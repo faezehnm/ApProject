@@ -7,9 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.Serializable;
 
 
-public class WelcomeGUI extends JFrame implements ActionListener{
+public class WelcomeGUI extends JFrame implements ActionListener , Serializable {
 
 
     private static final int WIDTH = 500 , HEIGHT = 200;

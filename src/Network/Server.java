@@ -1,11 +1,12 @@
 package Network;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Server extends Thread {
+public class Server extends Thread implements Serializable {
 
     private ServerSocket serverSocket;
     //private ArrayList<Socket> clients = new ArrayList<>();

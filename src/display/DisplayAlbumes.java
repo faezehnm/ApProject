@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import music.*;
 
@@ -20,7 +21,7 @@ import music.*;
  * @version 1.0
  */
 
-public class DisplayAlbumes extends DisplaySongsGroup {
+public class DisplayAlbumes extends DisplaySongsGroup implements Serializable {
 
    private DisplayListsControl displayListsControl;
 

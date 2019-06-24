@@ -3,6 +3,7 @@ package display;
 import music.*;
 import home.JPotifyGUI;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import playControl.PlayMusicGUI;
@@ -15,7 +16,7 @@ import playControl.PlayMusicGUI;
  * @version 1.0
  */
 
-public class DisplayListsControl {
+public class DisplayListsControl implements Serializable {
     private ArrayList<Song> songs = new ArrayList();
     private ArrayList<Albume> albumes = new ArrayList();
     private ArrayList<PlayList> playlists = new ArrayList();

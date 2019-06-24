@@ -3,6 +3,7 @@ package music;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 /**
  * It represents a music and can be a song or albume and has a name and artwork.
@@ -12,7 +13,7 @@ import java.awt.image.BufferedImage;
  * @version 1.0
  */
 
-public class Music {
+public class Music implements Serializable {
 
     protected String name;
     protected BufferedImage artwork;

@@ -8,8 +8,9 @@ import music.Song;
 import playControl.PlayMusicGUI;
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class JPotifyGUI extends JFrame {
+public class JPotifyGUI extends JFrame implements Serializable {
     private static final int WIDTH = 1850 , HEIGHT = 700;
 
     private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");

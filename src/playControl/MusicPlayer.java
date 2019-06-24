@@ -13,7 +13,7 @@ import javazoom.jl.player.Player;
  *  @version 1.0
  *  @since 2019
  */
-public class MusicPlayer {
+public class MusicPlayer implements Serializable{
 
     private FileInputStream is;
     private Player player;

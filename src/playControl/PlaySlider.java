@@ -14,6 +14,7 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 import java.util.Hashtable;
 import static java.lang.Thread.sleep;
@@ -24,7 +25,7 @@ import static java.lang.Thread.sleep;
  *  @version 1.0
  *  @since 2019
  */
-public class PlaySlider extends JPanel implements ChangeListener {
+public class PlaySlider extends JPanel implements ChangeListener , Serializable {
 
     private JSlider jSlider ;
     private int duration=0;

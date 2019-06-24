@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.Serializable;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
@@ -18,7 +19,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @version 1.0
  */
 
-public class ChooseMusicFrame {
+public class ChooseMusicFrame implements Serializable {
 
     private File newSong;
 

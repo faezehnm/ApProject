@@ -3,9 +3,10 @@ package FirendsActivity;
 import music.PlayList;
 import music.Song;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Friend {
+public class Friend implements Serializable {
     private String IP ;
     private String name ;
     private PlayList sharedPlayList ;

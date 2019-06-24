@@ -5,6 +5,7 @@ import playControl.PlayMusicGUI;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -18,7 +19,7 @@ import music.*;
  * @version 1.0
  */
 
-public abstract class DisplaySongsGroup extends JScrollPane {
+public abstract class DisplaySongsGroup extends JScrollPane implements Serializable {
 
     protected JPanel panel;
     protected static ArrayList<? extends Music> musics;

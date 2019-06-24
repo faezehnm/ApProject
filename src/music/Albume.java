@@ -3,6 +3,7 @@ package music;
 import music.Song;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class Albume extends Music{
+public class Albume extends Music implements Serializable {
 
     private ArrayList<Song> songs;
 

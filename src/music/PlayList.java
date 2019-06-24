@@ -2,6 +2,7 @@ package music;
 
 import music.Song;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class PlayList {
+public class PlayList implements Serializable {
 
     private String playListName;
     private ArrayList<Song> songs;

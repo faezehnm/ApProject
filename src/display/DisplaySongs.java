@@ -17,6 +17,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import static display.DisplaySongsSituation.PLAYING;
@@ -30,7 +31,7 @@ import static display.DisplaySongsSituation.PLAYING;
  * @version 1.0
  */
 
-public class DisplaySongs extends DisplaySongsGroup {
+public class DisplaySongs extends DisplaySongsGroup implements Serializable {
 
     private DisplaySongsSituation displaySongsSituation;
     private PlayList playList;

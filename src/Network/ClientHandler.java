@@ -4,6 +4,7 @@ package Network;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -25,16 +26,17 @@ public class ClientHandler extends Thread{
         outputStream=  new ObjectOutputStream(client.getOutputStream());
         inputStream  = new ObjectInputStream(client.getInputStream());
 
+//        if( true)
+           //System.out.println(inputStream.readObject().getClass());
+//        else
+//            System.out.println(":)))");
 
         ForServer fromClient = (ForServer)inputStream.readObject();
+        System.out.println(fromClient.getUser().getName());
         user =  fromClient.getUser();
 
+        checkUserName(user);
 
-        if( fromClient.getType()== 0)
-            checkUserName(user);
-
-        if( fromClient.getType()== 3)
-            checkPass(user);
 
     }
 

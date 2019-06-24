@@ -5,7 +5,9 @@ import Network.ForServer;
 import home.JPotifyGUI;
 import Network.User;
 
-public class LogInGUI extends GoToJPotiy {
+import java.io.Serializable;
+
+public class LogInGUI extends GoToJPotiy implements Serializable {
     private Network network ;
     private ForServer loginRequest ;
     private ForServer fromServer;

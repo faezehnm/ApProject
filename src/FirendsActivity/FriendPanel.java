@@ -6,9 +6,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FriendPanel implements ActionListener {
+public class FriendPanel implements ActionListener , Serializable {
     private Friend friend ;
     private JPanel mainPanel ;
     private JPanel mainPanelUp;
@@ -42,7 +43,7 @@ public class FriendPanel implements ActionListener {
         lastTime = new JLabel();
         setTimeIcon(lastTime);
 
-        songInformaton = new JButton("<html>"+friend.getLastSong().getMusicName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
+        songInformaton = new JButton("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
         songInformaton.setBackground(Color.white);
         songInformaton.addActionListener(this);
         songInformaton.setBorder(noline);

@@ -5,8 +5,9 @@ import music.Song;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.Serializable;
 
-public class AddFriendGUI extends JFrame implements ActionListener {
+public class AddFriendGUI extends JFrame implements Serializable , ActionListener {
     private static final int WIDTH = 400 , HEIGHT = 200;
     private JLabel jLabelIP;
     private JLabel jLabelName;

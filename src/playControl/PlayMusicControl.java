@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URISyntaxException;
 
 /**
@@ -21,7 +22,7 @@ import java.net.URISyntaxException;
  *  @version 1.0
  *  @since 2019
  */
-public class PlayMusicControl implements ActionListener {
+public class PlayMusicControl implements ActionListener , Serializable {
 
     private PlayMusicGUI playMusicGUI ;
 

@@ -2,7 +2,6 @@ package Welcome;
 
 import Network.User;
 import Network.UserState;
-import home.JPotifyGUI;
 
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -11,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.IOException;
+import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,7 +18,7 @@ import javax.swing.JTextField;
 
 import static Network.UserState.*;
 
-public abstract class GoToJPotiy extends JFrame implements ActionListener {
+public abstract class GoToJPotiy extends JFrame implements ActionListener , Serializable {
 
     private static final int WIDTH = 400;
     private static final int HEIGHT = 200;
@@ -29,7 +28,6 @@ public abstract class GoToJPotiy extends JFrame implements ActionListener {
     private JTextField jTextFieldPass;
     private JTextField jTextFieldName;
     private JButton jButton;
-    private JButton backButton ;
     private String pass;
     private String name;
 
@@ -59,10 +57,6 @@ public abstract class GoToJPotiy extends JFrame implements ActionListener {
         this.jButton.addActionListener(this);
         this.add(this.jButton);
 
-        backButton = new JButton("back");
-        backButton.addActionListener(this);
-        add(backButton);
-
         this.pass = new String();
         this.name = new String();
     }
@@ -77,20 +71,10 @@ public abstract class GoToJPotiy extends JFrame implements ActionListener {
     public abstract void actionToDoForEeach(User user) throws Exception;
 
     public void actionPerformed(ActionEvent e) {
-        if( e.getSource()==backButton ){
-            try {
-                setVisible(false);
-                WelcomeGUI welcomeGUI = new WelcomeGUI();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        }
-        if( e.getSource()==jButton) {
-            try {
-                actionToDo();
-            } catch (Exception var3) {
-                var3.printStackTrace();
-            }
+        try {
+            actionToDo();
+        } catch (Exception var3) {
+            var3.printStackTrace();
         }
 
     }
@@ -113,7 +97,5 @@ public abstract class GoToJPotiy extends JFrame implements ActionListener {
         public void keyReleased(KeyEvent e) {
         }
     };
-
-
 
 }
