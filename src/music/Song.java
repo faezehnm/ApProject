@@ -9,6 +9,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * This class represents a single song. Each song has an address , album , artist , name and artwork.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class Song extends Music{
 
     private String fileAddress;
@@ -16,6 +24,11 @@ public class Song extends Music{
     private Albume albume;
     private String artist;
 
+    /**
+     * ،This constructor creates a song and sets name , albume name , artist and artwork of the song.
+     * @param fileAddress The address of file in PC.
+     * @throws Exception when the given address doesn"t exit.
+     */
 
     public Song(String fileAddress)throws Exception {
         this.fileAddress = fileAddress;
@@ -40,10 +53,6 @@ public class Song extends Music{
         return fileAddress;
     }
 
-    public String getMusicName(){
-        return name;
-    }
-
     public String getAlbumeName(){
         return albumeName;
     }
@@ -59,6 +68,11 @@ public class Song extends Music{
     public void setAlbume(Albume albume){
         this.albume = albume;
     }
+
+    /**
+     * It sets the artwork of song in bufferedImage format instead of byte[] and facilitates using artwork.
+     * @param songImage is the song image in byte[] format
+     */
 
     private void setArtwork (byte[] songImage){
         BufferedImage bufferedImage = null;

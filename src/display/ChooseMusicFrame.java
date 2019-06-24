@@ -10,11 +10,24 @@ import java.io.FileReader;
 
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
+/**
+ * Makes a JFileChooser for choosing an mp3 file and add it to library when "add new song" button is clicked
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class ChooseMusicFrame {
 
-    private File newSong = null;
+    private File newSong;
+
+    /**
+     * This constructor makes an object of this class
+     */
 
     public ChooseMusicFrame() {
+        newSong = null;
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         fileChooser.setDialogTitle("add a new mp3 file to your library");
         fileChooser.setAcceptAllFileFilterUsed(false);

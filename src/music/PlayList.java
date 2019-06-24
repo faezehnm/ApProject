@@ -4,11 +4,25 @@ import music.Song;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a playlist which is a group of songs that are selected by yhe user.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class PlayList {
 
     private String playListName;
     private ArrayList<Song> songs;
     private PlaylistSituation playlistSituation;
+
+    /**
+     * Creates an object of Playlist class.
+     * @param playListName is the name of new playlist
+     * @param playlistSituation specifies if this playlist is permanent or temporary
+     */
 
     public PlayList(String playListName , PlaylistSituation playlistSituation){
         this.playListName = playListName;
@@ -24,17 +38,22 @@ public class PlayList {
         return songs;
     }
 
+    /**
+     * Adds a song to the playlist
+     * @param song is the new song that is added to this playlist
+     */
+
     public void addSong(Song song){
         if(! songs.contains(song)){
             songs.add(song);
         }
     }
 
-    public void removeSong(Song song){
+   /* public void removeSong(Song song){
         if(songs.contains(song)){
             songs.remove(song);
         }
-    }
+    }*/
 
     /*public int getNumberOfSongs(){
         return songs.size();

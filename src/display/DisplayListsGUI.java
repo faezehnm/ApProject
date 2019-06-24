@@ -14,6 +14,14 @@ import music.*;
 
 import static com.sun.javafx.fxml.expression.Expression.add;
 
+/**
+ *This class makes the left part of GUI and has several buttons for displaying songs , albumes and playlists.
+ * And also has buttons for adding a song or a playlist.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
 
 public class DisplayListsGUI extends JScrollPane {
 
@@ -37,15 +45,28 @@ public class DisplayListsGUI extends JScrollPane {
     private JButton createNewPlaylistbtn;
     private JButton cancelAddingPlaylist;
 
+    /**
+     * Makes an object of DisplayListsGUI
+     * @param mainGUI is an object of JPotifyGUI which this object is added to.
+     * @param playMusicGUI is an object of PlayMusicGUI class that is added to mainGUI
+     */
 
-    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI) throws Exception{
-        displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
+    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI){
+        try {
+            displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         playlistsbtn = new ArrayList<JButton>();
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
         listsPnl = new JPanel();
         creatListsPnl();
     }
+
+    /**
+     * creates and adjusts all components on the left panel
+     */
 
     private void creatListsPnl() {
         setViewportView(listsPnl);
@@ -114,6 +135,10 @@ public class DisplayListsGUI extends JScrollPane {
         listsPnl.add(addNewPlaylist, gbc2);
     }
 
+    /**
+     * sets the color of all components on the panel
+     */
+
     private void setColor(){
         songsbutton.setBackground(Color.white);
         albumebutton.setBackground(Color.white);
@@ -126,6 +151,10 @@ public class DisplayListsGUI extends JScrollPane {
         createNewPlaylistbtn.setBackground(Color.WHITE);
         cancelAddingPlaylist.setBackground(Color.WHITE);
     }
+
+    /**
+     * sets the border of all components on the panel
+     */
 
     private void setBorder(){
         Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
@@ -142,6 +171,10 @@ public class DisplayListsGUI extends JScrollPane {
         cancelAddingPlaylist.setBorder(greenLIne);
     }
 
+    /**
+     * sets the color of all components on the panel
+     */
+
     private void setSize(){
         addNewMusic.setPreferredSize(new Dimension(200 , 100));
         songsbutton.setPreferredSize(new Dimension(200, 100));
@@ -155,6 +188,10 @@ public class DisplayListsGUI extends JScrollPane {
         createNewPlaylistbtn.setSize(new Dimension(200 , 100));
         cancelAddingPlaylist.setSize(new Dimension(200 , 100));
     }
+
+    /**
+     * Adds actionlistener to each button of the panel
+     */
 
     private void addActionListeners(){
         addNewMusic.addActionListener(new ActionListener() {
@@ -242,6 +279,12 @@ public class DisplayListsGUI extends JScrollPane {
             }
         });
     }
+
+    /**
+     * Adjust button for each playlist and adds mouseistener and actionlistener to it
+     * @param playlistbtn is the button for a specified playlist.
+     * @param playList is a playlist that the button belongs to.
+     */
 
     private void setPlaylistButton(JButton playlistbtn , PlayList playList){
         playlistbtn.addActionListener(new ActionListener() {
