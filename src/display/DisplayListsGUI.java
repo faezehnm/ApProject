@@ -208,7 +208,7 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    displayListsControl.setDisplaySongs(displayListsControl.getSongs());
+                    displayListsControl.setDisplaySongs(displayListsControl.getSongs() , true);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

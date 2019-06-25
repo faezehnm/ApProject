@@ -53,7 +53,7 @@ public class DisplayAlbumes extends DisplaySongsGroup{
             public void actionPerformed(ActionEvent e){
                 System.out.println(":|");
                 try {
-                    displayListsControl.setDisplaySongs(albume.getSongs());
+                    displayListsControl.setDisplaySongs(albume.getSongs() , false);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

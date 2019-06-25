@@ -76,7 +76,6 @@ public class JPotifyGUI extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                //System.out.println("1");
                 String fileName = "src/jpotify.bin";
                 FileOutputStream filleout = null;
                 try {
@@ -84,14 +83,12 @@ public class JPotifyGUI extends JFrame {
                 } catch (FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
-                //System.out.println(2);
                 ObjectOutputStream out = null;
                 try {
                     out = new ObjectOutputStream(filleout);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-               // System.out.println(3);
                 try {
                     if(getPlayMusicGUI().getSong() == null){
                         out.writeInt(0);
@@ -108,7 +105,6 @@ public class JPotifyGUI extends JFrame {
                     for(Albume a : getDisplayListsGUI().getDisplayListsControl().getAlbumes()){
                         out.writeObject(a);
                     }
-                   // System.out.println(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
                     out.writeInt(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
                     for(PlayList p : getDisplayListsGUI().getDisplayListsControl().getPlaylists()){
                         out.writeObject(p);
@@ -116,7 +112,6 @@ public class JPotifyGUI extends JFrame {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-               // System.out.println(4);
                 try {
                     out.close();
                 } catch (IOException e1) {

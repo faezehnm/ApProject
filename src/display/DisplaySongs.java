@@ -37,6 +37,7 @@ public class DisplaySongs extends DisplaySongsGroup {
     private PlayList playList;
     private String situation;
     private boolean playing;
+    private boolean deletable;
     private DisplayListsControl displayListsControl;
 
     /**
@@ -49,12 +50,13 @@ public class DisplaySongs extends DisplaySongsGroup {
      * @throws Exception
      */
 
-    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation , JPotifyGUI mainGUI) throws Exception{
+    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation , JPotifyGUI mainGUI , boolean deletable) throws Exception{
         super(songArrayList , playMusicGUI , mainGUI);
         this.playing = playing;
         this.playList = playList;
         this.displayListsControl = displayListsControl;
         this.displaySongsSituation = displaySongsSituation;
+        this.deletable = deletable;
     }
 
     /**
@@ -90,11 +92,8 @@ public class DisplaySongs extends DisplaySongsGroup {
                     JPopupMenu popupMenu = new JPopupMenu();
                     JMenuItem addToFavorite = new JMenuItem("add to favorite songs");
                     JMenuItem addToShared = new JMenuItem("add to shared playlist");
-                    JMenuItem delet = new JMenuItem("delet");
                     popupMenu.add(addToFavorite);
                     popupMenu.add(addToShared);
-                    popupMenu.add(delet);
-                    popupMenu.show(btn , e.getX() , e.getY());
                     addToFavorite.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -107,30 +106,34 @@ public class DisplaySongs extends DisplaySongsGroup {
                             displayListsControl.addSongToPlaylist(song , "Shared Playlist");
                         }
                     });
-                    delet.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                            musics.remove(song);
-                            panel.remove(pnl);
-                            if(musics.equals(displayListsControl.getSongs())){
-                                if(song.getAlbume().getSongs().size() == 1){
-                                    displayListsControl.deletAlbume(song.getAlbume());
-                                }
-                                else{
-                                    song.getAlbume().deletSong(song);
-                                }
-                                for(PlayList p : displayListsControl.getPlaylists()){
-                                    if(p.getSongs().contains(song)){
-                                        p.removeSong(song);
+                    if(deletable) {
+                        JMenuItem delet = new JMenuItem("delet");
+                        popupMenu.add(delet);
+                        System.out.println("haaaaaaaaaaaaaa");
+                        delet.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                musics.remove(song);
+                                panel.remove(pnl);
+                                if (musics.equals(displayListsControl.getSongs())) {
+                                    if (song.getAlbume().getSongs().size() == 1) {
+                                        displayListsControl.deletAlbume(song.getAlbume());
+                                    } else {
+                                        song.getAlbume().deletSong(song);
                                     }
+                                    for (PlayList p : displayListsControl.getPlaylists()) {
+                                        if (p.getSongs().contains(song)) {
+                                            p.removeSong(song);
+                                        }
+                                    }
+                                    displayListsControl.setDisplaySongs(displayListsControl.getSongs() , true);
+                                } else {
+                                    displayListsControl.setDisplayPlaylist(playList, playMusicGUI);
                                 }
-                                displayListsControl.setDisplaySongs(displayListsControl.getSongs());
                             }
-                            else{
-                                displayListsControl.setDisplayPlaylist(playList , playMusicGUI);
-                            }
-                        }
-                    });
+                        });
+                    }
+                    popupMenu.show(btn , e.getX() , e.getY());
                 }
             }
         });

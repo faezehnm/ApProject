@@ -113,10 +113,10 @@ public class DisplayListsControl{
      * @param songs is the a list of songs to be displayed.
      */
 
-    public void setDisplaySongs(ArrayList<Song> songs){
+    public void setDisplaySongs(ArrayList<Song> songs , boolean deletable){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI);
+            displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , deletable);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -156,7 +156,7 @@ public class DisplayListsControl{
     public void setDisplayPlaylist(PlayList playlist, PlayMusicGUI playMusicGUI){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI);
+            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -238,10 +238,10 @@ public class DisplayListsControl{
                 setDisplayAlbums();
             }
             else if(displaySongsGroup.getMusics().equals(songs)){
-                setDisplaySongs(songs);
+                setDisplaySongs(songs , true);
             }
             else if(((Song)(displaySongsGroup.getMusics().get(0))).getAlbume().equals(song.getAlbume()) && displaySongsGroup.getMusics().size() == song.getAlbume().getSongs().size()){
-                setDisplaySongs(song.getAlbume().getSongs());
+                setDisplaySongs(song.getAlbume().getSongs() , false);
             }
         }
     }
@@ -255,7 +255,7 @@ public class DisplayListsControl{
     public void setSelectSongs(PlayMusicGUI playMusicGUI, PlayList playList){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION , mainGUI);
+            displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION , mainGUI , false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -308,7 +308,7 @@ public class DisplayListsControl{
                 setDisplayAlbums();
             }
             else if(displaySongsGroup.getMusics().size() == songs.size()){
-                setDisplaySongs(songs);
+                setDisplaySongs(songs , true);
             }
         }
     }
