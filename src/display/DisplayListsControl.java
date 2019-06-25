@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import playControl.PlayMusicGUI;
 
+import javax.swing.*;
+
 /**
  * This class controls the left panel and it's buttons and also some of it's actionlisteners
  *
@@ -16,13 +18,14 @@ import playControl.PlayMusicGUI;
  * @version 1.0
  */
 
-public class DisplayListsControl implements Serializable {
+public class DisplayListsControl{
     private ArrayList<Song> songs = new ArrayList();
     private ArrayList<Albume> albumes = new ArrayList();
     private ArrayList<PlayList> playlists = new ArrayList();
     private JPotifyGUI mainGUI;
     private DisplaySongsGroup displaySongsGroup = null;
     private PlayMusicGUI playMusicGUI;
+    private DisplayListsGUI displayListsGUI;
 
     /**
      * Craetes an object of this class
@@ -31,8 +34,8 @@ public class DisplayListsControl implements Serializable {
      * @throws Exception
      */
 
-    public DisplayListsControl(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI){
-        /*Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
+    public DisplayListsControl(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI , boolean setPlaylist , DisplayListsGUI displayListsGUI) throws Exception {
+       /* Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
         this.addSong(s1);
         Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
         this.addSong(s2);
@@ -54,41 +57,32 @@ public class DisplayListsControl implements Serializable {
         this.addSong(s10);
         Song s11 = new Song("src/songs/Ehaam - Haale Man (128).mp3");
         this.addSong(s11);*/
+       this.displayListsGUI = displayListsGUI;
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
-        setPermanentPlaylists();
+        if(setPlaylist) {
+            setPermanentPlaylists();
+        }
+    }
+
+    public void addAlbum(Albume albume) {
+        this.albumes.add(albume);
     }
 
     /**
-     * Adds the given song to the library if it wasn't added befor
-     * @param s is the given song to be added.
+     * َAdds a playlist to the list of playlists and makes a button for it.It is used for deserialization
+     * @param playList is the given playlist
      */
 
-    private void addSong(Song s) {
-        this.songs.add(s);
-        boolean albumeExists = false;
-        Iterator var3 = this.albumes.iterator();
-
-        while(var3.hasNext()) {
-            Albume a = (Albume)var3.next();
-            if (a.getName().equals(s.getAlbumeName())) {
-                a.addSong(s);
-                s.setAlbume(a);
-                albumeExists = true;
-                break;
-            }
-        }
-
-        if (!albumeExists) {
-            Albume albume = new Albume(s, s.getAlbumeName());
-            this.addAlbum(albume);
-            s.setAlbume(albume);
-        }
-
+    public void addPlaylist(PlayList playList){
+        playlists.add(playList);
+        JButton btn = new JButton(playList.getPlayListName());
+        displayListsGUI.setGBC(btn);
+        displayListsGUI.setPlaylistButton(btn , playList);
     }
 
-    private void addAlbum(Albume albume) {
-        this.albumes.add(albume);
+    public void addSong(Song s){
+        songs.add(s);
     }
 
     /**
@@ -197,7 +191,8 @@ public class DisplayListsControl implements Serializable {
     }
 
     /**
-     * Creates an object ChooseMusicFrame and displays a JFileChooser for selecting a mp3 file
+     * Creates an object ChooseMusicFrame and displays a JFileChooser for selecting a mp3 file and then adds
+     * the sselected song to the library if it wasn't added befor.
      */
 
     public void addSong() {
@@ -222,7 +217,26 @@ public class DisplayListsControl implements Serializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                this.addSong(newSong);
+                this.songs.add(newSong);
+                boolean albumeExists = false;
+                Iterator var3 = this.albumes.iterator();
+
+                while(var3.hasNext()) {
+                    Albume a = (Albume)var3.next();
+                    if (a.getName().equals(newSong.getAlbumeName())) {
+                        a.addSong(newSong);
+                        newSong.setAlbume(a);
+                        albumeExists = true;
+                        break;
+                    }
+                }
+
+                if (!albumeExists) {
+                    Albume albume = new Albume(newSong, newSong.getAlbumeName());
+                    this.addAlbum(albume);
+                    newSong.setAlbume(albume);
+                }
+                // this.addSong(newSong);
                 try {
                     update(newSong);
                 } catch (Exception e) {
@@ -329,7 +343,7 @@ public class DisplayListsControl implements Serializable {
         playlists.add(favorate);
     }
 
-    public void deletPlaylist(PlayList playList){
+    public void deletPlaylist(PlayList playList) {
         playlists.remove(playList);
     }
 

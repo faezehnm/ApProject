@@ -3,7 +3,7 @@ package Network;
 import java.io.*;
 import java.net.Socket;
 
-public class Network implements Runnable , Serializable {
+public class Network implements Runnable {
 
     private Socket client;
     private int port = 2000 ;

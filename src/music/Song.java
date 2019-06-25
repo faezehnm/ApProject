@@ -44,7 +44,7 @@ public class Song extends Music implements Serializable {
         }
         try {
             com.mpatric.mp3agic.ID3v2 id3v2 = mp3File.getId3v2Tag();
-            setArtwork(id3v2.getAlbumImage());
+            artwork = id3v2.getAlbumImage();
         }catch (NullPointerException npe){
             artwork = null;
         }
@@ -75,7 +75,7 @@ public class Song extends Music implements Serializable {
      * @param songImage is the song image in byte[] format
      */
 
-    private void setArtwork (byte[] songImage){
+   /* private void setArtwork (byte[] songImage){
         BufferedImage bufferedImage = null;
         try {
             InputStream inputStream = new ByteArrayInputStream(songImage);
@@ -84,7 +84,7 @@ public class Song extends Music implements Serializable {
             System.out.println(ex.getMessage());
         }
         artwork = bufferedImage;
-    }
+    }*/
 
 
 }

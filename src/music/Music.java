@@ -1,8 +1,12 @@
 package music;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 
 /**
@@ -16,13 +20,13 @@ import java.io.Serializable;
 public class Music implements Serializable {
 
     protected String name;
-    protected BufferedImage artwork;
+    protected byte[] artwork;
 
     public String getName() {
         return name;
     }
 
-    public BufferedImage getArtwork() {
+    public byte[] getArtwork() {
         return artwork;
     }
 
@@ -34,9 +38,17 @@ public class Music implements Serializable {
      */
 
     public Image scaledImage(int width , int height){
+        BufferedImage bufferedImage = null;
+        try {
+            InputStream inputStream = new ByteArrayInputStream(artwork);
+            bufferedImage = ImageIO.read(inputStream);
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        BufferedImage artworkImg = bufferedImage;
         Image img;
         if(artwork != null){
-            img = (Image) artwork;
+            img = (Image) artworkImg;
         }
         else{
             ImageIcon imgIcon = new ImageIcon("src/Icons/music icon.png");

@@ -19,7 +19,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  * @version 1.0
  */
 
-public class ChooseMusicFrame implements Serializable {
+public class ChooseMusicFrame {
 
     private File newSong;
 

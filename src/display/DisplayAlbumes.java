@@ -21,7 +21,7 @@ import music.*;
  * @version 1.0
  */
 
-public class DisplayAlbumes extends DisplaySongsGroup implements Serializable {
+public class DisplayAlbumes extends DisplaySongsGroup{
 
    private DisplayListsControl displayListsControl;
 

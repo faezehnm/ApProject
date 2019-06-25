@@ -294,4 +294,8 @@ public class PlayMusicGUI extends JPanel implements Serializable {
     public ImageIcon getImPause() {
         return imPause;
     }
+
+    public Song getSong(){
+        return song;
+    }
 }

@@ -52,9 +52,9 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
      * @param playMusicGUI is an object of PlayMusicGUI class that is added to mainGUI
      */
 
-    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI){
+    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI , boolean stePlaylist){
         try {
-            displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI);
+            displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI , stePlaylist , this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,11 +120,11 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
         if (displayListsControl.getPlaylists().size() != 0) {
             for (PlayList playList : displayListsControl.getPlaylists()) {
                 JButton playlistbtn = new JButton(playList.getPlayListName());
-                setPlaylistButton(playlistbtn, playList);
                 gbc.gridx = 0;
                 gbc.gridy = 4 + numberOfPlaylists;
                 listsPnl.add(playlistbtn, gbc);
                 numberOfPlaylists++;
+                setPlaylistButton(playlistbtn, playList);
             }
         }
         gbc2.gridx = 0;
@@ -287,7 +287,7 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
      * @param playList is a playlist that the button belongs to.
      */
 
-    private void setPlaylistButton(JButton playlistbtn , PlayList playList){
+    public void setPlaylistButton(JButton playlistbtn , PlayList playList){
         playlistbtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -368,5 +368,27 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
         playlistbtn.setBorder(greenLIne);
         playlistbtn.setPreferredSize(new Dimension(200 , 100));
         playlistsbtn.add(playlistbtn);
+    }
+
+    public DisplayListsControl getDisplayListsControl() {
+        return displayListsControl;
+    }
+
+    /**
+     * sets the layout and position for a playlist button.It is used in deserialization.
+     * @param btn is the button of a playlist.
+     */
+
+    public void setGBC(JButton btn){
+        gbc.gridx = 0;
+        gbc.gridy = numberOfPlaylists + 4;
+        setPlaylistButton(btn , displayListsControl.getPlaylists().get(numberOfPlaylists));
+        listsPnl.remove(addNewPlaylist);
+        listsPnl.add(btn , gbc);
+        numberOfPlaylists ++;
+        gbc2.gridy = 4 + numberOfPlaylists;
+        listsPnl.add(addNewPlaylist, gbc2);
+        mainGUI.revalidate();
+        mainGUI.repaint();
     }
 }
