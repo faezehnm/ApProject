@@ -34,7 +34,7 @@ public class Main {
                 jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addAlbum(a);
             }
             int numberOfPlaylists = in.readInt();
-            System.out.println(numberOfPlaylists + "ooooooooooo");
+            //System.out.println(numberOfPlaylists + "ooooooooooo");
             for(int i = 0 ; i < numberOfPlaylists ; i++){
                 PlayList p = (PlayList) in.readObject();
                 jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addPlaylist(p);

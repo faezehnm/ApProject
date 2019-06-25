@@ -50,11 +50,11 @@ public class PlayList implements Serializable {
         }
     }
 
-   /* public void removeSong(Song song){
+    public void removeSong(Song song){
         if(songs.contains(song)){
             songs.remove(song);
         }
-    }*/
+    }
 
     /*public int getNumberOfSongs(){
         return songs.size();

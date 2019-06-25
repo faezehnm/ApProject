@@ -31,7 +31,7 @@ import static display.DisplaySongsSituation.PLAYING;
  * @version 1.0
  */
 
-public class DisplaySongs extends DisplaySongsGroup implements Serializable {
+public class DisplaySongs extends DisplaySongsGroup {
 
     private DisplaySongsSituation displaySongsSituation;
     private PlayList playList;
@@ -49,8 +49,8 @@ public class DisplaySongs extends DisplaySongsGroup implements Serializable {
      * @throws Exception
      */
 
-    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation) throws Exception{
-        super(songArrayList , playMusicGUI);
+    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation , JPotifyGUI mainGUI) throws Exception{
+        super(songArrayList , playMusicGUI , mainGUI);
         this.playing = playing;
         this.playList = playList;
         this.displayListsControl = displayListsControl;
@@ -64,7 +64,7 @@ public class DisplaySongs extends DisplaySongsGroup implements Serializable {
      */
 
     @Override
-    protected void addActionListeners(JButton btn, Music music){
+    protected void addActionListeners(JButton btn, Music music , JPanel pnl){
         Song song = (Song) music;
         btn.addActionListener(new ActionListener() {
             @Override
@@ -90,8 +90,10 @@ public class DisplaySongs extends DisplaySongsGroup implements Serializable {
                     JPopupMenu popupMenu = new JPopupMenu();
                     JMenuItem addToFavorite = new JMenuItem("add to favorite songs");
                     JMenuItem addToShared = new JMenuItem("add to shared playlist");
+                    JMenuItem delet = new JMenuItem("delet");
                     popupMenu.add(addToFavorite);
                     popupMenu.add(addToShared);
+                    popupMenu.add(delet);
                     popupMenu.show(btn , e.getX() , e.getY());
                     addToFavorite.addActionListener(new ActionListener() {
                         @Override
@@ -103,6 +105,30 @@ public class DisplaySongs extends DisplaySongsGroup implements Serializable {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             displayListsControl.addSongToPlaylist(song , "Shared Playlist");
+                        }
+                    });
+                    delet.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            musics.remove(song);
+                            panel.remove(pnl);
+                            if(musics.equals(displayListsControl.getSongs())){
+                                if(song.getAlbume().getSongs().size() == 1){
+                                    displayListsControl.deletAlbume(song.getAlbume());
+                                }
+                                else{
+                                    song.getAlbume().deletSong(song);
+                                }
+                                for(PlayList p : displayListsControl.getPlaylists()){
+                                    if(p.getSongs().contains(song)){
+                                        p.removeSong(song);
+                                    }
+                                }
+                                displayListsControl.setDisplaySongs(displayListsControl.getSongs());
+                            }
+                            else{
+                                displayListsControl.setDisplayPlaylist(playList , playMusicGUI);
+                            }
                         }
                     });
                 }

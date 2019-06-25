@@ -108,7 +108,7 @@ public class JPotifyGUI extends JFrame {
                     for(Albume a : getDisplayListsGUI().getDisplayListsControl().getAlbumes()){
                         out.writeObject(a);
                     }
-                    System.out.println(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
+                   // System.out.println(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
                     out.writeInt(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
                     for(PlayList p : getDisplayListsGUI().getDisplayListsControl().getPlaylists()){
                         out.writeObject(p);

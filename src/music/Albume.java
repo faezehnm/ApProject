@@ -46,11 +46,11 @@ public class Albume extends Music implements Serializable {
         }
     }
 
-    /*public void deletSong(Song song){
+    public void deletSong(Song song){
         if(songs.contains(song)){
             songs.remove(song);
         }
-    }*/
+    }
 
 
     /*public void setArtwork(){
