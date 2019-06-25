@@ -1,5 +1,6 @@
 package display;
 
+import home.JPotifyGUI;
 import playControl.PlayMusicGUI;
 
 import javax.swing.*;
@@ -19,12 +20,13 @@ import music.*;
  * @version 1.0
  */
 
-public abstract class DisplaySongsGroup extends JScrollPane implements Serializable {
+public abstract class DisplaySongsGroup extends JScrollPane {
 
     protected JPanel panel;
     protected static ArrayList<? extends Music> musics;
     protected ArrayList<JPanel> musicsPanels;
     protected PlayMusicGUI playMusicGUI;
+    protected JPotifyGUI mainGUI;
 
     /**
      * Creates an object of DisplaySongsGroup class and adjust all it's components including panels , buttons and labels.
@@ -32,11 +34,12 @@ public abstract class DisplaySongsGroup extends JScrollPane implements Serializa
      * @param playMusicGUI is an object of PlayMusicGUI class that is added to mainGUI.
      */
 
-    public DisplaySongsGroup(ArrayList<? extends Music> musics , PlayMusicGUI playMusicGUI){
+    public DisplaySongsGroup(ArrayList<? extends Music> musics , PlayMusicGUI playMusicGUI , JPotifyGUI mainGUI){
         panel = new JPanel();
         musicsPanels = new ArrayList<JPanel>();
         this.musics = musics;
         this.playMusicGUI = playMusicGUI;
+        this.mainGUI = mainGUI;
         panel.setBackground(Color.WHITE);
         setViewportView(panel);
         setBackground(Color.WHITE);
@@ -63,7 +66,7 @@ public abstract class DisplaySongsGroup extends JScrollPane implements Serializa
             JButton btn = createButton(music);
             pnl.add(btn , innerGbc);
             try {
-                addActionListeners(btn , music);
+                addActionListeners(btn , music , pnl);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -128,7 +131,7 @@ public abstract class DisplaySongsGroup extends JScrollPane implements Serializa
      * @param music is the music that we want add actionlistener to it's button
      */
 
-    protected abstract void addActionListeners(JButton btn , Music music);
+    protected abstract void addActionListeners(JButton btn , Music music , JPanel pnl);
 
     public ArrayList<? extends Music> getMusics() {
         return musics;

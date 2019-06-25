@@ -1,5 +1,6 @@
 package display;
 
+import home.JPotifyGUI;
 import playControl.PlayMusicGUI;
 
 import javax.swing.*;
@@ -33,8 +34,8 @@ public class DisplayAlbumes extends DisplaySongsGroup{
      * @throws Exception
      */
 
-    public DisplayAlbumes(ArrayList<Albume> albumes , DisplayListsControl displayListsControl , PlayMusicGUI playMusicGUIl) throws Exception{
-        super(albumes , playMusicGUIl);
+    public DisplayAlbumes(ArrayList<Albume> albumes , DisplayListsControl displayListsControl , PlayMusicGUI playMusicGUIl , JPotifyGUI mainGUI) throws Exception{
+        super(albumes , playMusicGUIl , mainGUI);
         this.displayListsControl = displayListsControl;
     }
 
@@ -45,14 +46,14 @@ public class DisplayAlbumes extends DisplaySongsGroup{
      */
 
     @Override
-    protected void addActionListeners(JButton btn , Music music){
+    protected void addActionListeners(JButton btn , Music music , JPanel pnl){
         Albume albume = (Albume) music;
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
                 System.out.println(":|");
                 try {
-                    displayListsControl.setDisplaySongs(albume.getSongs());
+                    displayListsControl.setDisplaySongs(albume.getSongs() , false);
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

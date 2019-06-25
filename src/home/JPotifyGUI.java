@@ -69,6 +69,83 @@ public class JPotifyGUI extends JFrame {
         add(friendsActivityGUI,BorderLayout.EAST);
         setVisible(true);
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                String fileName = "src/jpotify.bin";
+                FileOutputStream filleout = null;
+                try {
+                    filleout = new FileOutputStream(fileName);
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                }
+                ObjectOutputStream out = null;
+                try {
+                    out = new ObjectOutputStream(filleout);
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    if(getPlayMusicGUI().getSong() == null){
+                        out.writeInt(0);
+                    }
+                    else {
+                        out.writeInt(1);
+                        out.writeObject(getPlayMusicGUI().getSong());
+                    }
+                    out.writeInt(displayListsGUI.getDisplayListsControl().getSongs().size());
+                    for (Song s : displayListsGUI.getDisplayListsControl().getSongs()){
+                        out.writeObject(s);
+                    }
+                    out.writeInt(getDisplayListsGUI().getDisplayListsControl().getAlbumes().size());
+                    for(Albume a : getDisplayListsGUI().getDisplayListsControl().getAlbumes()){
+                        out.writeObject(a);
+                    }
+                    out.writeInt(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
+                    for(PlayList p : getDisplayListsGUI().getDisplayListsControl().getPlaylists()){
+                        out.writeObject(p);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    out.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+               // System.out.println("yessss");
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
     public TopPanle getTopPanle() {

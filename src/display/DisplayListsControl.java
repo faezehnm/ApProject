@@ -35,29 +35,7 @@ public class DisplayListsControl{
      */
 
     public DisplayListsControl(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI , boolean setPlaylist , DisplayListsGUI displayListsGUI) throws Exception {
-       /* Song s1 = new Song("src/songs/Mohammad Alizadeh - Khateret Takht [128].mp3");
-        this.addSong(s1);
-        Song s2 = new Song("src/songs/Mehdi Yarrahi - Sarma Nazdike (128).mp3");
-        this.addSong(s2);
-        Song s3 = new Song("src/songs/Mehdi Yarrahi – Mesle Mojasameh128 (UpMusic).mp3");
-        this.addSong(s3);
-        Song s4 = new Song("src/songs/Ashvan - Mano Daryab.mp3");
-        this.addSong(s4);
-        Song s5 = new Song("src/songs/Mohsen_Sharifian-Mahalleye_Khomooni-(WWW.IRMP3.IR).mp3");
-        this.addSong(s5);
-        Song s6 = new Song("src/songs/Ashvan - Daram Ashegh Misham (128).mp3");
-        this.addSong(s6);
-        Song s7 = new Song("src/songs/Happier.mp3");
-        this.addSong(s7);
-        Song s8 = new Song("src/songs/03 Dar Astaneye Piri [320].mp3");
-        this.addSong(s8);
-        Song s9 = new Song("src/songs/02 To Dar Masafate Barani [320].mp3");
-        this.addSong(s9);
-        Song s10 = new Song("src/songs/Ehaam - Bezan Baran (128).mp3");
-        this.addSong(s10);
-        Song s11 = new Song("src/songs/Ehaam - Haale Man (128).mp3");
-        this.addSong(s11);*/
-       this.displayListsGUI = displayListsGUI;
+        this.displayListsGUI = displayListsGUI;
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
         if(setPlaylist) {
@@ -135,10 +113,10 @@ public class DisplayListsControl{
      * @param songs is the a list of songs to be displayed.
      */
 
-    public void setDisplaySongs(ArrayList<Song> songs){
+    public void setDisplaySongs(ArrayList<Song> songs , boolean deletable){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING);
+            displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , deletable);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,7 +135,7 @@ public class DisplayListsControl{
     public void setDisplayAlbums(){
         DisplayAlbumes displayAlbumes = null;
         try {
-            displayAlbumes = new DisplayAlbumes(this.albumes, this, playMusicGUI);
+            displayAlbumes = new DisplayAlbumes(this.albumes, this, playMusicGUI , mainGUI);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,7 +156,7 @@ public class DisplayListsControl{
     public void setDisplayPlaylist(PlayList playlist, PlayMusicGUI playMusicGUI){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , (PlayList)null , this , DisplaySongsSituation.PLAYING);
+            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -197,50 +175,53 @@ public class DisplayListsControl{
 
     public void addSong() {
         ChooseMusicFrame chooseMusicFrame = new ChooseMusicFrame();
-        File songFile = chooseMusicFrame.getNewSong();
-        if (songFile != null) {
-            boolean fileExists = false;
-            Iterator iterator = this.songs.iterator();
+        File[] songFiles = chooseMusicFrame.getNewSong();
+        for(File songFile : songFiles) {
+            System.out.println("y");
+            if (songFile != null) {
+                boolean fileExists = false;
+                Iterator iterator = this.songs.iterator();
 
-            while(iterator.hasNext()) {
-                Song s = (Song)iterator.next();
-                if (s.getFileAddress().equals(songFile.getPath())) {
-                    fileExists = true;
-                    break;
-                }
-            }
-
-            if (!fileExists) {
-                Song newSong = null;
-                try {
-                    newSong = new Song(songFile.getPath());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                this.songs.add(newSong);
-                boolean albumeExists = false;
-                Iterator var3 = this.albumes.iterator();
-
-                while(var3.hasNext()) {
-                    Albume a = (Albume)var3.next();
-                    if (a.getName().equals(newSong.getAlbumeName())) {
-                        a.addSong(newSong);
-                        newSong.setAlbume(a);
-                        albumeExists = true;
+                while (iterator.hasNext()) {
+                    Song s = (Song) iterator.next();
+                    if (s.getFileAddress().equals(songFile.getPath())) {
+                        fileExists = true;
                         break;
                     }
                 }
 
-                if (!albumeExists) {
-                    Albume albume = new Albume(newSong, newSong.getAlbumeName());
-                    this.addAlbum(albume);
-                    newSong.setAlbume(albume);
-                }
-                // this.addSong(newSong);
-                try {
-                    update(newSong);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                if (!fileExists) {
+                    Song newSong = null;
+                    try {
+                        newSong = new Song(songFile.getPath());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    this.songs.add(newSong);
+                    boolean albumeExists = false;
+                    Iterator var3 = this.albumes.iterator();
+
+                    while (var3.hasNext()) {
+                        Albume a = (Albume) var3.next();
+                        if (a.getName().equals(newSong.getAlbumeName())) {
+                            a.addSong(newSong);
+                            newSong.setAlbume(a);
+                            albumeExists = true;
+                            break;
+                        }
+                    }
+
+                    if (!albumeExists) {
+                        Albume albume = new Albume(newSong, newSong.getAlbumeName());
+                        this.addAlbum(albume);
+                        newSong.setAlbume(albume);
+                    }
+                    // this.addSong(newSong);
+                    try {
+                        update(newSong);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -256,11 +237,11 @@ public class DisplayListsControl{
             if(displaySongsGroup instanceof DisplayAlbumes){
                 setDisplayAlbums();
             }
-            else if(displaySongsGroup.getMusics().size() == songs.size()){
-                setDisplaySongs(songs);
+            else if(displaySongsGroup.getMusics().equals(songs)){
+                setDisplaySongs(songs , true);
             }
             else if(((Song)(displaySongsGroup.getMusics().get(0))).getAlbume().equals(song.getAlbume()) && displaySongsGroup.getMusics().size() == song.getAlbume().getSongs().size()){
-                setDisplaySongs(song.getAlbume().getSongs());
+                setDisplaySongs(song.getAlbume().getSongs() , false);
             }
         }
     }
@@ -274,7 +255,7 @@ public class DisplayListsControl{
     public void setSelectSongs(PlayMusicGUI playMusicGUI, PlayList playList){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION);
+            displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION , mainGUI , false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -327,7 +308,7 @@ public class DisplayListsControl{
                 setDisplayAlbums();
             }
             else if(displaySongsGroup.getMusics().size() == songs.size()){
-                setDisplaySongs(songs);
+                setDisplaySongs(songs , true);
             }
         }
     }
@@ -345,6 +326,10 @@ public class DisplayListsControl{
 
     public void deletPlaylist(PlayList playList) {
         playlists.remove(playList);
+    }
+
+    public void deletAlbume(Albume albume){
+        albumes.remove(albume);
     }
 
 }

@@ -3,12 +3,14 @@ package display;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Serializable;
 
+import static java.awt.Frame.getFrames;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
@@ -21,7 +23,7 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 public class ChooseMusicFrame {
 
-    private File newSong;
+    private File[] newSong;
 
     /**
      * This constructor makes an object of this class
@@ -32,17 +34,19 @@ public class ChooseMusicFrame {
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         fileChooser.setDialogTitle("add a new mp3 file to your library");
         fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setMultiSelectionEnabled(true);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("mp3 files", "mp3");
         fileChooser.addChoosableFileFilter(filter);
+        //fileChooser.setMultiSelectionEnabled(true);
         int returnValue = fileChooser.showDialog(null, "open");
         if (returnValue == JFileChooser.APPROVE_OPTION){
             if(fileChooser.getSelectedFile().isFile()){
-                newSong = fileChooser.getSelectedFile();
+                newSong = fileChooser.getSelectedFiles();
             }
         }
     }
 
-    public File getNewSong() {
+    public File[] getNewSong() {
         return newSong;
     }
 }
