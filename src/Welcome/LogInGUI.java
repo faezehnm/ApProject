@@ -24,4 +24,8 @@ public class LogInGUI extends GoToJPotiy implements Serializable {
         setVisible(false);
     }
 
+    public Network getNetwork() {
+        return network;
+    }
+
 }

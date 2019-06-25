@@ -1,5 +1,7 @@
 package FirendsActivity;
 
+import Network.Network;
+import Network.User;
 import home.JPotifyGUI;
 
 import javax.swing.*;
@@ -27,10 +29,14 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener , 
     private JLabel jLabel =  new JLabel("Friend Activity") ;
     private ImageIcon imgAdd = new ImageIcon("src/Icons/plus.png") ;
     private JButton btnAddFriend = new JButton(imgAdd);
+    private User user = new User("null","null");
+    private AddFriendGUI addFriendGUI ;
+    private int current = 0;
 
-
-    public FriendsActivityGUI(JPotifyGUI gui)
+    public FriendsActivityGUI(User user)
     {
+        this.user = user ;
+
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc2 = new GridBagConstraints();
@@ -62,9 +68,10 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener , 
 
     public void creatFirendPanel()
     {
-        for( int i=0 ; i<Friend.getFriends().size() ; i++ ){
-            friendsPanel.add(new FriendPanel(Friend.getFriends().get(i)));
+        for( int i=current ; i<user.getFriends().size() ; i++ ){
+            friendsPanel.add(new FriendPanel(user.getFriends().get(i)));
         }
+        current=user.getFriends().size();
         addFriendsPanel();
     }
 
@@ -88,24 +95,37 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener , 
 
     }
 
-    public void removeFrendsPanel(){
+    public void removeFrendsPanel()
+    {
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             mainPanel.remove(friendsPanel.get(i).getMainPanel());
         }
     }
 
-    public void ActionToAddFriend(){
-        new AddFriendGUI() ;
-        removeFrendsPanel();
-        creatFirendPanel();
+    public void ActionToAddFriend()
+    {
+        addFriendGUI = new AddFriendGUI(user);
+        //creatFirendPanel();
         /*
         action for network
          */
     }
 
+    public AddFriendGUI getAddFriendGUI() {
+        return addFriendGUI;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
 
         if( e.getSource()== btnAddFriend ){
             ActionToAddFriend();

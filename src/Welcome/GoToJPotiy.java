@@ -64,7 +64,7 @@ public abstract class GoToJPotiy extends JFrame implements ActionListener , Seri
     public void actionToDo() throws Exception {
         name = this.jTextFieldName.getText();
         pass = this.jTextFieldPass.getText();
-        User user = new User(name, pass, ME );
+        User user = new User(name, pass);
         actionToDoForEeach(user);
     }
 

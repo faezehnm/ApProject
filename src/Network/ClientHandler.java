@@ -1,12 +1,13 @@
 package Network;
 
 
+import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static Network.UserState.ME;
 
@@ -17,6 +18,7 @@ public class ClientHandler extends Thread{
     private ObjectOutputStream outputStream;
     private User user;
     static ArrayList<User> users = new ArrayList<User>();
+    static HashMap<User,ObjectOutputStream> usersMap = new HashMap<User, ObjectOutputStream>();
 
 
     public ClientHandler(Socket client ) throws Exception
@@ -26,17 +28,24 @@ public class ClientHandler extends Thread{
         outputStream=  new ObjectOutputStream(client.getOutputStream());
         inputStream  = new ObjectInputStream(client.getInputStream());
 
-//        if( true)
-           //System.out.println(inputStream.readObject().getClass());
-//        else
-//            System.out.println(":)))");
 
         ForServer fromClient = (ForServer)inputStream.readObject();
-        System.out.println(fromClient.getUser().getName());
         user =  fromClient.getUser();
 
-        checkUserName(user);
+        if( fromClient.getType()== 8)
+            rejectFriend();
 
+        if( fromClient.getType()== 7)
+            acceptFriend(user);
+
+        if( fromClient.getType()== 6)
+            sendRequestToFriend(user);
+
+        if( fromClient.getType()== 0)
+            checkUserName(user);
+
+        if( fromClient.getType()== 3)
+            checkPass(user);
 
     }
 
@@ -82,6 +91,7 @@ public class ClientHandler extends Thread{
             outputStream.writeObject(fromServer);
             outputStream.flush();
             users.add(user);
+            usersMap.put(user,outputStream);
         }
 
     }
@@ -102,5 +112,44 @@ public class ClientHandler extends Thread{
             outputStream.writeObject(fromServer);
             outputStream.flush();
         }
+    }
+
+    private void sendRequestToFriend(User user) throws IOException
+    {
+        ForServer fromServer = new ForServer(6,new User(user.getPassword(),null) );
+       // System.out.println(user.getPassword());
+        findUserSocket(user).writeObject(fromServer);
+        findUserSocket(user).flush();
+        //System.out.println(user.getName());
+
+    }
+
+    private ObjectOutputStream findUserSocket(User user)
+    {
+
+        ObjectOutputStream result = null ;
+        for(User user1 : usersMap.keySet() ){
+            if( user1.getName().equals(user.getName())){
+                result = usersMap.get(user1);
+                break;
+            }
+        }
+        return result;
+    }
+
+    private void acceptFriend(User user) throws IOException
+    {
+
+        User friend = new User(user.getPassword(),null);
+        ForServer forServer = new ForServer(7,user);
+        findUserSocket(friend).writeObject(forServer);
+        findUserSocket(friend).flush();
+    }
+
+    private void rejectFriend()
+    {
+        /*
+        :)
+         */
     }
 }

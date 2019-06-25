@@ -3,39 +3,21 @@ package FirendsActivity;
 import music.PlayList;
 import music.Song;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Friend implements Serializable {
-    private String IP ;
+public class Friend {
+
     private String name ;
     private PlayList sharedPlayList ;
     private Song lastSong ;
-    static ArrayList<Friend> friends = new ArrayList<Friend>();
+    private Boolean isSongPlaying =false ;
 
-    public Friend( String IP , String name ){
-        this.IP = IP ;
+    public Friend( String name ){
         this.name = name ;
-    }
-
-    public static void addFriend(Friend friend){
-        friends.add(friend);
-    }
-
-    public static ArrayList<Friend> getFriends() {
-        return friends;
-    }
-
-    public String getIP() {
-        return IP;
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setIp(String iP) {
-        this.IP = iP;
     }
 
     public PlayList getSharedPlayList() {
@@ -54,11 +36,12 @@ public class Friend implements Serializable {
         this.lastSong = lastSong;
     }
 
-    public boolean isSongPlaying(){
-        /*
-        :)
-         */
-        return false ;
+    public Boolean getSongPlaying() {
+        return isSongPlaying;
+    }
+
+    public void setSongPlaying(Boolean songPlaying) {
+        isSongPlaying = songPlaying;
     }
 
     public String getLastTimeSongPlaying(){

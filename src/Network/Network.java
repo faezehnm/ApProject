@@ -1,15 +1,30 @@
 package Network;
 
-import java.io.*;
+import FirendsActivity.Friend;
+import Welcome.GoToJPotiy;
+import Welcome.LogInGUI;
+import Welcome.SignUpGUI;
+import home.JPotifyGUI;
+import music.Song;
+
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
-public class Network implements Runnable {
+public class Network implements Runnable{
 
     private Socket client;
     private int port = 2000 ;
     private String serverName = "localhost";
     private ObjectOutputStream outStream;
     private ObjectInputStream inputStream;
+    private Warning warning ;
+    public static JPotifyGUI jPotifyGUI ;
+
+    public static LogInGUI logInGUI ;
+    public static GoToJPotiy signUpGUI ;
 
     public Network(ForServer forServer) throws IOException
     {
@@ -17,21 +32,14 @@ public class Network implements Runnable {
         client = new Socket(serverName, port);
         outStream = new ObjectOutputStream(client.getOutputStream());
         outStream.writeObject(forServer);
-//
-//        OutputStream outputStream = client.getOutputStream();
-//        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
 
     }
 
     public void sendFile(ForServer forServer) throws IOException
     {
         outStream.writeObject(forServer);
+        outStream.flush();
 
-    }
-
-    public ObjectInputStream getInputStream()
-    {
-        return inputStream;
     }
 
     @Override
@@ -55,37 +63,56 @@ public class Network implements Runnable {
                         */
                        break;
                     case 1:
-                        /*
-                        have this user already
-                         */
+                        NOTAcceptSignUpRequest();
                         break;
+
                     case 2:
-                       /*
-                       can add this user
-                        */
+                        AcceptSignUpRequest(forServer);
                         break;
+
                     case 3:
                         /*
                         login request
                          */
                     case 4 :
+                        NOTAcceptLoginRequest();
+                        break;
+
+                    case 5:
+                        AcceptLoginRequest(forServer);
+                        break;
+
+                    case 6:
+                        Request request = new Request(forServer,jPotifyGUI);
                         /*
-                        incorrect pass
+                        send regust to friend
                          */
                         break;
-                    case 5:
-                        /*
-                        correct pass
-                         */
-                    case 6:
+
+                    case 7:
+                        System.out.println("friend accepted");
+                        try {
+                            freiendAccept(forServer);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case 8:
+                       // friendNOTaccept(forServer);
+                        break;
+
+                    case 9:
                         /*
                         play Current/lastSong music for friends
                          */
-                        break;
-                    case 7:
-                       /*
+                    case 10:
+                        /*
                        show shared Playlist for other friends
                         */
+                        break;
+                    case 11:
+
                         break;
                 }
             } catch (IOException e)
@@ -98,4 +125,60 @@ public class Network implements Runnable {
         }
 
     }
+    private void AcceptLoginRequest(ForServer forServer)
+    {
+        try {
+            jPotifyGUI = new JPotifyGUI();
+            jPotifyGUI.setUser(forServer.getUser());
+            //jPotifyGUI.getFriendsActivityGUI().getAddFriendGUI().setNetwork(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void NOTAcceptLoginRequest()
+    {
+        logInGUI = new LogInGUI();
+        warning= new Warning("incorrect pass");
+    }
+
+    private void AcceptSignUpRequest(ForServer forServer)
+    {
+        try {
+            jPotifyGUI = new JPotifyGUI();
+            jPotifyGUI.setUser(forServer.getUser());
+            //jPotifyGUI.getFriendsActivityGUI().getAddFriendGUI().setNetwork(this);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void NOTAcceptSignUpRequest()
+    {
+        signUpGUI = new SignUpGUI();
+        warning= new Warning("have this user already");
+    }
+
+    private void freiendAccept(ForServer forServer) throws Exception {
+        Friend friend = new Friend(forServer.getUser().getName());
+        /*
+        set shared play list and song from forserver
+         */
+        friend.setLastSong(new Song("src/songs/Happier.mp3"));
+        jPotifyGUI.getUser().addFriend(friend);
+        jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+
+    }
+
+//    private void friendNOTaccept(ForServer forServer)
+//    {
+//        warning= new Warning("user did not accept your request");
+//    }
+
+    private void request(ForServer forServer)
+    {
+        warning= new Warning(forServer.getUser().getPassword()+" request to follow you . if you accept press ok !");
+    }
 }
+

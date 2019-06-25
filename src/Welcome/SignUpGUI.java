@@ -6,11 +6,11 @@ import home.JPotifyGUI;
 import Network.User;
 
 import java.io.IOException;
-import java.io.Serializable;
 
-public class SignUpGUI extends GoToJPotiy implements Serializable {
+import static java.lang.Thread.sleep;
 
-    public static JPotifyGUI jPotifyGUI ;
+public class SignUpGUI extends GoToJPotiy {
+
     private Network network;
     private ForServer signUpRequest ;
     private ForServer fromServer;
@@ -23,25 +23,13 @@ public class SignUpGUI extends GoToJPotiy implements Serializable {
     @Override
     public void actionToDoForEeach(User user) throws Exception
     {
-        User.addUser(user);
         signUpRequest = new ForServer(0,user);
         network = new Network(signUpRequest);
-
-        fromServer = (ForServer) network.getInputStream().readObject();
-        if( fromServer.getType()==1 ){
-            /*
-            show a window with a message that this user has Already exist
-             */
-        }
-        if( fromServer.getType()==2 ){
-            GO();
-        }
-
+        new Thread(network).start();
+        setVisible(false);
     }
 
-    private void GO() throws Exception
-    {
-        jPotifyGUI = new JPotifyGUI();
-        setVisible(false);
+    public Network getNetwork() {
+        return network;
     }
 }
