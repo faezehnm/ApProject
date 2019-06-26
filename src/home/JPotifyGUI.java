@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.*;
+import java.net.URL;
 import java.util.Optional;
 
 //import static Welcome.SignUpGUI.jPotifyGUI;
@@ -51,8 +52,8 @@ public class JPotifyGUI extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setSize(new Dimension(WIDTH , HEIGHT));
         setIconImage(icon);
+        getContentPane().setBackground(Color.pink);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
         getContentPane().add(displayListsGUI);
         add(displayListsGUI , BorderLayout.WEST);
@@ -113,7 +114,6 @@ public class JPotifyGUI extends JFrame {
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
-               // System.out.println("yessss");
             }
 
             @Override

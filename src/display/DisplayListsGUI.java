@@ -24,7 +24,7 @@ import static com.sun.javafx.fxml.expression.Expression.add;
  * @version 1.0
  */
 
-public class DisplayListsGUI extends JScrollPane implements Serializable {
+public class DisplayListsGUI extends JScrollPane{
 
     private DisplayListsControl displayListsControl;
     private JPanel listsPnl;
@@ -141,16 +141,17 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
      */
 
     private void setColor(){
-        songsbutton.setBackground(Color.white);
-        albumebutton.setBackground(Color.white);
-        playlistlbl.setBackground(Color.WHITE);
-        addNewMusic.setBackground(Color.white);
-        addNewPlaylist.setBackground(Color.white);
-        createPlaylistPanel.setBackground(Color.WHITE);
-        finishedCooshingBtn.setBackground(Color.WHITE);
-        newPlaylistTextField.setBackground(Color.WHITE);
-        createNewPlaylistbtn.setBackground(Color.WHITE);
-        cancelAddingPlaylist.setBackground(Color.WHITE);
+        listsPnl.setBackground(Color.pink);
+        songsbutton.setBackground(Color.CYAN);
+        albumebutton.setBackground(Color.CYAN);
+        playlistlbl.setBackground(Color.CYAN);
+        addNewMusic.setBackground(Color.CYAN);
+        addNewPlaylist.setBackground(Color.CYAN);
+        createPlaylistPanel.setBackground(Color.CYAN);
+        finishedCooshingBtn.setBackground(Color.CYAN);
+        newPlaylistTextField.setBackground(Color.CYAN);
+        createNewPlaylistbtn.setBackground(Color.CYAN);
+        cancelAddingPlaylist.setBackground(Color.CYAN);
     }
 
     /**
@@ -158,7 +159,7 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
      */
 
     private void setBorder(){
-        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
+        Border greenLIne = BorderFactory.createLineBorder(Color.BLUE);
         setBorder(greenLIne);
         addNewMusic.setBorder(greenLIne);
         songsbutton.setBorder(greenLIne);
@@ -228,7 +229,6 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
         addNewPlaylist.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newPlaylistFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 newPlaylistTextField.setText("");
                 newPlaylistTextField.setEditable(true);
                 newPlaylistFrame.setVisible(true);
@@ -326,7 +326,6 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     JFrame renameFrame = new JFrame("rename");
-                    renameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     renameFrame.setLayout(new GridLayout(3 , 1));
                     renameFrame.setBackground(Color.WHITE);
                     JTextField renameTextField = new JTextField();
@@ -363,8 +362,8 @@ public class DisplayListsGUI extends JScrollPane implements Serializable {
                 }
             });
         }
-        playlistbtn.setBackground(Color.WHITE);
-        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
+        playlistbtn.setBackground(Color.CYAN);
+        Border greenLIne = BorderFactory.createLineBorder(Color.BLUE);
         playlistbtn.setBorder(greenLIne);
         playlistbtn.setPreferredSize(new Dimension(200 , 100));
         playlistsbtn.add(playlistbtn);

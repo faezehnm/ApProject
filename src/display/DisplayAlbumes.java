@@ -46,7 +46,7 @@ public class DisplayAlbumes extends DisplaySongsGroup{
      */
 
     @Override
-    protected void addActionListeners(JButton btn , Music music , JPanel pnl){
+    protected void addActionListeners(JButton btn , Music music , JPanel pnl , JLabel lbl){
         Albume albume = (Albume) music;
         btn.addActionListener(new ActionListener() {
             @Override

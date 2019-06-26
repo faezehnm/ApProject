@@ -5,6 +5,8 @@ import music.Song;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -27,14 +29,16 @@ public class VolumeSlider extends JPanel implements ChangeListener , Serializabl
         jSlider = new JSlider(JSlider.HORIZONTAL , 0 , 100 , 50);
         jSlider.setMajorTickSpacing(50);
         jSlider.setPaintTicks(true);
-        jSlider.setForeground(Color.CYAN);
+        jSlider.setForeground(Color.BLUE);
         jLabel.setIcon(imSpeaker3);
         add(jLabel);
         add(jSlider);
         jSlider.addChangeListener(this);
         jSlider.setPreferredSize(new Dimension(120,40));
-        setBackground(Color.white);
-        jSlider.setBackground(Color.white);
+        setBackground(Color.CYAN);
+        jSlider.setBackground(Color.CYAN);
+        Border blueLine = new LineBorder(Color.BLUE);
+        setBorder(blueLine);
     }
 
     @Override

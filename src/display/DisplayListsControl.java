@@ -177,7 +177,6 @@ public class DisplayListsControl{
         ChooseMusicFrame chooseMusicFrame = new ChooseMusicFrame();
         File[] songFiles = chooseMusicFrame.getNewSong();
         for(File songFile : songFiles) {
-            System.out.println("y");
             if (songFile != null) {
                 boolean fileExists = false;
                 Iterator iterator = this.songs.iterator();
