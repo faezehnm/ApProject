@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @version 1.0
  * @since 2019
  */
-public class PlayMusicGUI extends JPanel implements Serializable {
+public class PlayMusicGUI extends JPanel {
 
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
@@ -49,7 +49,7 @@ public class PlayMusicGUI extends JPanel implements Serializable {
     private ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
     private ImageIcon imShuffle = new ImageIcon("src/Icons/shuffle-arrows.png"); ;
     private ImageIcon imShuffle1 =new ImageIcon("src/Icons/shuffle1.png");
-    private Border blackline = BorderFactory.createLineBorder(Color.GREEN);
+    private Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
 
     /**
@@ -92,17 +92,17 @@ public class PlayMusicGUI extends JPanel implements Serializable {
      */
     private void setBackgroundOfAll()
     {
-        btnPlay.setBackground(Color.WHITE);
-        btnNext.setBackground(Color.white);
-        btnPrevious.setBackground(Color.white);
-        btnRepeat.setBackground(Color.white);
-        btnShuffle.setBackground(Color.white);
-        leftPanel.setBackground(Color.white);
-        rightPanel.setBackground(Color.white);
-        middlePanelTop.setBackground(Color.white);
-        middletPanelDown.setBackground(Color.white);
-        displayInformationLable.setBackground(Color.white);
-        setBackground(Color.white);
+        btnPlay.setBackground(Color.CYAN);
+        btnNext.setBackground(Color.CYAN);
+        btnPrevious.setBackground(Color.CYAN);
+        btnRepeat.setBackground(Color.CYAN);
+        btnShuffle.setBackground(Color.CYAN);
+        leftPanel.setBackground(Color.PINK);
+        rightPanel.setBackground(Color.pink);
+        middlePanelTop.setBackground(Color.pink);
+        middletPanelDown.setBackground(Color.pink);
+        displayInformationLable.setBackground(Color.pink);
+        setBackground(Color.pink);
     }
 
     /**
@@ -110,12 +110,12 @@ public class PlayMusicGUI extends JPanel implements Serializable {
      */
     private void setBorderToAll()
     {
-        btnPlay.setBorder(noline);
-        btnNext.setBorder(noline);
-        btnPrevious.setBorder(noline);
-        btnRepeat.setBorder(noline);
-        btnShuffle.setBorder(noline);
-        setBorder(blackline);
+        btnPlay.setBorder(blueLine);
+        btnNext.setBorder(blueLine);
+        btnPrevious.setBorder(blueLine);
+        btnRepeat.setBorder(blueLine);
+        btnShuffle.setBorder(blueLine);
+        setBorder(blueLine);
     }
 
     /**
@@ -173,7 +173,7 @@ public class PlayMusicGUI extends JPanel implements Serializable {
         gbc2.weighty = 1.0;
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
-        junk.setBackground(Color.white);
+        junk.setBackground(Color.pink);
         leftPanel.add(junk,gbc2);
 
         gbc2.gridx = 4;
@@ -182,7 +182,7 @@ public class PlayMusicGUI extends JPanel implements Serializable {
         gbc2.weighty = 1.0;
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
-        junk2.setBackground(Color.white);
+        junk2.setBackground(Color.pink);
         leftPanel.add(junk2,gbc2);
 
         gbc2.gridx = 5;
@@ -191,7 +191,7 @@ public class PlayMusicGUI extends JPanel implements Serializable {
         gbc2.weighty = 1.0;
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
-        junk3.setBackground(Color.white);
+        junk3.setBackground(Color.pink);
         leftPanel.add(junk3,gbc2);
     }
 

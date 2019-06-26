@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.Serializable;
 
-public class AddFriendGUI extends JFrame implements Serializable , ActionListener {
+public class AddFriendGUI extends JFrame implements ActionListener {
     private static final int WIDTH = 400 , HEIGHT = 200;
 
     private JLabel jLabelName;

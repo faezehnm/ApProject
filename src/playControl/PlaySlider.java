@@ -10,6 +10,8 @@ import music.Song;
 
 import javax.jws.soap.SOAPBinding;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.*;
 import java.awt.*;
 import java.io.File;
@@ -25,7 +27,7 @@ import static java.lang.Thread.sleep;
  *  @version 1.0
  *  @since 2019
  */
-public class PlaySlider extends JPanel implements ChangeListener , Serializable {
+public class PlaySlider extends JPanel implements ChangeListener {
 
     private JSlider jSlider ;
     private int duration=0;
@@ -63,11 +65,12 @@ public class PlaySlider extends JPanel implements ChangeListener , Serializable 
         jSlider.setLabelTable(hashtable);
         jSlider.setPaintLabels(true);
         jSlider.setPreferredSize(new Dimension(600,32));
-        jSlider.setBackground(Color.white);
+        jSlider.setBackground(Color.CYAN);
 
         add(jSlider);
-        setBackground(Color.white);
-
+        setBackground(Color.cyan);
+        Border blueLine = new LineBorder(Color.BLUE);
+        setBorder(blueLine);
     }
 
     public void setSong(Song song){

@@ -15,7 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FriendsActivityGUI extends JScrollPane implements ActionListener , Serializable {
+public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
@@ -47,17 +47,19 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener , 
         setViewportView(mainPanel);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         setVisible(true);
-        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
-        setBorder(greenLIne);
+        Border blueLIne = BorderFactory.createLineBorder(Color.BLUE);
+        setBorder(blueLIne);
+        mainPanel.setBackground(Color.pink);
+        junk.setBackground(Color.pink);
 
         btnAddFriend.addActionListener(this);
         topPanel = new JPanel();
         topPanel.add(jLabel);
         topPanel.add(btnAddFriend) ;
-        jLabel.setBackground(Color.white);
-        btnAddFriend.setBackground(Color.white);
-        btnAddFriend.setBorder(noline);
-        topPanel.setBackground(Color.white);
+        jLabel.setBackground(Color.CYAN);
+        btnAddFriend.setBackground(Color.CYAN);
+        btnAddFriend.setBorder(blueLIne);
+        topPanel.setBackground(Color.CYAN);
 
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -82,7 +84,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener , 
             gbc.gridx = 0;
             gbc.gridy = 1 + i ;
             mainPanel.add(friendsPanel.get(i).getMainPanel(),gbc);
-            Border blueline = BorderFactory.createLineBorder(Color.CYAN.brighter());
+            Border blueline = BorderFactory.createLineBorder(Color.BLUE.brighter());
             friendsPanel.get(i).getMainPanel().setBorder(blueline);
         }
         gbc2.gridx = 0;

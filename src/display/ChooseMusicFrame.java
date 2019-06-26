@@ -33,12 +33,11 @@ public class ChooseMusicFrame {
         newSong = null;
         JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
         fileChooser.setDialogTitle("add a new mp3 file to your library");
-        fileChooser.setAcceptAllFileFilterUsed(false);
         fileChooser.setMultiSelectionEnabled(true);
+        fileChooser.setAcceptAllFileFilterUsed(false);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("mp3 files", "mp3");
         fileChooser.addChoosableFileFilter(filter);
-        //fileChooser.setMultiSelectionEnabled(true);
-        int returnValue = fileChooser.showDialog(null, "open");
+        int returnValue = fileChooser.showDialog(null , "open");
         if (returnValue == JFileChooser.APPROVE_OPTION){
             if(fileChooser.getSelectedFile().isFile()){
                 newSong = fileChooser.getSelectedFiles();

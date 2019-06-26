@@ -40,7 +40,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         this.musics = musics;
         this.playMusicGUI = playMusicGUI;
         this.mainGUI = mainGUI;
-        panel.setBackground(Color.WHITE);
+        panel.setBackground(Color.pink);
         setViewportView(panel);
         setBackground(Color.WHITE);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -50,13 +50,13 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.setLayout(layout);
-        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
-        setBorder(greenLIne);
+        Border blueLIne = BorderFactory.createLineBorder(Color.BLUE);
+        setBorder(blueLIne);
         int counter = 0;
         for(Music music : musics){
             JPanel pnl = new JPanel();
-            pnl.setBackground(Color.WHITE);
-            pnl.setBorder(greenLIne);
+            pnl.setBackground(Color.CYAN);
+            pnl.setBorder(blueLIne);
             GridBagLayout innerLayout = new GridBagLayout();
             GridBagConstraints innerGbc = new GridBagConstraints();
             pnl.setLayout(innerLayout);
@@ -65,14 +65,15 @@ public abstract class DisplaySongsGroup extends JScrollPane {
             innerGbc.gridy = 0;
             JButton btn = createButton(music);
             pnl.add(btn , innerGbc);
+            JLabel lbl = createLabel(music);
             try {
-                addActionListeners(btn , music , pnl);
+                addActionListeners(btn , music , pnl , lbl);
             } catch (Exception e) {
                 e.printStackTrace();
             }
             innerGbc.gridx = 0;
             innerGbc.gridy = 1;
-            pnl.add(createLabel(music) , innerGbc);
+            pnl.add(lbl , innerGbc);
             gbc.gridx = counter % 4;
             gbc.gridy = counter / 4;
             panel.add(pnl , gbc);
@@ -89,8 +90,8 @@ public abstract class DisplaySongsGroup extends JScrollPane {
 
     private JButton createButton(Music music){
         JButton btn = new JButton();
-        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
-        btn.setBorder(greenLIne);
+        Border blueLIne = BorderFactory.createLineBorder(Color.BLUE);
+        btn.setBorder(blueLIne);
         if(music.getArtwork() != null) {
             Image resizedImg = music.scaledImage(370, 370);
             ImageIcon resizedIcon = new ImageIcon(resizedImg);
@@ -114,10 +115,10 @@ public abstract class DisplaySongsGroup extends JScrollPane {
 
     private JLabel createLabel(Music music) {
         JLabel lbl = new JLabel();
-        lbl.setBackground(Color.white);
+        lbl.setBackground(Color.CYAN);
         lbl.setPreferredSize(new Dimension(370, 50));
-        Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
-        lbl.setBorder(greenLIne);
+        Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
+        lbl.setBorder(blueLine);
         lbl.setText(music.getName());
         if(music instanceof Song){
             lbl.setText(lbl.getText() + "   " + ((Song) music).getAlbumeName() + "   " + ((Song) music).getArtist());
@@ -131,7 +132,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
      * @param music is the music that we want add actionlistener to it's button
      */
 
-    protected abstract void addActionListeners(JButton btn , Music music , JPanel pnl);
+    protected abstract void addActionListeners(JButton btn , Music music , JPanel pnl , JLabel lbl);
 
     public ArrayList<? extends Music> getMusics() {
         return musics;

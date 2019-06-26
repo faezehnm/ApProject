@@ -10,6 +10,7 @@ import playControl.PlayMusicGUI;
 import music.*;
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -66,7 +67,7 @@ public class DisplaySongs extends DisplaySongsGroup {
      */
 
     @Override
-    protected void addActionListeners(JButton btn, Music music , JPanel pnl){
+    protected void addActionListeners(JButton btn, Music music , JPanel pnl , JLabel lbl){
         Song song = (Song) music;
         btn.addActionListener(new ActionListener() {
             @Override
@@ -81,6 +82,12 @@ public class DisplaySongs extends DisplaySongsGroup {
                 }
                 else{
                     playList.addSong(song);
+                    Border border = new LineBorder(Color.RED);
+                    btn.setBorder(border);
+                    pnl.setBorder(border);
+                    lbl.setBorder(border);
+                    mainGUI.revalidate();
+                    mainGUI.repaint();
                 }
             }
         });
@@ -109,7 +116,6 @@ public class DisplaySongs extends DisplaySongsGroup {
                     if(deletable) {
                         JMenuItem delet = new JMenuItem("delet");
                         popupMenu.add(delet);
-                        System.out.println("haaaaaaaaaaaaaa");
                         delet.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
@@ -124,6 +130,13 @@ public class DisplaySongs extends DisplaySongsGroup {
                                     for (PlayList p : displayListsControl.getPlaylists()) {
                                         if (p.getSongs().contains(song)) {
                                             p.removeSong(song);
+                                        }
+                                    }
+                                    if(playMusicGUI.getSong().equals(song)){
+                                        try {
+                                            playMusicGUI.setSong(null);
+                                        } catch (Exception e1) {
+                                            e1.printStackTrace();
                                         }
                                     }
                                     displayListsControl.setDisplaySongs(displayListsControl.getSongs() , true);
