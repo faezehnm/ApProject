@@ -1,3 +1,8 @@
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by Fernflower decompiler)
+//
+
 package Network;
 
 import FirendsActivity.Friend;
@@ -5,180 +10,218 @@ import Welcome.GoToJPotiy;
 import Welcome.LogInGUI;
 import Welcome.SignUpGUI;
 import home.JPotifyGUI;
-import music.Song;
-
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import music.Song;
 
-public class Network implements Runnable{
-
+public class Network implements Runnable {
     private Socket client;
-    private int port = 2000 ;
+    private int port = 2000;
     private String serverName = "localhost";
     private ObjectOutputStream outStream;
     private ObjectInputStream inputStream;
-    private Warning warning ;
-    public static JPotifyGUI jPotifyGUI ;
+    private OutputStream out ;
+    private Warning warning;
+    public static JPotifyGUI jPotifyGUI;
+    public static LogInGUI logInGUI;
+    public static GoToJPotiy signUpGUI;
+    public static boolean isOnNetworkType2 = false;
+    public static Friend friend;
 
-    public static LogInGUI logInGUI ;
-    public static GoToJPotiy signUpGUI ;
-
-    public Network(ForServer forServer) throws IOException
-    {
-
-        client = new Socket(serverName, port);
-        outStream = new ObjectOutputStream(client.getOutputStream());
-        outStream.writeObject(forServer);
-
+    public Network(ForServer forServer) throws IOException {
+        this.client = new Socket(this.serverName, this.port);
+        this.outStream = new ObjectOutputStream(this.client.getOutputStream());
+        this.outStream.writeObject(forServer);
+        this.outStream.flush();
     }
 
-    public void sendFile(ForServer forServer) throws IOException
-    {
-        outStream.writeObject(forServer);
-        outStream.flush();
+    public Network(InputStream in, byte[] bytes) throws IOException {
+        this.client = new Socket(this.serverName, this.port);
+        out = this.client.getOutputStream();
 
+        int count;
+        while((count = in.read(bytes)) > 0) {
+            out.write(bytes, 0, count);
+        }
+
+        out.flush();
+//        out.close();
+//        this.client = new Socket(this.serverName, this.port);
+//        out = this.client.getOutputStream();
+        in.close();
     }
 
-    @Override
     public void run() {
         try {
-            inputStream = new ObjectInputStream(client.getInputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
+            this.inputStream = new ObjectInputStream(this.client.getInputStream());
+        } catch (IOException var8) {
+            var8.printStackTrace();
         }
-        while (true)
-        {
-            try
-            {
-                ForServer forServer = (ForServer) inputStream.readObject();
 
-                switch (forServer.getType())
-                {
-                    case 0:
-                       /*
-                       send sign up request
-                        */
-                       break;
-                    case 1:
-                        NOTAcceptSignUpRequest();
-                        break;
+        while(true) {
+            while(isOnNetworkType2) {
+                if (isOnNetworkType2) {
+                    isOnNetworkType2 = false;
 
-                    case 2:
-                        AcceptSignUpRequest(forServer);
-                        break;
-
-                    case 3:
-                        /*
-                        login request
-                         */
-                    case 4 :
-                        NOTAcceptLoginRequest();
-                        break;
-
-                    case 5:
-                        AcceptLoginRequest(forServer);
-                        break;
-
-                    case 6:
-                        Request request = new Request(forServer,jPotifyGUI);
-                        /*
-                        send regust to friend
-                         */
-                        break;
-
-                    case 7:
-                        System.out.println("friend accepted");
-                        try {
-                            freiendAccept(forServer);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case 8:
-                       // friendNOTaccept(forServer);
-                        break;
-
-                    case 9:
-                        /*
-                        play Current/lastSong music for friends
-                         */
-                    case 10:
-                        /*
-                       show shared Playlist for other friends
-                        */
-                        break;
-                    case 11:
-
-                        break;
+                    try {
+                        this.receiveFileFromClient();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e)
-            {
-                e.printStackTrace();
+            }
+
+            try {
+                ForServer forServer = (ForServer)this.inputStream.readObject();
+                switch(forServer.getType()) {
+                case 0:
+                case 8:
+                case 9:
+
+                default:
+                    break;
+                case 1:
+                    this.NOTAcceptSignUpRequest();
+                    break;
+                case 2:
+                    this.AcceptSignUpRequest(forServer);
+                    break;
+                case 3:
+                case 4:
+                    this.NOTAcceptLoginRequest();
+                    break;
+                case 5:
+                    this.AcceptLoginRequest(forServer);
+                    break;
+                case 6:
+                    new Request(forServer, jPotifyGUI);
+                    break;
+                case 7:
+                    System.out.println("friend accepted your request");
+                    try {
+                        this.freiendAccept(forServer);
+                    } catch (Exception var5) {
+                        var5.printStackTrace();
+                    }
+                    break;
+                case 10:
+                    isOnNetworkType2 = true;
+                    friend = new Friend(forServer.getUser().getName());
+                    break;
+
+                case 11:
+                /*
+                send last song index
+                 */
+                break;
+
+                case 12:
+                    setLastSongOfFriend(forServer);
+                    break;
+                }
+
+            } catch (IOException var6) {
+                var6.printStackTrace();
+            } catch (ClassNotFoundException var7) {
+                var7.printStackTrace();
             }
         }
-
     }
-    private void AcceptLoginRequest(ForServer forServer)
-    {
+
+    private void AcceptLoginRequest(ForServer forServer) {
         try {
             jPotifyGUI = new JPotifyGUI();
             jPotifyGUI.setUser(forServer.getUser());
-            //jPotifyGUI.getFriendsActivityGUI().getAddFriendGUI().setNetwork(this);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception var3) {
+            var3.printStackTrace();
         }
+
     }
 
-    private void NOTAcceptLoginRequest()
-    {
+    private void NOTAcceptLoginRequest() {
         logInGUI = new LogInGUI();
-        warning= new Warning("incorrect pass");
+        this.warning = new Warning("incorrect pass");
     }
 
-    private void AcceptSignUpRequest(ForServer forServer)
-    {
+    private void AcceptSignUpRequest(ForServer forServer) {
         try {
             jPotifyGUI = new JPotifyGUI();
             jPotifyGUI.setUser(forServer.getUser());
-            //jPotifyGUI.getFriendsActivityGUI().getAddFriendGUI().setNetwork(this);
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception var3) {
+            var3.printStackTrace();
         }
+
     }
 
-    private void NOTAcceptSignUpRequest()
-    {
+    private void NOTAcceptSignUpRequest() {
         signUpGUI = new SignUpGUI();
-        warning= new Warning("have this user already");
+        this.warning = new Warning("have this user already");
     }
 
     private void freiendAccept(ForServer forServer) throws Exception {
         Friend friend = new Friend(forServer.getUser().getName());
-        /*
-        set shared play list and song from forserver
-         */
-        friend.setLastSong(new Song("src/songs/Happier.mp3"));
         jPotifyGUI.getUser().addFriend(friend);
-        jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+        new SendSharedPlaylist(jPotifyGUI.getUser());
+
+        //new SendLastSong(jPotifyGUI.getUser());
 
     }
-
-//    private void friendNOTaccept(ForServer forServer)
-//    {
-//        warning= new Warning("user did not accept your request");
-//    }
 
     private void request(ForServer forServer)
     {
-        warning= new Warning(forServer.getUser().getPassword()+" request to follow you . if you accept press ok !");
+        this.warning = new Warning(forServer.getUser().getPassword() + " request to follow you . if you accept press ok !");
+    }
+
+    private void receiveFileFromClient() throws Exception
+    {
+        InputStream in = null;
+        OutputStream out = null;
+        in = this.client.getInputStream();
+       // FileOutputStream fileOutputStream = new FileOutputStream("src\\songs\\receive.mp3");
+        String path = new String("src\\songs\\"+friend.getName()+1+".mp3");
+        System.out.println(path);
+        FileOutputStream fileOutputStream = new FileOutputStream(path);
+
+        out = fileOutputStream;
+        byte[] bytes = new byte[16384];
+
+        int count;
+        while((count = in.read(bytes)) > 0) {
+            out.write(bytes, 0, count);
+        }
+
+        out.close();
+        in.close();
+
+        addSongToFriendPlayList(path);
+
+    }
+
+    private void  setLastSongOfFriend(ForServer forServer)
+    {
+        for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
+            if( forServer.getUser().getName().equals(jPotifyGUI.getUser().getFriends().get(i))) {
+                jPotifyGUI.getUser().getFriends().get(i).setLasSongIndex(forServer.getUser().getLasSongIndex());
+                jPotifyGUI.getUser().getFriends().get(i).setLastSong();
+                break;
+            }
+        }
+        jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+    }
+
+    private void addSongToFriendPlayList(String path) throws Exception
+    {
+        Song song = new Song(path);
+        for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ;i++ ){
+            if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i))) {
+                jPotifyGUI.getUser().getFriends().get(i).addSongToSharedPlayList(song);
+                break;
+            }
+        }
     }
 }
-

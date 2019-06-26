@@ -1,5 +1,6 @@
 package playControl;
 import VolumeControl.VolumeSlider;
+import home.JPotifyGUI;
 import music.Song;
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -52,11 +53,13 @@ public class PlayMusicGUI extends JPanel implements Serializable {
     private Border blackline = BorderFactory.createLineBorder(Color.GREEN);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
 
+    private JPotifyGUI jPotifyGUI ;
+
     /**
      *creat a PlayMusicGUI
      * @throws Exception if player is null
      */
-    public PlayMusicGUI() throws Exception
+    public PlayMusicGUI(JPotifyGUI jPotifyGUI) throws Exception
     {
         super(new GridLayout(1,3));
 
@@ -83,7 +86,9 @@ public class PlayMusicGUI extends JPanel implements Serializable {
         add(middlePanel);
         add(rightPanel);
 
-        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1);
+        this.jPotifyGUI = jPotifyGUI ;
+
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1,this.jPotifyGUI);
 
     }
 

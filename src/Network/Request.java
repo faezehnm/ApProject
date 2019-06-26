@@ -38,10 +38,10 @@ public class Request extends JFrame implements ActionListener {
 
     }
 
-    private void acceptAction() throws IOException {
+    private void acceptAction() throws IOException
+    {
 
         Friend friend = new Friend(forServer.getUser().getName());
-       // jPotifyGUI.getUser().addFriend(friend);
         User user = new User(jPotifyGUI.getUser().getName(),friend.getName());
         forServer = new ForServer(7,user);
         Network network = new Network(forServer);
@@ -50,7 +50,8 @@ public class Request extends JFrame implements ActionListener {
         setVisible(false);
     }
 
-    private void rejectAction() throws IOException {
+    private void rejectAction() throws IOException
+    {
         User user = new User(jPotifyGUI.getUser().getName(),"null");
 
         forServer = new ForServer(8,user);
@@ -65,6 +66,7 @@ public class Request extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e)
     {
         if(e.getSource()==accept){
+            System.out.println("***");
             try {
                 acceptAction();
             } catch (IOException e1) {

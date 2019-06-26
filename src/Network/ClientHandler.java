@@ -1,10 +1,10 @@
 package Network;
 
 
+import FirendsActivity.Friend;
+
 import javax.jws.soap.SOAPBinding;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,33 +19,59 @@ public class ClientHandler extends Thread{
     private User user;
     static ArrayList<User> users = new ArrayList<User>();
     static HashMap<User,ObjectOutputStream> usersMap = new HashMap<User, ObjectOutputStream>();
-
+    static HashMap<User,OutputStream> usersMapTyp2 = new HashMap<User, OutputStream>();
+    private OutputStream outputStreamTyp2 ;
+    static boolean isOnNetworkType2 = false ;
+    static ArrayList<Friend> friends = new ArrayList<Friend>();
+    static String path ;
 
     public ClientHandler(Socket client ) throws Exception
     {
         if (client == null) throw new Exception("client can't be null");
         this.socket = client;
-        outputStream=  new ObjectOutputStream(client.getOutputStream());
-        inputStream  = new ObjectInputStream(client.getInputStream());
 
+        if( !isOnNetworkType2 ) {
 
-        ForServer fromClient = (ForServer)inputStream.readObject();
-        user =  fromClient.getUser();
+            outputStream = new ObjectOutputStream(client.getOutputStream());
+            outputStreamTyp2 = client.getOutputStream();
+            inputStream = new ObjectInputStream(client.getInputStream());
+            ForServer fromClient = (ForServer) inputStream.readObject();
+            user =  fromClient.getUser();
 
-        if( fromClient.getType()== 8)
-            rejectFriend();
+            System.out.print(fromClient.getType());
+            System.out.println(isOnNetworkType2);
 
-        if( fromClient.getType()== 7)
-            acceptFriend(user);
+            if( fromClient.getType() == 11)
+                System.out.println(":))");
 
-        if( fromClient.getType()== 6)
-            sendRequestToFriend(user);
+            else if (fromClient.getType() == 9) {
+                path = "src/songs/"+user.getName()+".mp3";
+                actionForReceivefileFromClient(user);
+                prepareFriendsToSendFile(user);
+            }
+            else if( fromClient.getType()== 8)
+                rejectFriend();
 
-        if( fromClient.getType()== 0)
-            checkUserName(user);
+            else if( fromClient.getType()== 7)
+                acceptFriend(user);
 
-        if( fromClient.getType()== 3)
-            checkPass(user);
+            else if( fromClient.getType()== 6)
+                sendRequestToFriend(user);
+
+           else if( fromClient.getType()== 0)
+                checkUserName(user);
+
+           else if( fromClient.getType()== 3)
+                checkPass(user);
+
+        }
+        else if( isOnNetworkType2) {
+            isOnNetworkType2 = false;
+            receivefileFromClient(client);
+            sendFileToFriends();
+
+        }
+
 
     }
 
@@ -92,6 +118,7 @@ public class ClientHandler extends Thread{
             outputStream.flush();
             users.add(user);
             usersMap.put(user,outputStream);
+            usersMapTyp2.put(user,outputStreamTyp2);
         }
 
     }
@@ -117,11 +144,8 @@ public class ClientHandler extends Thread{
     private void sendRequestToFriend(User user) throws IOException
     {
         ForServer fromServer = new ForServer(6,new User(user.getPassword(),null) );
-       // System.out.println(user.getPassword());
         findUserSocket(user).writeObject(fromServer);
         findUserSocket(user).flush();
-        //System.out.println(user.getName());
-
     }
 
     private ObjectOutputStream findUserSocket(User user)
@@ -131,6 +155,19 @@ public class ClientHandler extends Thread{
         for(User user1 : usersMap.keySet() ){
             if( user1.getName().equals(user.getName())){
                 result = usersMap.get(user1);
+                break;
+            }
+        }
+        return result;
+    }
+
+    private OutputStream findUserSocketType2(User user)
+    {
+
+        OutputStream result = null ;
+        for(User user1 : usersMapTyp2.keySet() ){
+            if( user1.getName().equals(user.getName())){
+                result = usersMapTyp2.get(user1);
                 break;
             }
         }
@@ -151,5 +188,71 @@ public class ClientHandler extends Thread{
         /*
         :)
          */
+    }
+
+    private void actionForReceivefileFromClient(User user)
+    {
+        isOnNetworkType2= true ;
+        for(int i=0 ; i<user.getFriends().size() ; i++ ){
+            friends.add(user.getFriends().get(i));
+        }
+    }
+
+    private void prepareFriendsToSendFile(User user) throws IOException
+    {
+        for( int i=0 ; i<friends.size() ;i++ ){
+            User hear = new User(friends.get(i).getName(),"null");
+            ForServer forServer = new ForServer(10,new User(user.getName(),"null"));
+            findUserSocket(hear).writeObject(forServer);
+            findUserSocket(hear).flush();
+        }
+    }
+
+    private void receivefileFromClient(Socket socket) throws IOException
+    {
+        InputStream in = null;
+        OutputStream out = null;
+        in = socket.getInputStream();
+        out = new FileOutputStream(path);
+        byte[] bytes = new byte[16*1024];
+
+        int count;
+        while ((count = in.read(bytes)) > 0) {
+            out.write(bytes, 0, count);
+        }
+        out.close();
+        in.close();
+
+    }
+
+    private void sendFileToFriends() throws IOException
+    {
+        for( int i=0 ; i<friends.size() ;i++){
+
+            User hear = new User(friends.get(i).getName(),"null");
+            OutputStream out = findUserSocketType2(hear);
+
+            File file = new File(path);
+            long length = file.length();
+            byte[] bytes = new byte[16 * 1024];
+            InputStream in = new FileInputStream(file);
+            int count;
+            while ((count = in.read(bytes)) > 0) {
+                out.write(bytes, 0, count);
+            }
+            out.flush();
+            out.close();
+            in.close();
+        }
+    }
+
+    private void sendLastSongToFriends(User user) throws IOException
+    {
+        for( int i=0 ; i<user.getFriends().size() ; i++ ){
+            User hear = new User(user.getFriends().get(i).getName(),"null");
+            ForServer forServer = new ForServer(12,user);
+            findUserSocket(hear).writeObject(hear);
+            findUserSocket(hear).flush();
+        }
     }
 }

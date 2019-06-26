@@ -1,19 +1,34 @@
 package FirendsActivity;
 
 import music.PlayList;
+import music.PlaylistSituation;
 import music.Song;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Friend {
+public class Friend implements Serializable {
 
     private String name ;
-    private PlayList sharedPlayList ;
+    private PlayList sharedPlayList = new PlayList(name, PlaylistSituation.PERMANENT) ;
     private Song lastSong ;
     private Boolean isSongPlaying =false ;
+    private int lasSongIndex  = 0;
 
     public Friend( String name ){
         this.name = name ;
+    }
+
+    public Song getLastSong(){
+        return lastSong;
+    }
+
+    public void setLastSong(){
+        lastSong = sharedPlayList.getSongs().get(lasSongIndex);
+    }
+
+    public void setLasSongIndex(int lasSongIndex) {
+        this.lasSongIndex = lasSongIndex;
     }
 
     public String getName() {
@@ -24,16 +39,9 @@ public class Friend {
         return sharedPlayList;
     }
 
-    public void setSharedPlayList(PlayList sharedPlayList) {
-        this.sharedPlayList = sharedPlayList;
-    }
-
-    public Song getLastSong() {
-        return lastSong;
-    }
-
-    public void setLastSong(Song lastSong) {
-        this.lastSong = lastSong;
+    public void addSongToSharedPlayList(Song song
+    ){
+        sharedPlayList.addSong(song);
     }
 
     public Boolean getSongPlaying() {

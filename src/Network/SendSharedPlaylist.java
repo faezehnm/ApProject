@@ -1,0 +1,38 @@
+package Network;
+
+import home.JPotifyGUI;
+
+import java.io.*;
+
+public class SendSharedPlaylist {
+
+    public SendSharedPlaylist(User user) throws IOException
+    {
+        /*
+        for( int i=0 ; i<user.getSharedPlayList().size ; i++ ){
+            File file = new File(user.getSharedPlaylist().get(i) )
+        }
+            user.setFile-->file
+         */
+        user.setFile(new File("src/songs/Happier.mp3"));
+
+        long length = user.getFile().length();
+        byte[] bytes = new byte[16 * 1024];
+        InputStream in = new FileInputStream(user.getFile());
+        ForServer forServer = new ForServer(9,user);
+        Network network1 = new Network(forServer);
+        new Thread(network1).start();
+
+
+        try {
+            Network network2 = new Network(in,bytes);
+            new Thread(network2).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+}

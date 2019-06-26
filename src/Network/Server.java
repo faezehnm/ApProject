@@ -12,11 +12,13 @@ public class Server extends Thread implements Serializable {
     //private ArrayList<Socket> clients = new ArrayList<>();
 
 
-    public Server(int port) throws IOException {
+    public Server(int port) throws IOException
+    {
         serverSocket = new ServerSocket(port);
     }
 
-    public void run() {
+    public void run()
+    {
         while (true)
         {
             Socket client = null;

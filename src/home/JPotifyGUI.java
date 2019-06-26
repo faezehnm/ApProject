@@ -27,7 +27,7 @@ public class JPotifyGUI extends JFrame {
     Song song = new Song("src/songs/Happier.mp3");
 
     private User user = new User("null","null") ;
-    private PlayMusicGUI playMusicGUI = new PlayMusicGUI();
+    private PlayMusicGUI playMusicGUI = new PlayMusicGUI(this);
     private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(user);
     private DisplayListsGUI displayListsGUI = new DisplayListsGUI(this , playMusicGUI,false);
     private TopPanle topPanle = new TopPanle();
@@ -60,11 +60,6 @@ public class JPotifyGUI extends JFrame {
         add(topPanle,BorderLayout.PAGE_START);
         add(playMusicGUI,BorderLayout.PAGE_END);
 
-        friend.setLastSong(song);
-        friend2.setLastSong(song);
-
-
-        friendsActivityGUI.creatFirendPanel();
 
         add(friendsActivityGUI,BorderLayout.EAST);
         setVisible(true);

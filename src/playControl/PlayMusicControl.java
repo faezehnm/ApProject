@@ -1,5 +1,6 @@
 package playControl;
 import display.DisplaySongsGroup;
+import home.JPotifyGUI;
 import javazoom.jl.decoder.JavaLayerException;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -47,6 +48,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
     private boolean isItPlaying=false;
     private boolean firstTime=true;
     private boolean changeSong = false ;
+    public static JPotifyGUI jPotifyGUI;
 
     /**
      * creat PlayMusicControl
@@ -66,9 +68,9 @@ public class PlayMusicControl implements ActionListener , Serializable {
      * @param imShuffle1 image of btnPlay when shuffle
      * @throws Exception if player is null
      */
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player ,PlayMusicGUI playMusicGUI ,ImageIcon imShuffle ,ImageIcon imShuffle1) throws Exception
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player , PlayMusicGUI playMusicGUI , ImageIcon imShuffle , ImageIcon imShuffle1, JPotifyGUI jPotifyGUI) throws Exception
     {
-
+        this.jPotifyGUI =jPotifyGUI ;
         this.playMusicGUI= playMusicGUI ;
         this.btnNext=btnNext ;
         this.btnPlay=btnPlay ;
@@ -206,6 +208,8 @@ public class PlayMusicControl implements ActionListener , Serializable {
      */
     private void actionToButtonPlayAnotherSong()
     {
+
+        setLastSong(this.song);
         setchangeSong(false);
         isItPlaying = false ;
         firstTime = true ;
@@ -304,5 +308,18 @@ public class PlayMusicControl implements ActionListener , Serializable {
     public void setchangeSong(boolean nextSong)
     {
         this.changeSong = nextSong;
+    }
+    /*
+    if this song exists in user's sharedPlayList
+     */
+    private void setLastSong(Song song)
+    {
+        for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++){
+            if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i)) ){
+                jPotifyGUI.getUser().setLasSongIndex(i);
+                jPotifyGUI.getUser().setLastSong();
+                break;
+            }
+        }
     }
 }
