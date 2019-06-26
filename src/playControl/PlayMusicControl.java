@@ -209,7 +209,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
     private void actionToButtonPlayAnotherSong()
     {
 
-        setLastSong(this.song);
+      //  setLastSong(this.song);
         setchangeSong(false);
         isItPlaying = false ;
         firstTime = true ;
@@ -309,11 +309,14 @@ public class PlayMusicControl implements ActionListener , Serializable {
     {
         this.changeSong = nextSong;
     }
-    /*
-    if this song exists in user's sharedPlayList
+
+    /**
+     * if this song exists in user's sharedPlayList
+     * @param song current music that is playing
      */
     private void setLastSong(Song song)
     {
+        //System.out.println(jPotifyGUI.getUser().getName());
         for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++){
             if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i)) ){
                 jPotifyGUI.getUser().setLasSongIndex(i);

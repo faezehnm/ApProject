@@ -49,14 +49,20 @@ public class Network implements Runnable {
             out.write(bytes, 0, count);
         }
 
+
+
         out.flush();
-//        out.close();
+        out.close();
 //        this.client = new Socket(this.serverName, this.port);
 //        out = this.client.getOutputStream();
         in.close();
+
+
+
     }
 
     public void run() {
+
         try {
             this.inputStream = new ObjectInputStream(this.client.getInputStream());
         } catch (IOException var8) {
@@ -67,9 +73,8 @@ public class Network implements Runnable {
             while(isOnNetworkType2) {
                 if (isOnNetworkType2) {
                     isOnNetworkType2 = false;
-
                     try {
-                        this.receiveFileFromClient();
+                        this.receiveFileFromServer();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -126,6 +131,8 @@ public class Network implements Runnable {
                 }
 
             } catch (IOException var6) {
+                Thread currThread = Thread.currentThread();
+                currThread.stop();
                 var6.printStackTrace();
             } catch (ClassNotFoundException var7) {
                 var7.printStackTrace();
@@ -133,7 +140,8 @@ public class Network implements Runnable {
         }
     }
 
-    private void AcceptLoginRequest(ForServer forServer) {
+    private void AcceptLoginRequest(ForServer forServer)
+    {
         try {
             jPotifyGUI = new JPotifyGUI();
             jPotifyGUI.setUser(forServer.getUser());
@@ -143,12 +151,14 @@ public class Network implements Runnable {
 
     }
 
-    private void NOTAcceptLoginRequest() {
+    private void NOTAcceptLoginRequest()
+    {
         logInGUI = new LogInGUI();
         this.warning = new Warning("incorrect pass");
     }
 
-    private void AcceptSignUpRequest(ForServer forServer) {
+    private void AcceptSignUpRequest(ForServer forServer)
+    {
         try {
             jPotifyGUI = new JPotifyGUI();
             jPotifyGUI.setUser(forServer.getUser());
@@ -158,12 +168,14 @@ public class Network implements Runnable {
 
     }
 
-    private void NOTAcceptSignUpRequest() {
+    private void NOTAcceptSignUpRequest()
+    {
         signUpGUI = new SignUpGUI();
         this.warning = new Warning("have this user already");
     }
 
-    private void freiendAccept(ForServer forServer) throws Exception {
+    private void freiendAccept(ForServer forServer) throws Exception
+    {
         Friend friend = new Friend(forServer.getUser().getName());
         jPotifyGUI.getUser().addFriend(friend);
         new SendSharedPlaylist(jPotifyGUI.getUser());
@@ -177,14 +189,17 @@ public class Network implements Runnable {
         this.warning = new Warning(forServer.getUser().getPassword() + " request to follow you . if you accept press ok !");
     }
 
-    private void receiveFileFromClient() throws Exception
+    private void receiveFileFromServer() throws Exception
     {
         InputStream in = null;
         OutputStream out = null;
         in = this.client.getInputStream();
-       // FileOutputStream fileOutputStream = new FileOutputStream("src\\songs\\receive.mp3");
-        String path = new String("src\\songs\\"+friend.getName()+1+".mp3");
-        System.out.println(path);
+
+
+        int index = friend.getFileIndex();
+        String path = new String("src\\songs\\"+friend.getName()+index+".mp3");
+        friend.setFileIndex(index++);
+
         FileOutputStream fileOutputStream = new FileOutputStream(path);
 
         out = fileOutputStream;
@@ -192,7 +207,7 @@ public class Network implements Runnable {
 
         int count;
         while((count = in.read(bytes)) > 0) {
-            out.write(bytes, 0, count);
+           out.write(bytes, 0, count);
         }
 
         out.close();
@@ -216,12 +231,16 @@ public class Network implements Runnable {
 
     private void addSongToFriendPlayList(String path) throws Exception
     {
+        System.out.println("ahh");
         Song song = new Song(path);
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ;i++ ){
+
             if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i))) {
                 jPotifyGUI.getUser().getFriends().get(i).addSongToSharedPlayList(song);
+                System.out.println("yaaah");
                 break;
             }
         }
+
     }
 }

@@ -14,8 +14,17 @@ public class Friend implements Serializable {
     private Song lastSong ;
     private Boolean isSongPlaying =false ;
     private int lasSongIndex  = 0;
+    private int fileIndex = 0 ;
 
-    public Friend( String name ){
+    public int getFileIndex() {
+        return fileIndex;
+    }
+
+    public void setFileIndex(int fileIndex) {
+        this.fileIndex = fileIndex;
+    }
+
+    public Friend(String name ){
         this.name = name ;
     }
 

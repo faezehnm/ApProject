@@ -78,23 +78,23 @@ public class ClientHandler extends Thread{
     public void run ()
     {
 
-        try
-        {
-            while (!socket.isClosed())
-            {
-                ForServer forServer = (ForServer)inputStream.readObject();
-                /*
-                do something for friend :)
-                 */
-            }
-
-        } catch (IOException e)
-        {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            while (!socket.isClosed())
+//            {
+//                ForServer forServer = (ForServer)inputStream.readObject();
+//                /*
+//                do something for friend :)
+//                 */
+//            }
+//
+//        } catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        } catch (ClassNotFoundException e)
+//        {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -206,6 +206,7 @@ public class ClientHandler extends Thread{
             findUserSocket(hear).writeObject(forServer);
             findUserSocket(hear).flush();
         }
+
     }
 
     private void receivefileFromClient(Socket socket) throws IOException
@@ -244,6 +245,7 @@ public class ClientHandler extends Thread{
             out.close();
             in.close();
         }
+        emptyFriends();
     }
 
     private void sendLastSongToFriends(User user) throws IOException
@@ -253,6 +255,13 @@ public class ClientHandler extends Thread{
             ForServer forServer = new ForServer(12,user);
             findUserSocket(hear).writeObject(hear);
             findUserSocket(hear).flush();
+        }
+    }
+
+    private void emptyFriends()
+    {
+        for( int i=0 ; i<friends.size() ; i++ ){
+            friends.remove(i);
         }
     }
 }

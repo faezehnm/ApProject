@@ -40,7 +40,7 @@ public class Main {
 //        else {
 //            JPotifyGUI jPotifyGUI = new JPotifyGUI();
 //        }
-//
+
       //JPotifyGUI jPotifyGUI = new JPotifyGUI();
         WelcomeGUI welcomeGUI  = new WelcomeGUI();
        // Warning warning = new Warning("khakk");

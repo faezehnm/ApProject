@@ -10,7 +10,7 @@ public class SendSharedPlaylist {
     {
         /*
         for( int i=0 ; i<user.getSharedPlayList().size ; i++ ){
-            File file = new File(user.getSharedPlaylist().get(i) )
+            File file = new File(user.getSharedPlaylist().getSongs(i).getFileAdress )
         }
             user.setFile-->file
          */
@@ -26,11 +26,14 @@ public class SendSharedPlaylist {
 
         try {
             Network network2 = new Network(in,bytes);
-            new Thread(network2).start();
+//           Thread thread = new Thread(network2);
+//           thread.start();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+//        ForServer forServer1 = new ForServer(19,user);
+//        Network network3 = new Network(forServer1);
+//        new Thread(network3).start();
 
 
 
