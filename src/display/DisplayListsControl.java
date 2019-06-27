@@ -119,7 +119,7 @@ public class DisplayListsControl{
     public void setDisplaySongs(ArrayList<Song> songs , boolean deletable){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , deletable);
+            displaySongs = new DisplaySongs(songs, playMusicGUI, (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , deletable , false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -159,7 +159,7 @@ public class DisplayListsControl{
     public void setDisplayPlaylist(PlayList playlist, PlayMusicGUI playMusicGUI){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , playlist , this , DisplaySongsSituation.PLAYING , mainGUI , true);
+            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , playlist , this , DisplaySongsSituation.PLAYING , mainGUI , true , true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -257,7 +257,7 @@ public class DisplayListsControl{
     public void setSelectSongs(PlayMusicGUI playMusicGUI, PlayList playList){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION , mainGUI , false);
+            displaySongs = new DisplaySongs(this.songs, playMusicGUI , playList , this , DisplaySongsSituation.SELECTION , mainGUI , false , false);
         } catch (Exception e) {
             e.printStackTrace();
         }

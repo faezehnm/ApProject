@@ -39,6 +39,7 @@ public class DisplaySongs extends DisplaySongsGroup {
     private String situation;
     private boolean playing;
     private boolean deletable;
+    private boolean replacable;
     private DisplayListsControl displayListsControl;
 
     /**
@@ -51,13 +52,14 @@ public class DisplaySongs extends DisplaySongsGroup {
      * @throws Exception
      */
 
-    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation , JPotifyGUI mainGUI , boolean deletable) throws Exception{
+    public DisplaySongs(ArrayList<Song> songArrayList , PlayMusicGUI playMusicGUI , PlayList playList , DisplayListsControl displayListsControl , DisplaySongsSituation displaySongsSituation , JPotifyGUI mainGUI , boolean deletable , boolean replacable) throws Exception{
         super(songArrayList , playMusicGUI , mainGUI);
         this.playing = playing;
         this.playList = playList;
         this.displayListsControl = displayListsControl;
         this.displaySongsSituation = displaySongsSituation;
         this.deletable = deletable;
+        this.replacable = replacable;
     }
 
     /**
@@ -148,6 +150,48 @@ public class DisplaySongs extends DisplaySongsGroup {
                                         mainGUI.getUser().setSharedPlaylist(playList);
                                     }
                                 }
+                            }
+                        });
+                    }
+                    if(replacable){
+                        JMenuItem replace = new JMenuItem("replace");
+                        popupMenu.add(replace);
+                        replace.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                JFrame replaceFrame = new JFrame();
+                                replaceFrame.setSize(200 , 200);
+                                replaceFrame.setBackground(Color.BLACK);
+                                JTextField replaceTextField = new JTextField();
+                                replaceTextField.setEditable(true);
+                                replaceTextField.setBackground(Color.BLACK);
+                                replaceTextField.setForeground(Color.WHITE);
+                                Border blueLine = new LineBorder(Color.CYAN);
+                                replaceTextField.setBorder(blueLine);
+                                replaceTextField.setSize(200 , 100);
+                                replaceFrame.setLayout(new GridLayout(2 , 1));
+                                replaceFrame.add(replaceTextField);
+                                JButton replacebtn = new JButton("replace");
+                                replacebtn.setSize(200 , 100);
+                                replacebtn.setBackground(Color.BLACK);
+                                replacebtn.setBorder(blueLine);
+                                replacebtn.setForeground(Color.WHITE);
+                                replaceFrame.add(replacebtn);
+                                replaceFrame.setVisible(true);
+                                replacebtn.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        int place = Integer.parseInt(replaceTextField.getText());
+                                        replaceFrame.setVisible(false);
+                                        System.out.println(musics.indexOf(song));
+                                        if(getMusics().size() >= place && musics.indexOf(song) != place - 1){
+                                            System.out.println("oioi");
+                                            musics.remove(music);
+                                            ((ArrayList<Song>) musics).add(place - 1 , song);
+                                            displayListsControl.setDisplayPlaylist(playList , playMusicGUI);
+                                        }
+                                    }
+                                });
                             }
                         });
                     }
