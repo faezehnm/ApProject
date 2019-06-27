@@ -23,7 +23,6 @@ public class GraphicEqualizerPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("here ");
             component.move();
         }
     }

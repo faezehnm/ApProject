@@ -57,6 +57,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         topPanel.add(jLabel);
         topPanel.add(btnAddFriend) ;
         jLabel.setBackground(Color.CYAN);
+        jLabel.setForeground(Color.WHITE);
         btnAddFriend.setBackground(Color.CYAN);
         btnAddFriend.setBorder(blueLIne);
         topPanel.setBackground(Color.CYAN);

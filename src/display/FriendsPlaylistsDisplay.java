@@ -48,6 +48,7 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
             ImageIcon resizedIcon = new ImageIcon(resizedImg);
             btn.setIcon(resizedIcon);
             btn.setBorder(blueLIne);
+            btn.setForeground(Color.WHITE);
             btn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -61,6 +62,7 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
             lbl.setBorder(blueLIne);
             innerGbc.gridy = 1;
             innerGbc.gridx = 0;
+            lbl.setForeground(Color.WHITE);
             pnl.add(lbl , innerGbc);
             friendsPanels.add(pnl);
             panel.add(pnl , gbc);

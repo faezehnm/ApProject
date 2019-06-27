@@ -107,6 +107,7 @@ public class DisplayListsGUI extends JScrollPane{
         setSize();
         setColor();
         setBorder();
+        setTextColor();
         addActionListeners();
 
         gbc.gridx = 0;
@@ -414,6 +415,7 @@ public class DisplayListsGUI extends JScrollPane{
             });
         }
         playlistbtn.setBackground(Color.CYAN);
+        playlistbtn.setForeground(Color.WHITE);
         Border greenLIne = BorderFactory.createLineBorder(Color.BLUE);
         playlistbtn.setBorder(greenLIne);
         playlistbtn.setPreferredSize(new Dimension(200 , 100));
@@ -440,5 +442,18 @@ public class DisplayListsGUI extends JScrollPane{
         listsPnl.add(addNewPlaylist, gbc2);
         mainGUI.revalidate();
         mainGUI.repaint();
+    }
+
+    private void setTextColor(){
+        addNewMusic.setForeground(Color.WHITE);
+        songsbutton.setForeground(Color.WHITE);
+        albumebutton.setForeground(Color.WHITE);
+        addNewPlaylist.setForeground(Color.WHITE);
+        finishedCooshingBtn.setForeground(Color.WHITE);
+        createNewPlaylistbtn.setForeground(Color.WHITE);
+        cancelAddingPlaylist.setForeground(Color.WHITE);
+        finishedCooshingBtn.setForeground(Color.WHITE);
+        friendsPlaylists.setForeground(Color.WHITE);
+        playlistlbl.setForeground(Color.WHITE);
     }
 }

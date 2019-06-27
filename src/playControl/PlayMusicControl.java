@@ -73,6 +73,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player , PlayMusicGUI playMusicGUI , ImageIcon imShuffle , ImageIcon imShuffle1, JPotifyGUI jPotifyGUI , GraphicEqualizerPanel graphicEqualizerPanel , JPanel leftPanel , JPanel junk) throws Exception
     {
+        this.graphicEqualizerPanel = graphicEqualizerPanel;
         this.jPotifyGUI =jPotifyGUI ;
         this.playMusicGUI= playMusicGUI ;
         this.btnNext=btnNext ;
@@ -88,6 +89,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
         this.imShuffle1 = imShuffle1 ;
         this.playSlider=playSlider ;
         this.player=player ;
+        this.junk = junk;
 
 
         btnShuffle.addActionListener(this);
@@ -197,6 +199,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
             }
 
         } else {
+            stopEqualizer();
             getPlayButton().setIcon(imPlay);
             player.pause();
             playSlider.pause();

@@ -108,6 +108,7 @@ public class PlayMusicGUI extends JPanel {
         middlePanelTop.setBackground(Color.pink);
         middletPanelDown.setBackground(Color.pink);
         displayInformationLable.setBackground(Color.pink);
+        displayInformationLable.setForeground(Color.WHITE);
         setBackground(Color.pink);
     }
 

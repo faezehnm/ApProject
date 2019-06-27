@@ -52,6 +52,8 @@ public class PlaySlider extends JPanel implements ChangeListener {
      */
     public PlaySlider(MusicPlayer player) throws ReadOnlyFileException, IOException, TagException, InvalidAudioFrameException, CannotReadException
     {
+        startLable.setForeground(Color.WHITE);
+        finishLable.setForeground(Color.WHITE);
 
         this.player= player ;
 
@@ -66,6 +68,7 @@ public class PlaySlider extends JPanel implements ChangeListener {
         jSlider.setPaintLabels(true);
         jSlider.setPreferredSize(new Dimension(600,32));
         jSlider.setBackground(Color.CYAN);
+        jSlider.setForeground(Color.WHITE);
 
         add(jSlider);
         setBackground(Color.cyan);

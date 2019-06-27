@@ -94,6 +94,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         JButton btn = new JButton();
         Border blueLIne = BorderFactory.createLineBorder(Color.BLUE);
         btn.setBorder(blueLIne);
+        btn.setForeground(Color.WHITE);
         Image resizedImg = music.scaledImage(370, 370);
         ImageIcon resizedIcon = new ImageIcon(resizedImg);
         btn.setIcon(resizedIcon);
@@ -113,6 +114,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         JLabel lbl = new JLabel();
         lbl.setBackground(Color.CYAN);
         lbl.setPreferredSize(new Dimension(370, 50));
+        lbl.setForeground(Color.WHITE);
         Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
         lbl.setBorder(blueLine);
         lbl.setText(music.getName());

@@ -26,6 +26,7 @@ public class GraphicEqualizer extends JComponent {
 
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setColor(Color.WHITE);
         g2d.draw(rectangle1);
         g2d.draw(rectangle2);
         g2d.draw(rectangle3);

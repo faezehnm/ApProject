@@ -51,7 +51,6 @@ public class DisplayAlbumes extends DisplaySongsGroup{
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                System.out.println(":|");
                 try {
                     displayListsControl.setDisplaySongs(albume.getSongs() , false);
                 } catch (Exception e1) {

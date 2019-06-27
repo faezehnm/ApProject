@@ -29,7 +29,7 @@ public class VolumeSlider extends JPanel implements ChangeListener , Serializabl
         jSlider = new JSlider(JSlider.HORIZONTAL , 0 , 100 , 50);
         jSlider.setMajorTickSpacing(50);
         jSlider.setPaintTicks(true);
-        jSlider.setForeground(Color.BLUE);
+        jSlider.setForeground(Color.WHITE);
         jLabel.setIcon(imSpeaker3);
         add(jLabel);
         add(jSlider);
