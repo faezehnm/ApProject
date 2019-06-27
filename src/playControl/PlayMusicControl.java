@@ -24,7 +24,7 @@ import java.net.URISyntaxException;
  *  @version 1.0
  *  @since 2019
  */
-public class PlayMusicControl implements ActionListener{
+public class PlayMusicControl implements ActionListener,Runnable {
 
     private PlayMusicGUI playMusicGUI ;
     private GraphicEqualizerPanel graphicEqualizerPanel;
@@ -88,9 +88,6 @@ public class PlayMusicControl implements ActionListener{
         this.imShuffle1 = imShuffle1 ;
         this.playSlider=playSlider ;
         this.player=player ;
-        this.graphicEqualizerPanel = graphicEqualizerPanel;
-        this.leftPanel = leftPanel;
-        this.junk = junk;
 
 
         btnShuffle.addActionListener(this);
@@ -111,6 +108,7 @@ public class PlayMusicControl implements ActionListener{
         this.song = song ;
         actionToPlayerAnotherSong();
         actionToPlaySliderAnotherSong();
+        //actionToButtonPlayAnotherSong();
     }
 
     /**
@@ -120,12 +118,9 @@ public class PlayMusicControl implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if( e.getSource()==btnShuffle){
+        if( e.getSource()==btnShuffle)
             actionToButtonShuffle();
-        /*
-        :)
-         */
-        }
+
         if( e.getSource()==btnPrevious)
             ctionToButtonPrevious();
 
@@ -202,12 +197,12 @@ public class PlayMusicControl implements ActionListener{
             }
 
         } else {
-            stopEqualizer();
             getPlayButton().setIcon(imPlay);
             player.pause();
             playSlider.pause();
             isItPlaying= false ;
         }
+        new Thread(this).start();
 
     }
 
@@ -334,8 +329,26 @@ public class PlayMusicControl implements ActionListener{
         }
     }
 
-    private void onRepeat(){
-        //if( )
+    private void notOnRepeat(){
+        while (true) {
+            if (player.getPlayer().isComplete() && player.getRepeat() == false ) {
+                actionToButtonNext();
+                break ;
+            }
+            else if( player.getPlayer().isComplete() && player.getShuffle() == true && player.getRepeat()==false){
+                try {
+                    playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        notOnRepeat();
     }
 
     private void playEqualizer(){
