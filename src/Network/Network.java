@@ -127,10 +127,22 @@ public class Network implements Runnable {
 
                 case 12:
                     setLastSongOfFriend(forServer);
+                    creatFriendPanel();
                     break;
+
+                case 13:
+
                 }
 
             } catch (IOException var6) {
+                ForServer forServer = new ForServer(13,jPotifyGUI.getUser());
+                Network network = null;
+                try {
+                    network = new Network(forServer);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                new Thread(network).start();
                 Thread currThread = Thread.currentThread();
                 currThread.stop();
                 var6.printStackTrace();
@@ -178,7 +190,7 @@ public class Network implements Runnable {
     {
         Friend friend = new Friend(forServer.getUser().getName());
         jPotifyGUI.getUser().addFriend(friend);
-        new SendSharedPlaylist(jPotifyGUI.getUser());
+        //new SendSharedPlaylist(jPotifyGUI.getUser());
 
         //new SendLastSong(jPotifyGUI.getUser());
 
@@ -220,27 +232,31 @@ public class Network implements Runnable {
     private void  setLastSongOfFriend(ForServer forServer)
     {
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
-            if( forServer.getUser().getName().equals(jPotifyGUI.getUser().getFriends().get(i))) {
+            if( forServer.getUser().getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
                 jPotifyGUI.getUser().getFriends().get(i).setLasSongIndex(forServer.getUser().getLasSongIndex());
                 jPotifyGUI.getUser().getFriends().get(i).setLastSong();
                 break;
             }
         }
-        jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+        //jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
     }
 
     private void addSongToFriendPlayList(String path) throws Exception
     {
-        System.out.println("ahh");
-        Song song = new Song(path);
-        for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ;i++ ){
 
-            if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i))) {
+        Song song = new Song(path);
+
+        for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ;i++ ){
+            if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
                 jPotifyGUI.getUser().getFriends().get(i).addSongToSharedPlayList(song);
-                System.out.println("yaaah");
                 break;
             }
         }
 
+    }
+
+    private void creatFriendPanel()
+    {
+        jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
     }
 }

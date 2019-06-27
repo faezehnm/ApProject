@@ -93,9 +93,9 @@ public class FriendPanel implements ActionListener , Serializable {
 
     public void setTimeIcon(JLabel jLabel)
     {
-        if(friend.getSongPlaying())
+        if( friend.getLastTimeSongPlaying().equals("0"))
             jLabel.setIcon(imSpeaker3);
-        if(!friend.getSongPlaying())
+        else
             jLabel.setText(friend.getLastTimeSongPlaying());
     }
 

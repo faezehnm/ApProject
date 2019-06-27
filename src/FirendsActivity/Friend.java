@@ -12,7 +12,7 @@ public class Friend implements Serializable {
     private String name ;
     private PlayList sharedPlayList = new PlayList(name, PlaylistSituation.PERMANENT) ;
     private Song lastSong ;
-    private Boolean isSongPlaying =false ;
+    private String lastTime ;
     private int lasSongIndex  = 0;
     private int fileIndex = 0 ;
 
@@ -48,25 +48,18 @@ public class Friend implements Serializable {
         return sharedPlayList;
     }
 
-    public void addSongToSharedPlayList(Song song
-    ){
+    public void addSongToSharedPlayList(Song song)
+    {
         sharedPlayList.addSong(song);
     }
 
-    public Boolean getSongPlaying() {
-        return isSongPlaying;
+    public String getLastTime() {
+        return lastTime;
     }
 
-    public void setSongPlaying(Boolean songPlaying) {
-        isSongPlaying = songPlaying;
+    public void setLastTime(String lastTime) {
+        this.lastTime = lastTime;
     }
 
-    public String getLastTimeSongPlaying(){
-        String res="0" ;
-        /*
-        find Last Time :)
-         */
-        return res;
-    }
 }
 

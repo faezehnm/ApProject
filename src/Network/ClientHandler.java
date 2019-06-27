@@ -41,8 +41,11 @@ public class ClientHandler extends Thread{
             System.out.print(fromClient.getType());
             System.out.println(isOnNetworkType2);
 
-            if( fromClient.getType() == 11)
-                System.out.println(":))");
+            if( fromClient.getType() == 13)
+                updateUser(user);
+
+            else if( fromClient.getType() == 11)
+                sendLastSongToFriends(user);
 
             else if (fromClient.getType() == 9) {
                 path = "src/songs/"+user.getName()+".mp3";
@@ -264,4 +267,31 @@ public class ClientHandler extends Thread{
             friends.remove(i);
         }
     }
+
+    private void updateUser(User user)
+    {
+        for(User user1 : usersMap.keySet() ){
+            if( user1.getName().equals(user.getName())){
+                usersMap.remove(usersMap.get(user1));
+                usersMap.put(user1,outputStream);
+                break;
+            }
+        }
+        for(User user1 : usersMapTyp2.keySet() ){
+            if( user1.getName().equals(user.getName())){
+                usersMapTyp2.remove(usersMapTyp2.get(user1));
+                usersMapTyp2.put(user1,outputStreamTyp2);
+                break;
+            }
+        }
+        for( int i=0 ; i<users.size() ; i++ ){
+            if( user.getName().equals(users.get(i).getName()) ){
+                users.remove(i);
+                users.add(user);
+                break;
+            }
+        }
+
+    }
+
 }

@@ -42,10 +42,14 @@ public class Request extends JFrame implements ActionListener {
     {
 
         Friend friend = new Friend(forServer.getUser().getName());
+        jPotifyGUI.getUser().addFriend(friend);
+
         User user = new User(jPotifyGUI.getUser().getName(),friend.getName());
         forServer = new ForServer(7,user);
         Network network = new Network(forServer);
         new Thread(network).start();
+        new SendSharedPlaylist(jPotifyGUI.getUser());
+        new SendLastSong(jPotifyGUI.getUser());
 
         setVisible(false);
     }

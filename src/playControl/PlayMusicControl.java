@@ -316,11 +316,11 @@ public class PlayMusicControl implements ActionListener , Serializable {
      */
     private void setLastSong(Song song)
     {
-        //System.out.println(jPotifyGUI.getUser().getName());
         for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++){
-            if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i)) ){
+            if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).getAlbumeName()) ){
                 jPotifyGUI.getUser().setLasSongIndex(i);
                 jPotifyGUI.getUser().setLastSong();
+                jPotifyGUI.getUser().setLastTime("0");
                 break;
             }
         }

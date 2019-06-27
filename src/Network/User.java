@@ -15,7 +15,15 @@ public class User implements Serializable {
     private File file;
     private PlayList sharedPlaylist ;
     private Song lastSong ;
+    private String lastTime ;
     private int lasSongIndex  = 0;
+
+
+    public User(String name, String password )
+    {
+        this.name = name ;
+        this.password = password ;
+    }
 
     public int getLasSongIndex() {
         return lasSongIndex;
@@ -49,14 +57,7 @@ public class User implements Serializable {
     public void setFile(File file) {
         this.file = file;
     }
-    /*
-    shared playlist and last song
-     */
 
-    public User(String name, String password ){
-        this.name = name ;
-        this.password = password ;
-    }
 
     public void addFriend(Friend friend){
         friends.add(friend);
@@ -73,4 +74,23 @@ public class User implements Serializable {
     public ArrayList<Friend> getFriends() {
         return friends;
     }
+
+    private void timerOfLastSong()
+    {
+        /*
+        have a timer in 5 minute to set last time playing
+        if set last song during 5 minutes didn't change
+         */
+    }
+
+    public String getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(String lastTime) {
+        this.lastTime = lastTime;
+    }
+
+
+
 }
