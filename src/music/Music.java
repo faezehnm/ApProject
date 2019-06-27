@@ -39,13 +39,16 @@ public class Music implements Serializable {
 
     public Image scaledImage(int width , int height){
         BufferedImage bufferedImage = null;
-        try {
-            InputStream inputStream = new ByteArrayInputStream(artwork);
-            bufferedImage = ImageIO.read(inputStream);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+        BufferedImage artworkImg = null;
+        if(artwork != null) {
+            try {
+                InputStream inputStream = new ByteArrayInputStream(artwork);
+                bufferedImage = ImageIO.read(inputStream);
+            } catch (IOException ex) {
+                System.out.println(ex.getMessage());
+            }
+            artworkImg = bufferedImage;
         }
-        BufferedImage artworkImg = bufferedImage;
         Image img;
         if(artwork != null){
             img = (Image) artworkImg;

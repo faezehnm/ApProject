@@ -319,8 +319,10 @@ public class DisplayListsGUI extends JScrollPane{
             JPopupMenu popupMenu = new JPopupMenu();
             JMenuItem delet = new JMenuItem("delet");
             JMenuItem rename = new JMenuItem("rename");
+            JMenuItem addSong = new JMenuItem("add song");
             popupMenu.add(delet);
             popupMenu.add(rename);
+            popupMenu.add(addSong);
             playlistbtn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
@@ -376,6 +378,32 @@ public class DisplayListsGUI extends JScrollPane{
                             renameFrame.setVisible(false);
                         }
                     });
+                }
+            });
+            addSong.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        displayListsControl.setSelectSongs(playMusicGUI, playList);
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                    }
+                    listsPnl.remove(addNewPlaylist);
+                    JButton finished = new JButton("finished");
+                    finished.setPreferredSize(new Dimension(200 , 100));
+                    finished.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            listsPnl.remove(finished);
+                            listsPnl.add(addNewPlaylist, gbc2);
+                            displayListsControl.clean();
+                            mainGUI.revalidate();
+                            mainGUI.repaint();
+                        }
+                    });
+                    listsPnl.add(finished, gbc2);
+                    mainGUI.revalidate();
+                    mainGUI.repaint();
                 }
             });
         }
