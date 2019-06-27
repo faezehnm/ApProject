@@ -29,12 +29,12 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.setLayout(layout);
-        panel.setBackground(Color.pink);
+        panel.setBackground(Color.BLACK);
         int counter = 0;
         for(Friend friend : user.getFriends()){
             PlayList playList = friend.getSharedPlayList();
             JPanel pnl = new JPanel();
-            pnl.setBackground(Color.CYAN);
+            pnl.setBackground(Color.BLACK);
             Border blueLIne = new LineBorder(Color.BLUE);
             pnl.setBorder(blueLIne);
             GridBagLayout innerLayout = new GridBagLayout();
@@ -48,6 +48,7 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
             ImageIcon resizedIcon = new ImageIcon(resizedImg);
             btn.setIcon(resizedIcon);
             btn.setBorder(blueLIne);
+            btn.setBackground(Color.BLACK);
             btn.setForeground(Color.WHITE);
             btn.addActionListener(new ActionListener() {
                 @Override
@@ -57,7 +58,7 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
             });
             pnl.add(btn , innerGbc);
             JLabel lbl = new JLabel(friend.getName() + "'s shared playlist");
-            lbl.setBackground(Color.CYAN);
+            lbl.setBackground(Color.BLACK);
             lbl.setPreferredSize(new Dimension(370, 50));
             lbl.setBorder(blueLIne);
             innerGbc.gridy = 1;

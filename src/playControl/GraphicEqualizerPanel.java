@@ -11,7 +11,7 @@ public class GraphicEqualizerPanel extends JPanel {
 
     GraphicEqualizer component = new GraphicEqualizer();
 
-    setBackground(Color.PINK);
+    setBackground(Color.BLACK);
 
     //setSize(100,100);
 

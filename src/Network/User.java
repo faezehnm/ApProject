@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+public class User {
     private String name ;
     private String password ;
     private ArrayList<Friend> friends = new ArrayList<>();

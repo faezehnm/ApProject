@@ -52,7 +52,7 @@ public class JPotifyGUI extends JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setSize(new Dimension(WIDTH , HEIGHT));
         setIconImage(icon);
-        getContentPane().setBackground(Color.pink);
+        getContentPane().setBackground(Color.BLACK);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         if(setPlaylists){

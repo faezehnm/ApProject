@@ -6,13 +6,15 @@ import java.awt.*;
 
 public class TopPanle extends JPanel {
     private JLabel jLabel ;
-    Border greenLIne = BorderFactory.createLineBorder(Color.GREEN);
+    Border blueLIne = BorderFactory.createLineBorder(Color.CYAN);
 
     public TopPanle(){
-        setBackground(Color.white);
+        setBackground(Color.BLACK);
         jLabel = new JLabel("faezeh");
         add(jLabel);
-        setBorder(greenLIne);
+        jLabel.setForeground(Color.WHITE);
+        jLabel.setBackground(Color.BLACK);
+        setBorder(blueLIne);
     }
 
     public void setName(String string){

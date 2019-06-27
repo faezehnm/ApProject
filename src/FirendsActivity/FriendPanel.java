@@ -35,16 +35,19 @@ public class FriendPanel implements ActionListener , Serializable {
         mainPanelDown.setBackground(Color.white);
 
         friendName = new JButton(friend.getName());
+        friendName.setForeground(Color.WHITE);
         friendName.setPreferredSize(new Dimension(140,30));
         friendName.setBackground(Color.white);
         friendName.addActionListener(this);
         friendName.setBorder(noline);
 
         lastTime = new JLabel();
+        lastTime.setForeground(Color.WHITE);
         setTimeIcon(lastTime);
 
         songInformaton = new JButton("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
         songInformaton.setBackground(Color.white);
+        songInformaton.setForeground(Color.WHITE);
         songInformaton.addActionListener(this);
         songInformaton.setBorder(noline);
 

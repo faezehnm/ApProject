@@ -150,18 +150,18 @@ public class DisplayListsGUI extends JScrollPane{
      */
 
     private void setColor(){
-        listsPnl.setBackground(Color.pink);
-        songsbutton.setBackground(Color.CYAN);
-        albumebutton.setBackground(Color.CYAN);
-        playlistlbl.setBackground(Color.CYAN);
-        friendsPlaylists.setBackground(Color.cyan);
-        addNewMusic.setBackground(Color.CYAN);
-        addNewPlaylist.setBackground(Color.CYAN);
-        createPlaylistPanel.setBackground(Color.CYAN);
-        finishedCooshingBtn.setBackground(Color.CYAN);
-        newPlaylistTextField.setBackground(Color.CYAN);
-        createNewPlaylistbtn.setBackground(Color.CYAN);
-        cancelAddingPlaylist.setBackground(Color.CYAN);
+        listsPnl.setBackground(Color.BLACK);
+        songsbutton.setBackground(Color.BLACK);
+        albumebutton.setBackground(Color.BLACK);
+        playlistlbl.setBackground(Color.BLACK);
+        friendsPlaylists.setBackground(Color.BLACK);
+        addNewMusic.setBackground(Color.BLACK);
+        addNewPlaylist.setBackground(Color.BLACK);
+        createPlaylistPanel.setBackground(Color.BLACK);
+        finishedCooshingBtn.setBackground(Color.BLACK);
+        newPlaylistTextField.setBackground(Color.BLACK);
+        createNewPlaylistbtn.setBackground(Color.BLACK);
+        cancelAddingPlaylist.setBackground(Color.BLACK);
     }
 
     /**
@@ -169,7 +169,7 @@ public class DisplayListsGUI extends JScrollPane{
      */
 
     private void setBorder(){
-        Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
+        Border blueLine = BorderFactory.createLineBorder(Color.CYAN);
         setBorder(blueLine);
         addNewMusic.setBorder(blueLine);
         songsbutton.setBorder(blueLine);
@@ -414,9 +414,9 @@ public class DisplayListsGUI extends JScrollPane{
                 }
             });
         }
-        playlistbtn.setBackground(Color.CYAN);
+        playlistbtn.setBackground(Color.BLACK);
         playlistbtn.setForeground(Color.WHITE);
-        Border greenLIne = BorderFactory.createLineBorder(Color.BLUE);
+        Border greenLIne = BorderFactory.createLineBorder(Color.CYAN);
         playlistbtn.setBorder(greenLIne);
         playlistbtn.setPreferredSize(new Dimension(200 , 100));
         playlistsbtn.add(playlistbtn);

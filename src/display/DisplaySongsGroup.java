@@ -41,7 +41,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         this.musics = musics;
         this.playMusicGUI = playMusicGUI;
         this.mainGUI = mainGUI;
-        panel.setBackground(Color.pink);
+        panel.setBackground(Color.BLACK);
         setViewportView(panel);
         setBackground(Color.WHITE);
         setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -51,12 +51,12 @@ public abstract class DisplaySongsGroup extends JScrollPane {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel.setLayout(layout);
-        Border blueLIne = BorderFactory.createLineBorder(Color.BLUE);
+        Border blueLIne = BorderFactory.createLineBorder(Color.CYAN);
         setBorder(blueLIne);
         int counter = 0;
         for (Music music : musics) {
             JPanel pnl = new JPanel();
-            pnl.setBackground(Color.CYAN);
+            pnl.setBackground(Color.BLACK);
             pnl.setBorder(blueLIne);
             GridBagLayout innerLayout = new GridBagLayout();
             GridBagConstraints innerGbc = new GridBagConstraints();
@@ -92,7 +92,7 @@ public abstract class DisplaySongsGroup extends JScrollPane {
 
     private JButton createButton(Music music) {
         JButton btn = new JButton();
-        Border blueLIne = BorderFactory.createLineBorder(Color.BLUE);
+        Border blueLIne = BorderFactory.createLineBorder(Color.CYAN);
         btn.setBorder(blueLIne);
         btn.setForeground(Color.WHITE);
         Image resizedImg = music.scaledImage(370, 370);
@@ -112,10 +112,10 @@ public abstract class DisplaySongsGroup extends JScrollPane {
 
     private JLabel createLabel(Music music) {
         JLabel lbl = new JLabel();
-        lbl.setBackground(Color.CYAN);
+        lbl.setBackground(Color.BLACK);
         lbl.setPreferredSize(new Dimension(370, 50));
         lbl.setForeground(Color.WHITE);
-        Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
+        Border blueLine = BorderFactory.createLineBorder(Color.CYAN);
         lbl.setBorder(blueLine);
         lbl.setText(music.getName());
         if (music instanceof Song) {

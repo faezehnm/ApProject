@@ -53,7 +53,7 @@ public class PlayMusicGUI extends JPanel {
     private ImageIcon imShuffle = new ImageIcon("src/Icons/shuffle (1).png"); ;
     private ImageIcon imShuffle1 =new ImageIcon("src/Icons/infinity.png");
 
-    private Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
+    private Border blueLine = BorderFactory.createLineBorder(Color.CYAN);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
 
     private JPotifyGUI jPotifyGUI ;
@@ -100,18 +100,18 @@ public class PlayMusicGUI extends JPanel {
      */
     private void setBackgroundOfAll()
     {
-        btnPlay.setBackground(Color.CYAN);
-        btnNext.setBackground(Color.CYAN);
-        btnPrevious.setBackground(Color.CYAN);
-        btnRepeat.setBackground(Color.CYAN);
-        btnShuffle.setBackground(Color.CYAN);
-        leftPanel.setBackground(Color.PINK);
-        rightPanel.setBackground(Color.pink);
-        middlePanelTop.setBackground(Color.pink);
-        middletPanelDown.setBackground(Color.pink);
-        displayInformationLable.setBackground(Color.pink);
+        btnPlay.setBackground(Color.BLACK);
+        btnNext.setBackground(Color.BLACK);
+        btnPrevious.setBackground(Color.BLACK);
+        btnRepeat.setBackground(Color.BLACK);
+        btnShuffle.setBackground(Color.BLACK);
+        leftPanel.setBackground(Color.BLACK);
+        rightPanel.setBackground(Color.BLACK);
+        middlePanelTop.setBackground(Color.BLACK);
+        middletPanelDown.setBackground(Color.BLACK);
+        displayInformationLable.setBackground(Color.BLACK);
         displayInformationLable.setForeground(Color.WHITE);
-        setBackground(Color.pink);
+        setBackground(Color.BLACK);
     }
 
     /**
@@ -119,11 +119,6 @@ public class PlayMusicGUI extends JPanel {
      */
     private void setBorderToAll()
     {
-        btnPlay.setBorder(blueLine);
-        btnNext.setBorder(blueLine);
-        btnPrevious.setBorder(blueLine);
-        btnRepeat.setBorder(blueLine);
-        btnShuffle.setBorder(blueLine);
         setBorder(blueLine);
     }
 
@@ -182,7 +177,7 @@ public class PlayMusicGUI extends JPanel {
         gbc2.weighty = 1.0;
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
-        junk.setBackground(Color.pink);
+        junk.setBackground(Color.BLACK);
         leftPanel.add(junk,gbc2);
 
         gbc2.gridx = 4;
@@ -191,7 +186,7 @@ public class PlayMusicGUI extends JPanel {
         gbc2.weighty = 1.0;
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
-        junk2.setBackground(Color.pink);
+        junk2.setBackground(Color.BLACK);
         leftPanel.add(junk2,gbc2);
 
         gbc2.gridx = 5;
@@ -200,7 +195,7 @@ public class PlayMusicGUI extends JPanel {
         gbc2.weighty = 1.0;
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
-        junk3.setBackground(Color.pink);
+        junk3.setBackground(Color.BLACK);
         leftPanel.add(junk3,gbc2);
         //leftPanel.add(graphicEqualizerPanel,gbc2);
     }

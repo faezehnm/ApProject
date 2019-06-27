@@ -67,11 +67,11 @@ public class PlaySlider extends JPanel implements ChangeListener {
         jSlider.setLabelTable(hashtable);
         jSlider.setPaintLabels(true);
         jSlider.setPreferredSize(new Dimension(600,32));
-        jSlider.setBackground(Color.CYAN);
+        jSlider.setBackground(Color.BLACK);
         jSlider.setForeground(Color.WHITE);
 
         add(jSlider);
-        setBackground(Color.cyan);
+        setBackground(Color.BLACK);
         Border blueLine = new LineBorder(Color.BLUE);
         setBorder(blueLine);
     }
