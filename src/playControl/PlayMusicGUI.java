@@ -44,14 +44,14 @@ public class PlayMusicGUI extends JPanel {
     private JButton btnRepeat ;
     private JButton btnShuffle ;
 
-    private ImageIcon imPlay =new ImageIcon("src/Icons/bplay.png");
-    private ImageIcon imNext =new ImageIcon("src/Icons/bnext.png");
-    private ImageIcon imPrevious =new ImageIcon("src/Icons/bback.png");
-    private ImageIcon imRepeat =new ImageIcon("src/Icons/biterative.png");
-    private ImageIcon imRepeat1 =new ImageIcon("src/Icons/brepeat.png");
-    private ImageIcon imPause = new ImageIcon("src/Icons/bpause.png");
-    private ImageIcon imShuffle = new ImageIcon("src/Icons/bshuffle.png"); ;
-    private ImageIcon imShuffle1 =new ImageIcon("src/Icons/binfinity.png");
+    private ImageIcon imPlay =new ImageIcon("src/Icons/play.png");
+    private ImageIcon imNext =new ImageIcon("src/Icons/next.png");
+    private ImageIcon imPrevious =new ImageIcon("src/Icons/back.png");
+    private ImageIcon imRepeat =new ImageIcon("src/Icons/iterative.png");
+    private ImageIcon imRepeat1 =new ImageIcon("src/Icons/repeat.png");
+    private ImageIcon imPause = new ImageIcon("src/Icons/pause.png");
+    private ImageIcon imShuffle = new ImageIcon("src/Icons/shuffle (1).png"); ;
+    private ImageIcon imShuffle1 =new ImageIcon("src/Icons/infinity.png");
 
     private Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
@@ -132,11 +132,11 @@ public class PlayMusicGUI extends JPanel {
      */
     private void setSizeOfButton()
     {
-        btnPlay.setPreferredSize(new Dimension(34, 34));
-        btnNext.setPreferredSize(new Dimension(34, 34));
-        btnPrevious.setPreferredSize(new Dimension(34, 34));
-        btnRepeat.setPreferredSize(new Dimension(34, 34));
-        btnShuffle.setPreferredSize(new Dimension(34, 34));
+        btnPlay.setPreferredSize(new Dimension(64, 64));
+        btnNext.setPreferredSize(new Dimension(64, 64));
+        btnPrevious.setPreferredSize(new Dimension(64, 64));
+        btnRepeat.setPreferredSize(new Dimension(64, 64));
+        btnShuffle.setPreferredSize(new Dimension(64, 64));
     }
 
     /**
