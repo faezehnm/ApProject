@@ -27,7 +27,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     private JPanel topPanel ;
     private JLabel jLabel =  new JLabel("Friend Activity") ;
-    private ImageIcon imgAdd = new ImageIcon("src/Icons/plus.png") ;
+    private ImageIcon imgAdd = new ImageIcon("src/Icons/bplus(2).png") ;
     private JButton btnAddFriend = new JButton(imgAdd);
     private User user = new User("null","null");
     private AddFriendGUI addFriendGUI ;

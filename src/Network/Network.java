@@ -50,11 +50,8 @@ public class Network implements Runnable {
         }
 
 
-
         out.flush();
-        out.close();
-//        this.client = new Socket(this.serverName, this.port);
-//        out = this.client.getOutputStream();
+       // out.close();
         in.close();
 
 
@@ -66,6 +63,22 @@ public class Network implements Runnable {
         try {
             this.inputStream = new ObjectInputStream(this.client.getInputStream());
         } catch (IOException var8) {
+
+            Thread currThread = Thread.currentThread();
+            currThread.stop();
+            System.out.println("in var8 :  "+jPotifyGUI.getUser().getName());
+
+            ForServer forServer = new ForServer(13,jPotifyGUI.getUser());
+            Network network = null;
+            try {
+                network = new Network(forServer);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            new Thread(network).start();
+
+
+
             var8.printStackTrace();
         }
 
@@ -115,6 +128,7 @@ public class Network implements Runnable {
                     }
                     break;
                 case 10:
+                    System.out.println("prepare");
                     isOnNetworkType2 = true;
                     friend = new Friend(forServer.getUser().getName());
                     break;
@@ -135,6 +149,9 @@ public class Network implements Runnable {
                 }
 
             } catch (IOException var6) {
+                Thread currThread = Thread.currentThread();
+                currThread.stop();
+                System.out.println("in var6 :" + jPotifyGUI.getUser().getName());
                 ForServer forServer = new ForServer(13,jPotifyGUI.getUser());
                 Network network = null;
                 try {
@@ -143,8 +160,7 @@ public class Network implements Runnable {
                     e.printStackTrace();
                 }
                 new Thread(network).start();
-                Thread currThread = Thread.currentThread();
-                currThread.stop();
+
                 var6.printStackTrace();
             } catch (ClassNotFoundException var7) {
                 var7.printStackTrace();
@@ -223,8 +239,23 @@ public class Network implements Runnable {
 
         out.close();
         in.close();
-
         addSongToFriendPlayList(path);
+//
+//        Thread currThread = Thread.currentThread();
+//        currThread.stop();
+//
+//        System.out.println("in receive file from server :  "+jPotifyGUI.getUser().getName());
+//
+//        ForServer forServer = new ForServer(13,jPotifyGUI.getUser());
+//        Network network = null;
+//        try {
+//            network = new Network(forServer);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        new Thread(network).start();
+//
+
 
     }
 
@@ -262,7 +293,8 @@ public class Network implements Runnable {
         }
     }
 
-    private Friend findFriend(){
+    private Friend findFriend()
+    {
         Friend result = null ;
         for( int i=0 ; i< jPotifyGUI.getUser().getFriends().size() ; i++ ){
             if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName()) ){

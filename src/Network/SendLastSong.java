@@ -8,7 +8,7 @@ public class SendLastSong {
     {
 
         for( int i=0 ; i< user.getSharedPlaylist().getSongs().size() ; i++ ){
-            if( user.getLastSong().getFileAddress().equals(user.getSharedPlaylist().getSongs().get(i))) {
+            if( user.getLastSong().getFileAddress().equals(user.getSharedPlaylist().getSongs().get(i).getFileAddress())) {
                 result = i;
                 user.setLasSongIndex(result);
                 break;

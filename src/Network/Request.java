@@ -48,8 +48,9 @@ public class Request extends JFrame implements ActionListener {
         forServer = new ForServer(7,user);
         Network network = new Network(forServer);
         new Thread(network).start();
+
         new SendSharedPlaylist(jPotifyGUI.getUser());
-        new SendLastSong(jPotifyGUI.getUser());
+        //new SendLastSong(jPotifyGUI.getUser());
 
         setVisible(false);
     }

@@ -90,6 +90,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
         this.playSlider=playSlider ;
         this.player=player ;
         this.junk = junk;
+        this.leftPanel = leftPanel;
 
 
         btnShuffle.addActionListener(this);
@@ -110,7 +111,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
         this.song = song ;
         actionToPlayerAnotherSong();
         actionToPlaySliderAnotherSong();
-        //actionToButtonPlayAnotherSong();
+        actionToButtonPlayAnotherSong();
     }
 
     /**
@@ -215,7 +216,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
     private void actionToButtonPlayAnotherSong()
     {
 
-      //  setLastSong(this.song);
+        //setLastSong(this.song);
         setchangeSong(false);
         isItPlaying = false ;
         firstTime = true ;
@@ -322,8 +323,11 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void setLastSong(Song song)
     {
+        System.out.println("set last song");
+        System.out.println(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size());
         for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++){
-            if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).getAlbumeName()) ){
+            if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).getFileAddress()) ){
+                System.out.println("exist");
                 jPotifyGUI.getUser().setLasSongIndex(i);
                 jPotifyGUI.getUser().setLastSong();
                 jPotifyGUI.getUser().setLastTime("0");
@@ -332,19 +336,26 @@ public class PlayMusicControl implements ActionListener,Runnable {
         }
     }
 
-    private void notOnRepeat(){
+    private void notOnRepeat()
+    {
         while (true) {
+
             if (player.getPlayer().isComplete() && player.getRepeat() == false ) {
+//                Thread currThread = Thread.currentThread();
+//                currThread.stop();
                 actionToButtonNext();
                 break ;
             }
             else if( player.getPlayer().isComplete() && player.getShuffle() == true && player.getRepeat()==false){
                 try {
+//                    Thread currThread = Thread.currentThread();
+//                    currThread.stop();
                     playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                    break;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                break;
+
             }
         }
     }

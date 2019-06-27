@@ -92,7 +92,7 @@ public class DisplayListsGUI extends JScrollPane{
         addNewPlaylist = new JButton("new playlist");
         createPlaylistPanel = new JPanel();
         finishedCooshingBtn = new JButton("choosing finished");
-        ImageIcon image = new ImageIcon("src/Icons/add2.png");
+        ImageIcon image = new ImageIcon("src/Icons/plus (1).png");
         addNewMusic.setIcon(image);
         addNewPlaylist.setIcon(image);
         newPlaylistFrame = new JFrame("create new playlist");

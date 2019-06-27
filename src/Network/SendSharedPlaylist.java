@@ -8,7 +8,7 @@ public class SendSharedPlaylist {
 
     public SendSharedPlaylist(User user) throws IOException
     {
-
+        System.out.println(user.getSharedPlaylist().getSongs().size());
         for( int i=0 ; i<user.getSharedPlaylist().getSongs().size() ; i++ ){
             File file = new File(user.getSharedPlaylist().getSongs().get(i).getFileAddress() );
 
@@ -23,6 +23,7 @@ public class SendSharedPlaylist {
 
             try {
                 Network network2 = new Network(in,bytes);
+                new Thread(network2).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -29,7 +29,7 @@ public class ClientHandler extends Thread{
     {
         if (client == null) throw new Exception("client can't be null");
         this.socket = client;
-
+        System.out.print(isOnNetworkType2);
         if( !isOnNetworkType2 ) {
 
             outputStream = new ObjectOutputStream(client.getOutputStream());
@@ -38,8 +38,7 @@ public class ClientHandler extends Thread{
             ForServer fromClient = (ForServer) inputStream.readObject();
             user =  fromClient.getUser();
 
-            System.out.print(fromClient.getType());
-            System.out.println(isOnNetworkType2);
+            System.out.println(fromClient.getType());
 
             if( fromClient.getType() == 13)
                 updateUser(user);
@@ -69,6 +68,7 @@ public class ClientHandler extends Thread{
 
         }
         else if( isOnNetworkType2) {
+            System.out.println("  hey");
             isOnNetworkType2 = false;
             receivefileFromClient(client);
             sendFileToFriends();
@@ -270,28 +270,39 @@ public class ClientHandler extends Thread{
 
     private void updateUser(User user)
     {
+        System.out.println("in update user");
         for(User user1 : usersMap.keySet() ){
             if( user1.getName().equals(user.getName())){
+                System.out.println("in user map");
                 usersMap.remove(usersMap.get(user1));
+                System.out.println("size of usersMap :" + usersMap.size());
                 usersMap.put(user1,outputStream);
                 break;
             }
         }
         for(User user1 : usersMapTyp2.keySet() ){
             if( user1.getName().equals(user.getName())){
+                System.out.println("in user map Type2");
                 usersMapTyp2.remove(usersMapTyp2.get(user1));
+                System.out.println("size of usersMapType2" + usersMapTyp2.size());
                 usersMapTyp2.put(user1,outputStreamTyp2);
                 break;
             }
         }
         for( int i=0 ; i<users.size() ; i++ ){
             if( user.getName().equals(users.get(i).getName()) ){
+                System.out.println("in users ");
                 users.remove(i);
+                System.out.println("size of users :" + users.size());
                 users.add(user);
                 break;
             }
         }
-
+        System.out.println("::::finally in updat user socket");
+        System.out.println("user was: " +user.getName() );
+        System.out.println("size of users :" + users.size());
+        System.out.println("size of usersMap :" + usersMap.size());
+        System.out.println("size of usersMapType2" + usersMapTyp2.size());
     }
 
 }
