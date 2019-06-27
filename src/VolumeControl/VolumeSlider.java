@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-public class VolumeSlider extends JPanel implements ChangeListener , Serializable {
+public class VolumeSlider extends JPanel implements ChangeListener{
     private JSlider jSlider;
     private ImageIcon imSpeaker0 =new ImageIcon("src/Icons/speaker0.png");
     private ImageIcon imSpeaker1 =new ImageIcon("src/Icons/speaker1.png");
