@@ -32,6 +32,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     private User user = new User("null","null");
     private AddFriendGUI addFriendGUI ;
     private int current = 0;
+    private Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
 
     public FriendsActivityGUI(User user)
     {
@@ -65,6 +66,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         gbc.gridx = 0;
         gbc.gridy = 0;
         mainPanel.add(topPanel,gbc);
+        btnAddFriend.setBorder(blackLine);
 
 
     }
