@@ -53,7 +53,6 @@ public class JPotifyGUI extends JFrame {
             e.printStackTrace();
         }
         friendsActivityGUI = new FriendsActivityGUI(user);
-        topPanle =  new TopPanle();
 
         setTitle("JPotify");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -68,6 +67,7 @@ public class JPotifyGUI extends JFrame {
         else{
             displayListsGUI = new DisplayListsGUI(this , playMusicGUI,false , user);
         }
+        topPanle =  new TopPanle(displayListsGUI.getDisplayListsControl());
         getContentPane().add(displayListsGUI);
         add(displayListsGUI , BorderLayout.WEST);
 
