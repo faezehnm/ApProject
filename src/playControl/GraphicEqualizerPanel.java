@@ -11,11 +11,9 @@ public class GraphicEqualizerPanel extends JPanel {
 
     GraphicEqualizer component = new GraphicEqualizer();
 
-    add(component);
+    setBackground(Color.PINK);
 
-    setBackground(Color.pink);
-
-    setSize(40,40);
+    //setSize(100,100);
 
     setLayout(new BorderLayout());
     add(component ,BorderLayout.CENTER);
@@ -25,12 +23,13 @@ public class GraphicEqualizerPanel extends JPanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            component.move(2, 3);
+            System.out.println("here ");
+            component.move();
         }
     }
 
     ActionListener listener = new TimeListener();
-    Timer timer = new Timer(200, listener);
-        timer.start();
+    Timer timer = new Timer(100, listener);
+    timer.start();
 }
 }

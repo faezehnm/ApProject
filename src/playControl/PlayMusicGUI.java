@@ -30,6 +30,7 @@ public class PlayMusicGUI extends JPanel {
     private PlayMusicControl playMusicControl ;
 
     private JPanel leftPanel = new JPanel() ;
+    private GraphicEqualizerPanel graphicEqualizerPanel = new GraphicEqualizerPanel();
     private JPanel rightPanel = new JPanel() ;
     private JPanel middlePanel = new JPanel(new GridLayout(2,1)) ;
     private JPanel middlePanelTop = new JPanel() ;
@@ -88,7 +89,7 @@ public class PlayMusicGUI extends JPanel {
 
         this.jPotifyGUI = jPotifyGUI ;
 
-        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1,this.jPotifyGUI);
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1,this.jPotifyGUI,graphicEqualizerPanel , leftPanel , junk3);
 
     }
 
@@ -198,6 +199,7 @@ public class PlayMusicGUI extends JPanel {
         gbc2.insets = new Insets(10, 0, 0, 0);
         junk3.setBackground(Color.pink);
         leftPanel.add(junk3,gbc2);
+        //leftPanel.add(graphicEqualizerPanel,gbc2);
     }
 
     /**
@@ -216,10 +218,17 @@ public class PlayMusicGUI extends JPanel {
      */
     private void updateSongInformation()
     {
-        Image resizedImg = song.scaledImage(100, 100);
-        ImageIcon resizedIcon = new ImageIcon(resizedImg);
-        imageLable.setIcon(resizedIcon);
-        displayInformationLable.setText("<html>"+song.getName()+"<br>"+song.getAlbumeName()+"<br>"+song.getArtist()+"<html>");
+        if(this.song == null){
+            leftPanel.remove(imageLable);
+            leftPanel.remove(displayInformationLable);
+        }
+        else {
+            setLeftPanelLayout();
+            Image resizedImg = song.scaledImage(100, 100);
+            ImageIcon resizedIcon = new ImageIcon(resizedImg);
+            imageLable.setIcon(resizedIcon);
+            displayInformationLable.setText("<html>" + song.getName() + "<br>" + song.getAlbumeName() + "<br>" + song.getArtist() + "<html>");
+        }
     }
 
     /**

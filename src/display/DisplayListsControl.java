@@ -344,4 +344,7 @@ public class DisplayListsControl{
         mainGUI.repaint();
     }
 
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
 }

@@ -10,6 +10,7 @@ import music.Song;
 import sun.management.counter.perf.PerfLongArrayCounter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -23,10 +24,12 @@ import java.net.URISyntaxException;
  *  @version 1.0
  *  @since 2019
  */
-public class PlayMusicControl implements ActionListener , Serializable {
+public class PlayMusicControl implements ActionListener{
 
     private PlayMusicGUI playMusicGUI ;
-
+    private GraphicEqualizerPanel graphicEqualizerPanel;
+    private JPanel leftPanel;
+    private JPanel junk;
     private JButton btnPlay ;
     private JButton btnNext ;
     private JButton btnPrevious ;
@@ -68,7 +71,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
      * @param imShuffle1 image of btnPlay when shuffle
      * @throws Exception if player is null
      */
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player , PlayMusicGUI playMusicGUI , ImageIcon imShuffle , ImageIcon imShuffle1, JPotifyGUI jPotifyGUI) throws Exception
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player , PlayMusicGUI playMusicGUI , ImageIcon imShuffle , ImageIcon imShuffle1, JPotifyGUI jPotifyGUI , GraphicEqualizerPanel graphicEqualizerPanel , JPanel leftPanel , JPanel junk) throws Exception
     {
         this.jPotifyGUI =jPotifyGUI ;
         this.playMusicGUI= playMusicGUI ;
@@ -85,6 +88,9 @@ public class PlayMusicControl implements ActionListener , Serializable {
         this.imShuffle1 = imShuffle1 ;
         this.playSlider=playSlider ;
         this.player=player ;
+        this.graphicEqualizerPanel = graphicEqualizerPanel;
+        this.leftPanel = leftPanel;
+        this.junk = junk;
 
 
         btnShuffle.addActionListener(this);
@@ -161,6 +167,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
     {
 
         if (!isItPlaying) {
+            playEqualizer();
             getPlayButton().setIcon(imPause);
             isItPlaying=true ;
             if( firstTime ) {
@@ -195,6 +202,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
             }
 
         } else {
+            stopEqualizer();
             getPlayButton().setIcon(imPlay);
             player.pause();
             playSlider.pause();
@@ -328,5 +336,18 @@ public class PlayMusicControl implements ActionListener , Serializable {
 
     private void onRepeat(){
         //if( )
+    }
+
+    private void playEqualizer(){
+        junk.setLayout(new BorderLayout());
+        junk.add(graphicEqualizerPanel , BorderLayout.CENTER);
+        jPotifyGUI.revalidate();
+        jPotifyGUI.repaint();
+    }
+
+    private void stopEqualizer(){
+        junk.remove(graphicEqualizerPanel);
+        jPotifyGUI.revalidate();
+        jPotifyGUI.repaint();
     }
 }

@@ -335,6 +335,12 @@ public class DisplayListsGUI extends JScrollPane{
             delet.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
+                    if(displayListsControl.getScrollPane() instanceof DisplaySongsGroup){
+                        DisplaySongsGroup displaySongsGroup = (DisplaySongsGroup) (displayListsControl.getScrollPane());
+                        if(displaySongsGroup.getMusics().equals(playList.getSongs())){
+                            displayListsControl.clean();
+                        }
+                    }
                     displayListsControl.deletPlaylist(playList);
                     listsPnl.remove(playlistbtn);
                     mainGUI.revalidate();
