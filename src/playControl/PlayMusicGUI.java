@@ -54,6 +54,7 @@ public class PlayMusicGUI extends JPanel {
     private ImageIcon imShuffle1 =new ImageIcon("src/Icons/infinity.png");
 
     private Border blueLine = BorderFactory.createLineBorder(Color.CYAN);
+    private Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
     private Border noline = new EmptyBorder(10, 10, 10, 10);
 
     private JPotifyGUI jPotifyGUI ;
@@ -120,6 +121,11 @@ public class PlayMusicGUI extends JPanel {
     private void setBorderToAll()
     {
         setBorder(blueLine);
+        btnPlay.setBorder(blackLine);
+        btnNext .setBorder(blackLine);
+        btnPrevious .setBorder(blackLine);
+        btnRepeat .setBorder(blackLine);
+        btnShuffle.setBorder(blackLine);
     }
 
     /**
@@ -127,11 +133,11 @@ public class PlayMusicGUI extends JPanel {
      */
     private void setSizeOfButton()
     {
-        btnPlay.setPreferredSize(new Dimension(64, 64));
-        btnNext.setPreferredSize(new Dimension(64, 64));
-        btnPrevious.setPreferredSize(new Dimension(64, 64));
-        btnRepeat.setPreferredSize(new Dimension(64, 64));
-        btnShuffle.setPreferredSize(new Dimension(64, 64));
+        btnPlay.setPreferredSize(new Dimension(67, 67));
+        btnNext.setPreferredSize(new Dimension(67, 67));
+        btnPrevious.setPreferredSize(new Dimension(67, 67));
+        btnRepeat.setPreferredSize(new Dimension(67, 67));
+        btnShuffle.setPreferredSize(new Dimension(67, 67));
     }
 
     /**

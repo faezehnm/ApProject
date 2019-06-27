@@ -48,6 +48,7 @@ public class DisplayListsGUI extends JScrollPane{
     private JTextField newPlaylistTextField;
     private JButton createNewPlaylistbtn;
     private JButton cancelAddingPlaylist;
+    private Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
 
     /**
      * Makes an object of DisplayListsGUI
@@ -143,6 +144,7 @@ public class DisplayListsGUI extends JScrollPane{
         gbc2.anchor = GridBagConstraints.PAGE_END; //bottom of space
         gbc2.insets = new Insets(10, 0, 0, 0);  //top padding
         listsPnl.add(addNewPlaylist, gbc2);
+
     }
 
     /**
@@ -162,6 +164,8 @@ public class DisplayListsGUI extends JScrollPane{
         newPlaylistTextField.setBackground(Color.BLACK);
         createNewPlaylistbtn.setBackground(Color.BLACK);
         cancelAddingPlaylist.setBackground(Color.BLACK);
+
+        addNewMusic.setBorder(blackLine);
     }
 
     /**
