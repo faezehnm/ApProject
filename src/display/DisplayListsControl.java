@@ -218,7 +218,6 @@ public class DisplayListsControl{
                         this.addAlbum(albume);
                         newSong.setAlbume(albume);
                     }
-                    // this.addSong(newSong);
                     try {
                         update(newSong);
                     } catch (Exception e) {
@@ -334,6 +333,11 @@ public class DisplayListsControl{
     public void deletAlbume(Albume albume){
         albumes.remove(albume);
     }
+
+    /**
+     * Sets the buttons of friend's shared playlists on the center panel.
+     * @param user is the user of this PC.
+     */
 
     public void setFriendsPlaylistsDisplay(User user){
         clean();

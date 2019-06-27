@@ -18,36 +18,43 @@ import java.io.*;
 import java.net.URL;
 import java.util.Optional;
 
-//import static Welcome.SignUpGUI.jPotifyGUI;
+/**
+ * Creates the main frame of JPotify and serializes the information when closing.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh & Faezeh Naeimi
+ * @since 2019
+ * @version 1.0
+ */
+
 
 public class JPotifyGUI extends JFrame {
+
     private static final int WIDTH = 1850 , HEIGHT = 700;
-
-
-    private Image icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");
-    Song song = new Song("src/songs/Happier.mp3");
-
-    private User user = new User("null","null") ;
-    private PlayMusicGUI playMusicGUI = new PlayMusicGUI(this);
-    private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(user);
+    private Image icon;
+    private User user;
+    private PlayMusicGUI playMusicGUI;
+    private FriendsActivityGUI friendsActivityGUI;
     private DisplayListsGUI displayListsGUI;
-    private TopPanle topPanle = new TopPanle();
+    private TopPanle topPanle;
 
-    Friend friend = new Friend("faezeh");
-    Friend friend2 = new Friend("amirreza");
+    /**
+     * Crates an oject of this class
+     * @param setPlaylists
+     */
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-        friendsActivityGUI.setUser(user);
-        topPanle.setName(user.getName());
-    }
-
-    public JPotifyGUI(boolean setPlaylists) throws Exception {
+    public JPotifyGUI(boolean setPlaylists) {
         super();
+
+        icon = Toolkit.getDefaultToolkit().getImage("src/Icons/musical-notes-symbols.png");
+        user = new User("null","null") ;
+        try {
+            playMusicGUI  = new PlayMusicGUI(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        friendsActivityGUI = new FriendsActivityGUI(user);
+        topPanle =  new TopPanle();
+
         setTitle("JPotify");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setSize(new Dimension(WIDTH , HEIGHT));
@@ -165,4 +172,15 @@ public class JPotifyGUI extends JFrame {
     public FriendsActivityGUI getFriendsActivityGUI() {
         return friendsActivityGUI;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+        friendsActivityGUI.setUser(user);
+        topPanle.setName(user.getName());
+    }
+
+    public User getUser() {
+        return user;
+    }
+
 }

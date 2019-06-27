@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FriendPanel implements ActionListener , Serializable {
+public class FriendPanel implements ActionListener{
     private Friend friend ;
     private JPanel mainPanel ;
     private JPanel mainPanelUp;
@@ -17,13 +17,13 @@ public class FriendPanel implements ActionListener , Serializable {
     private JButton friendName ;
     private JLabel lastTime ;
     private JButton songInformaton ;
-    private ImageIcon imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
-    private Border noline = new EmptyBorder(10, 10, 10, 10);
+    private ImageIcon imSpeaker3;
+    private Border noline;
 
     public FriendPanel(Friend friend)
     {
-
-
+        noline = new EmptyBorder(10, 10, 10, 10);
+        imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
         this.friend= friend ;
 
 

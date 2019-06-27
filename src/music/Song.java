@@ -87,21 +87,4 @@ public class Song extends Music implements Serializable {
         this.albume = albume;
     }
 
-    /**
-     * It sets the artwork of song in bufferedImage format instead of byte[] and facilitates using artwork.
-     * @param songImage is the song image in byte[] format
-     */
-
-   /* private void setArtwork (byte[] songImage){
-        BufferedImage bufferedImage = null;
-        try {
-            InputStream inputStream = new ByteArrayInputStream(songImage);
-            bufferedImage = ImageIO.read(inputStream);
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
-        artwork = bufferedImage;
-    }*/
-
-
 }

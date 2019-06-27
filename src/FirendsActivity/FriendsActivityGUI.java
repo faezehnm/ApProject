@@ -19,24 +19,33 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
-    private JPanel junk = new JPanel();
-    private Border noline = new EmptyBorder(10, 10, 10, 10);
+    private JPanel junk;
+    private Border noline;
 
     private JPanel mainPanel;
-    private ArrayList<FriendPanel> friendsPanel = new ArrayList<FriendPanel>();
+    private ArrayList<FriendPanel> friendsPanel;
 
     private JPanel topPanel ;
-    private JLabel jLabel =  new JLabel("Friend Activity") ;
-    private ImageIcon imgAdd = new ImageIcon("src/Icons/bplus(2).png") ;
-    private JButton btnAddFriend = new JButton(imgAdd);
-    private User user = new User("null","null");
+    private JLabel jLabel;
+    private ImageIcon imgAdd;
+    private JButton btnAddFriend ;
+    private User user;
     private AddFriendGUI addFriendGUI ;
     private int current = 0;
-    private Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
+    private Border blackLine;
 
     public FriendsActivityGUI(User user)
     {
         this.user = user ;
+
+        junk = new JPanel();
+        noline = new EmptyBorder(10, 10, 10, 10);
+        friendsPanel = new ArrayList<FriendPanel>();
+        jLabel =  new JLabel("Friend Activity") ;
+        imgAdd = new ImageIcon("src/Icons/bplus(2).png") ;
+        btnAddFriend = new JButton(imgAdd);
+        user = new User("null","null");
+        blackLine = BorderFactory.createLineBorder(Color.BLACK);
 
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -68,6 +77,13 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         mainPanel.add(topPanel,gbc);
         btnAddFriend.setBorder(blackLine);
 
+        gbc2.gridx = 0;
+        gbc2.gridy = 1+friendsPanel.size();
+        gbc2.ipady = 0;
+        gbc2.weighty = 1.0;
+        gbc2.anchor = GridBagConstraints.PAGE_END;
+        gbc2.insets = new Insets(10, 0, 0, 0);
+        mainPanel.add(junk,gbc2);
 
     }
 
@@ -90,14 +106,6 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
             Border blueline = BorderFactory.createLineBorder(Color.CYAN);
             friendsPanel.get(i).getMainPanel().setBorder(blueline);
         }
-        gbc2.gridx = 0;
-        gbc2.gridy = 1+friendsPanel.size();
-        gbc2.ipady = 0;
-        gbc2.weighty = 1.0;
-        gbc2.anchor = GridBagConstraints.PAGE_END;
-        gbc2.insets = new Insets(10, 0, 0, 0);
-        mainPanel.add(junk,gbc2);
-
     }
 
     public void removeFrendsPanel()

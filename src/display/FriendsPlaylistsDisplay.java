@@ -12,11 +12,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * This class is for displaying buutons of each friend's shared playlist on the center panel.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class FriendsPlaylistsDisplay extends JScrollPane {
 
     private User user;
     private JPanel panel;
     private ArrayList<JPanel> friendsPanels;
+
+    /**
+     * Creates an object of this class
+     * @param user is the user of this PC
+     * @param displayListsControl is an Object of DisplayListsControl class that is controlling the left and center parts.
+     */
 
     public FriendsPlaylistsDisplay(User user , DisplayListsControl displayListsControl){
         this.user = user;

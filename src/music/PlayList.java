@@ -56,10 +56,6 @@ public class PlayList implements Serializable {
         }
     }
 
-    /*public int getNumberOfSongs(){
-        return songs.size();
-    }*/
-
     public PlaylistSituation getPlaylistSituation() {
         return playlistSituation;
     }

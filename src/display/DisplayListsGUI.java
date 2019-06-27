@@ -5,6 +5,7 @@ import playControl.PlayMusicGUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,7 +49,7 @@ public class DisplayListsGUI extends JScrollPane{
     private JTextField newPlaylistTextField;
     private JButton createNewPlaylistbtn;
     private JButton cancelAddingPlaylist;
-    private Border blackLine = BorderFactory.createLineBorder(Color.BLACK);
+    private Border blackLine;
 
     /**
      * Makes an object of DisplayListsGUI
@@ -68,6 +69,7 @@ public class DisplayListsGUI extends JScrollPane{
         this.user = user;
         listsPnl = new JPanel();
         creatListsPnl();
+        blackLine = BorderFactory.createLineBorder(Color.BLACK);
     }
 
     /**
@@ -357,17 +359,18 @@ public class DisplayListsGUI extends JScrollPane{
                 public void actionPerformed(ActionEvent e) {
                     JFrame renameFrame = new JFrame("rename");
                     renameFrame.setLayout(new GridLayout(3 , 1));
-                    renameFrame.setBackground(Color.WHITE);
+                    renameFrame.setBackground(Color.BLACK);
                     JTextField renameTextField = new JTextField();
                     renameFrame.setSize(new Dimension(300 , 200));
                     renameTextField.setSize(new Dimension(200 , 100));
-                    renameTextField.setBackground(Color.WHITE);
+                    renameTextField.setBackground(Color.BLACK);
+                    renameTextField.setForeground(Color.WHITE);
                     renameTextField.setEditable(true);
                     JButton done = new JButton("done");
-                    done.setBackground(Color.WHITE);
+                    done.setBackground(Color.BLACK);
                     done.setSize(200 , 100);
                     JButton cancel = new JButton("cancel");
-                    cancel.setBackground(Color.WHITE);
+                    cancel.setBackground(Color.BLACK);
                     cancel.setSize(new Dimension(200 , 100));
                     renameFrame.add(renameTextField);
                     renameFrame.add(done);
@@ -401,6 +404,10 @@ public class DisplayListsGUI extends JScrollPane{
                     }
                     listsPnl.remove(addNewPlaylist);
                     JButton finished = new JButton("finished");
+                    finished.setBackground(Color.BLACK);
+                    finished.setForeground(Color.WHITE);
+                    Border blueLine = new LineBorder(Color.CYAN);
+                    finished.setBorder(blueLine);
                     finished.setPreferredSize(new Dimension(200 , 100));
                     finished.addActionListener(new ActionListener() {
                         @Override
@@ -447,6 +454,10 @@ public class DisplayListsGUI extends JScrollPane{
         mainGUI.revalidate();
         mainGUI.repaint();
     }
+
+    /**
+     * Sets the text color for all components.
+     */
 
     private void setTextColor(){
         addNewMusic.setForeground(Color.WHITE);

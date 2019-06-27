@@ -52,8 +52,4 @@ public class Albume extends Music implements Serializable {
         }
     }
 
-
-    /*public void setArtwork(){
-        artwork = songs.get(0).getArtwork();
-    }*/
 }
