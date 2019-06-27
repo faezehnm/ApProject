@@ -72,8 +72,6 @@ public class PlaySlider extends JPanel implements ChangeListener {
 
         add(jSlider);
         setBackground(Color.BLACK);
-        Border blueLine = new LineBorder(Color.BLUE);
-        setBorder(blueLine);
     }
 
     public void setSong(Song song){

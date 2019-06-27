@@ -37,8 +37,6 @@ public class VolumeSlider extends JPanel implements ChangeListener , Serializabl
         jSlider.setPreferredSize(new Dimension(120,40));
         setBackground(Color.BLACK);
         jSlider.setBackground(Color.BLACK);
-        Border blueLine = new LineBorder(Color.BLUE);
-        setBorder(blueLine);
     }
 
     @Override
