@@ -41,6 +41,7 @@ public class Main {
 //            JPotifyGUI jPotifyGUI = new JPotifyGUI(true);
 //        }
 
+       // WelcomeGUI welcomeGUI  = new WelcomeGUI();
       //JPotifyGUI jPotifyGUI = new JPotifyGUI();
         WelcomeGUI welcomeGUI  = new WelcomeGUI();
        // Warning warning = new Warning("khakk");

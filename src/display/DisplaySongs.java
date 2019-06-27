@@ -112,6 +112,7 @@ public class DisplaySongs extends DisplaySongsGroup {
                         public void actionPerformed(ActionEvent e) {
                             displayListsControl.addSongToPlaylist(song , "Shared Playlist");
                             mainGUI.getUser().setSharedPlaylist(displayListsControl.getPlaylists().get(0));
+                           System.out.println(mainGUI.getUser().getSharedPlaylist().getSongs().size());
                         }
                     });
                     if(deletable) {

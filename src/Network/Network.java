@@ -257,5 +257,19 @@ public class Network implements Runnable {
     private void creatFriendPanel()
     {
         jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+        for(Song song : findFriend().getSharedPlayList().getSongs() ) {
+            jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addSong(song);
+        }
+    }
+
+    private Friend findFriend(){
+        Friend result = null ;
+        for( int i=0 ; i< jPotifyGUI.getUser().getFriends().size() ; i++ ){
+            if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName()) ){
+                result = jPotifyGUI.getUser().getFriends().get(i) ;
+                break;
+            }
+        }
+        return result;
     }
 }
