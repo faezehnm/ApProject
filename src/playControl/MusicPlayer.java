@@ -24,6 +24,10 @@ public class MusicPlayer{
     private long totalSongLength;
     private String musicFilePath;
 
+    public Player getPlayer() {
+        return player;
+    }
+
     /**
      * play a song
      * @param musicFilePath song's path that we want to play

@@ -325,4 +325,8 @@ public class PlayMusicControl implements ActionListener , Serializable {
             }
         }
     }
+
+    private void onRepeat(){
+        //if( )
+    }
 }
