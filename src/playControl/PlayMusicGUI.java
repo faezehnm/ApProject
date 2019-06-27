@@ -193,7 +193,7 @@ public class PlayMusicGUI extends JPanel {
         gbc2.anchor = GridBagConstraints.EAST;
         gbc2.insets = new Insets(10, 0, 0, 0);
         junk2.setBackground(Color.BLACK);
-        leftPanel.add(junk2,gbc2);
+        //leftPanel.add(junk2,gbc2);
 
         gbc2.gridx = 5;
         gbc2.gridy = 0;
@@ -228,7 +228,7 @@ public class PlayMusicGUI extends JPanel {
         }
         else {
             setLeftPanelLayout();
-            Image resizedImg = song.scaledImage(100, 100);
+            Image resizedImg = song.scaledImage(130, 130);
             ImageIcon resizedIcon = new ImageIcon(resizedImg);
             imageLable.setIcon(resizedIcon);
             displayInformationLable.setText("<html>" + song.getName() + "<br>" + song.getAlbumeName() + "<br>" + song.getArtist() + "<html>");

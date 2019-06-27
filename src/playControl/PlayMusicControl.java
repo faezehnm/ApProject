@@ -26,6 +26,8 @@ import java.net.URISyntaxException;
  */
 public class PlayMusicControl implements ActionListener,Runnable {
 
+    private final Object lockA = new Object();
+
     private PlayMusicGUI playMusicGUI ;
     private GraphicEqualizerPanel graphicEqualizerPanel;
     private JPanel leftPanel;
@@ -163,7 +165,8 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonPlay()
     {
-
+//        Thread currThread = Thread.currentThread();
+//        currThread.stop();
         if (!isItPlaying) {
             playEqualizer();
             getPlayButton().setIcon(imPause);
@@ -338,24 +341,21 @@ public class PlayMusicControl implements ActionListener,Runnable {
 
     private void notOnRepeat()
     {
-        while (true) {
+        synchronized(lockA) {
+            while (true) {
 
-            if (player.getPlayer().isComplete() && player.getRepeat() == false ) {
-//                Thread currThread = Thread.currentThread();
-//                currThread.stop();
-                actionToButtonNext();
-                break ;
-            }
-            else if( player.getPlayer().isComplete() && player.getShuffle() == true && player.getRepeat()==false){
-                try {
-//                    Thread currThread = Thread.currentThread();
-//                    currThread.stop();
-                    playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                if (player.getPlayer().isComplete() && player.getRepeat() == false) {
+                    actionToButtonNext();
                     break;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                } else if (player.getPlayer().isComplete() && player.getShuffle() == true && player.getRepeat() == false) {
+                    try {
+                        playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                        break;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
+                }
             }
         }
     }
