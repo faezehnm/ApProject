@@ -23,7 +23,7 @@ import java.net.URISyntaxException;
  *  @version 1.0
  *  @since 2019
  */
-public class PlayMusicControl implements ActionListener , Serializable {
+public class PlayMusicControl implements ActionListener , Serializable,Runnable {
 
     private PlayMusicGUI playMusicGUI ;
 
@@ -38,7 +38,6 @@ public class PlayMusicControl implements ActionListener , Serializable {
     private ImageIcon imRepeat1 ;
     private ImageIcon imShuffle ;
     private ImageIcon imShuffle1 ;
-
 
     private MusicPlayer player = new MusicPlayer();
     private PlaySlider playSlider = new PlaySlider(player);
@@ -105,6 +104,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
         this.song = song ;
         actionToPlayerAnotherSong();
         actionToPlaySliderAnotherSong();
+        //actionToButtonPlayAnotherSong();
     }
 
     /**
@@ -114,12 +114,9 @@ public class PlayMusicControl implements ActionListener , Serializable {
     @Override
     public void actionPerformed(ActionEvent e)
     {
-        if( e.getSource()==btnShuffle){
+        if( e.getSource()==btnShuffle)
             actionToButtonShuffle();
-        /*
-        :)
-         */
-        }
+
         if( e.getSource()==btnPrevious)
             ctionToButtonPrevious();
 
@@ -200,6 +197,7 @@ public class PlayMusicControl implements ActionListener , Serializable {
             playSlider.pause();
             isItPlaying= false ;
         }
+        new Thread(this).start();
 
     }
 
@@ -326,7 +324,25 @@ public class PlayMusicControl implements ActionListener , Serializable {
         }
     }
 
-    private void onRepeat(){
-        //if( )
+    private void notOnRepeat(){
+        while (true) {
+            if (player.getPlayer().isComplete() && player.getRepeat() == false ) {
+                actionToButtonNext();
+                break ;
+            }
+            else if( player.getPlayer().isComplete() && player.getShuffle() == true && player.getRepeat()==false){
+                try {
+                    playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        notOnRepeat();
     }
 }

@@ -89,6 +89,7 @@ public class PlayMusicGUI extends JPanel {
         this.jPotifyGUI = jPotifyGUI ;
 
         playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1,this.jPotifyGUI);
+        // Thread(playMusicControl).start();
 
     }
 
