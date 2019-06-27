@@ -1,4 +1,5 @@
 package display;
+import Network.User;
 import home.JPotifyGUI;
 import playControl.PlayMusicGUI;
 
@@ -26,6 +27,7 @@ import static com.sun.javafx.fxml.expression.Expression.add;
 
 public class DisplayListsGUI extends JScrollPane{
 
+    private User user;
     private DisplayListsControl displayListsControl;
     private JPanel listsPnl;
     private JButton addNewMusic;
@@ -33,6 +35,7 @@ public class DisplayListsGUI extends JScrollPane{
     private JButton songsbutton;
     private JButton albumebutton;
     private JLabel playlistlbl;
+    private JButton friendsPlaylists;
     private ArrayList<JButton> playlistsbtn;
     private JPotifyGUI mainGUI;
     private PlayMusicGUI playMusicGUI;
@@ -52,7 +55,7 @@ public class DisplayListsGUI extends JScrollPane{
      * @param playMusicGUI is an object of PlayMusicGUI class that is added to mainGUI
      */
 
-    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI , boolean stePlaylist){
+    public DisplayListsGUI(JPotifyGUI mainGUI , PlayMusicGUI playMusicGUI , boolean stePlaylist , User user){
         try {
             displayListsControl = new DisplayListsControl(mainGUI , playMusicGUI , stePlaylist , this);
         } catch (Exception e) {
@@ -61,6 +64,7 @@ public class DisplayListsGUI extends JScrollPane{
         playlistsbtn = new ArrayList<JButton>();
         this.mainGUI = mainGUI;
         this.playMusicGUI = playMusicGUI;
+        this.user = user;
         listsPnl = new JPanel();
         creatListsPnl();
     }
@@ -84,6 +88,7 @@ public class DisplayListsGUI extends JScrollPane{
         songsbutton = new JButton("Songs");
         albumebutton = new JButton("Albums");
         playlistlbl = new JLabel("playlists :");
+        friendsPlaylists = new JButton("friends playlists");
         addNewPlaylist = new JButton("new playlist");
         createPlaylistPanel = new JPanel();
         finishedCooshingBtn = new JButton("choosing finished");
@@ -116,19 +121,22 @@ public class DisplayListsGUI extends JScrollPane{
         gbc.gridx = 0;
         gbc.gridy = 3;
         listsPnl.add(playlistlbl, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        listsPnl.add(friendsPlaylists , gbc);
         numberOfPlaylists = 0;
         if (displayListsControl.getPlaylists().size() != 0) {
             for (PlayList playList : displayListsControl.getPlaylists()) {
                 JButton playlistbtn = new JButton(playList.getPlayListName());
                 gbc.gridx = 0;
-                gbc.gridy = 4 + numberOfPlaylists;
+                gbc.gridy = 5 + numberOfPlaylists;
                 listsPnl.add(playlistbtn, gbc);
                 numberOfPlaylists++;
                 setPlaylistButton(playlistbtn, playList);
             }
         }
         gbc2.gridx = 0;
-        gbc2.gridy = 4 + numberOfPlaylists;
+        gbc2.gridy = 5 + numberOfPlaylists;
         gbc2.ipady = 0;       //reset to default
         gbc2.weighty = 1.0;   //request any extra vertical space
         gbc2.anchor = GridBagConstraints.PAGE_END; //bottom of space
@@ -145,6 +153,7 @@ public class DisplayListsGUI extends JScrollPane{
         songsbutton.setBackground(Color.CYAN);
         albumebutton.setBackground(Color.CYAN);
         playlistlbl.setBackground(Color.CYAN);
+        friendsPlaylists.setBackground(Color.cyan);
         addNewMusic.setBackground(Color.CYAN);
         addNewPlaylist.setBackground(Color.CYAN);
         createPlaylistPanel.setBackground(Color.CYAN);
@@ -159,18 +168,19 @@ public class DisplayListsGUI extends JScrollPane{
      */
 
     private void setBorder(){
-        Border greenLIne = BorderFactory.createLineBorder(Color.BLUE);
-        setBorder(greenLIne);
-        addNewMusic.setBorder(greenLIne);
-        songsbutton.setBorder(greenLIne);
-        albumebutton.setBorder(greenLIne);
-        playlistlbl.setBorder(greenLIne);
-        addNewPlaylist.setBorder(greenLIne);
-        createPlaylistPanel.setBorder(greenLIne);
-        finishedCooshingBtn.setBorder(greenLIne);
-        createNewPlaylistbtn.setBorder(greenLIne);
-        newPlaylistTextField.setBorder(greenLIne);
-        cancelAddingPlaylist.setBorder(greenLIne);
+        Border blueLine = BorderFactory.createLineBorder(Color.BLUE);
+        setBorder(blueLine);
+        addNewMusic.setBorder(blueLine);
+        songsbutton.setBorder(blueLine);
+        albumebutton.setBorder(blueLine);
+        playlistlbl.setBorder(blueLine);
+        addNewPlaylist.setBorder(blueLine);
+        createPlaylistPanel.setBorder(blueLine);
+        finishedCooshingBtn.setBorder(blueLine);
+        createNewPlaylistbtn.setBorder(blueLine);
+        newPlaylistTextField.setBorder(blueLine);
+        cancelAddingPlaylist.setBorder(blueLine);
+        friendsPlaylists.setBorder(blueLine);
     }
 
     /**
@@ -189,6 +199,7 @@ public class DisplayListsGUI extends JScrollPane{
         newPlaylistTextField.setSize(new Dimension(200 , 100));
         createNewPlaylistbtn.setSize(new Dimension(200 , 100));
         cancelAddingPlaylist.setSize(new Dimension(200 , 100));
+        friendsPlaylists.setPreferredSize(new Dimension(200 , 100));
     }
 
     /**
@@ -268,15 +279,21 @@ public class DisplayListsGUI extends JScrollPane{
                 displayListsControl.clean();
                 listsPnl.remove(finishedCooshingBtn);
                 gbc.gridx = 0;
-                gbc.gridy = numberOfPlaylists + 4;
+                gbc.gridy = numberOfPlaylists + 5;
                 JButton newPlaylist = new JButton(displayListsControl.getPlaylists().get(numberOfPlaylists).getPlayListName());
                 setPlaylistButton(newPlaylist , displayListsControl.getPlaylists().get(numberOfPlaylists));
                 listsPnl.add(newPlaylist , gbc);
                 numberOfPlaylists ++;
-                gbc2.gridy = 4 + numberOfPlaylists;
+                gbc2.gridy = 5 + numberOfPlaylists;
                 listsPnl.add(addNewPlaylist, gbc2);
                 mainGUI.revalidate();
                 mainGUI.repaint();
+            }
+        });
+        friendsPlaylists.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                displayListsControl.setFriendsPlaylistsDisplay(user);
             }
         });
     }
@@ -380,12 +397,12 @@ public class DisplayListsGUI extends JScrollPane{
 
     public void setGBC(JButton btn){
         gbc.gridx = 0;
-        gbc.gridy = numberOfPlaylists + 4;
+        gbc.gridy = numberOfPlaylists + 5;
         setPlaylistButton(btn , displayListsControl.getPlaylists().get(numberOfPlaylists));
         listsPnl.remove(addNewPlaylist);
         listsPnl.add(btn , gbc);
         numberOfPlaylists ++;
-        gbc2.gridy = 4 + numberOfPlaylists;
+        gbc2.gridy = 5 + numberOfPlaylists;
         listsPnl.add(addNewPlaylist, gbc2);
         mainGUI.revalidate();
         mainGUI.repaint();

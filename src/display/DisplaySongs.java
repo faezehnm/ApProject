@@ -111,6 +111,7 @@ public class DisplaySongs extends DisplaySongsGroup {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             displayListsControl.addSongToPlaylist(song , "Shared Playlist");
+                            mainGUI.getUser().setSharedPlaylist(displayListsControl.getPlaylists().get(0));
                         }
                     });
                     if(deletable) {
@@ -142,6 +143,9 @@ public class DisplaySongs extends DisplaySongsGroup {
                                     displayListsControl.setDisplaySongs(displayListsControl.getSongs() , true);
                                 } else {
                                     displayListsControl.setDisplayPlaylist(playList, playMusicGUI);
+                                    if(playList.getPlayListName().equals("Shred Playlist")){
+                                        mainGUI.getUser().setSharedPlaylist(playList);
+                                    }
                                 }
                             }
                         });

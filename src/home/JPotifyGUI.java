@@ -30,7 +30,7 @@ public class JPotifyGUI extends JFrame {
     private User user = new User("null","null") ;
     private PlayMusicGUI playMusicGUI = new PlayMusicGUI(this);
     private FriendsActivityGUI friendsActivityGUI = new FriendsActivityGUI(user);
-    private DisplayListsGUI displayListsGUI = new DisplayListsGUI(this , playMusicGUI,false);
+    private DisplayListsGUI displayListsGUI;
     private TopPanle topPanle = new TopPanle();
 
     Friend friend = new Friend("faezeh");
@@ -46,7 +46,7 @@ public class JPotifyGUI extends JFrame {
         topPanle.setName(user.getName());
     }
 
-    public JPotifyGUI() throws Exception {
+    public JPotifyGUI(boolean setPlaylists) throws Exception {
         super();
         setTitle("JPotify");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -55,6 +55,12 @@ public class JPotifyGUI extends JFrame {
         getContentPane().setBackground(Color.pink);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        if(setPlaylists){
+           displayListsGUI  = new DisplayListsGUI(this , playMusicGUI,true , user);
+        }
+        else{
+            displayListsGUI = new DisplayListsGUI(this , playMusicGUI,false , user);
+        }
         getContentPane().add(displayListsGUI);
         add(displayListsGUI , BorderLayout.WEST);
 

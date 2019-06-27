@@ -155,7 +155,7 @@ public class Network implements Runnable {
     private void AcceptLoginRequest(ForServer forServer)
     {
         try {
-            jPotifyGUI = new JPotifyGUI();
+            jPotifyGUI = new JPotifyGUI(true);
             jPotifyGUI.setUser(forServer.getUser());
         } catch (Exception var3) {
             var3.printStackTrace();
@@ -172,12 +172,11 @@ public class Network implements Runnable {
     private void AcceptSignUpRequest(ForServer forServer)
     {
         try {
-            jPotifyGUI = new JPotifyGUI();
+            jPotifyGUI = new JPotifyGUI(true);
             jPotifyGUI.setUser(forServer.getUser());
         } catch (Exception var3) {
             var3.printStackTrace();
         }
-
     }
 
     private void NOTAcceptSignUpRequest()

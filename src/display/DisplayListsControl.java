@@ -1,7 +1,10 @@
 package display;
 
+import Network.User;
 import music.*;
 import home.JPotifyGUI;
+
+import java.awt.*;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +26,7 @@ public class DisplayListsControl{
     private ArrayList<Albume> albumes = new ArrayList();
     private ArrayList<PlayList> playlists = new ArrayList();
     private JPotifyGUI mainGUI;
-    private DisplaySongsGroup displaySongsGroup = null;
+    private JScrollPane scrollPane = null;
     private PlayMusicGUI playMusicGUI;
     private DisplayListsGUI displayListsGUI;
 
@@ -121,9 +124,9 @@ public class DisplayListsControl{
             e.printStackTrace();
         }
         this.clean();
-        this.displaySongsGroup = displaySongs;
-        this.mainGUI.getContentPane().add(this.displaySongsGroup);
-        this.mainGUI.add(this.displaySongsGroup, "Center");
+        this.scrollPane = displaySongs;
+        this.mainGUI.getContentPane().add(this.scrollPane);
+        this.mainGUI.add(this.scrollPane, "Center");
         this.mainGUI.revalidate();
         this.mainGUI.repaint();
     }
@@ -140,9 +143,9 @@ public class DisplayListsControl{
             e.printStackTrace();
         }
         this.clean();
-        this.displaySongsGroup = displayAlbumes;
-        this.mainGUI.getContentPane().add(this.displaySongsGroup);
-        this.mainGUI.add(this.displaySongsGroup, "Center");
+        this.scrollPane = displayAlbumes;
+        this.mainGUI.getContentPane().add(this.scrollPane);
+        this.mainGUI.add(this.scrollPane , "Center");
         this.mainGUI.revalidate();
         this.mainGUI.repaint();
     }
@@ -156,14 +159,14 @@ public class DisplayListsControl{
     public void setDisplayPlaylist(PlayList playlist, PlayMusicGUI playMusicGUI){
         DisplaySongs displaySongs = null;
         try {
-            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , (PlayList)null , this , DisplaySongsSituation.PLAYING , mainGUI , true);
+            displaySongs = new DisplaySongs(playlist.getSongs(), playMusicGUI , playlist , this , DisplaySongsSituation.PLAYING , mainGUI , true);
         } catch (Exception e) {
             e.printStackTrace();
         }
         this.clean();
-        this.displaySongsGroup = displaySongs;
-        this.mainGUI.getContentPane().add(this.displaySongsGroup);
-        this.mainGUI.add(this.displaySongsGroup, "Center");
+        this.scrollPane = displaySongs;
+        this.mainGUI.getContentPane().add(this.scrollPane);
+        this.mainGUI.add(this.scrollPane , "Center");
         this.mainGUI.revalidate();
         this.mainGUI.repaint();
     }
@@ -232,11 +235,12 @@ public class DisplayListsControl{
      */
 
     private void update(Song song){
-        if(displaySongsGroup != null){
-            if(displaySongsGroup instanceof DisplayAlbumes){
+        if(scrollPane != null && scrollPane instanceof DisplaySongsGroup){
+            DisplaySongsGroup displaySongsGroup = (DisplaySongsGroup) scrollPane;
+            if(scrollPane instanceof DisplayAlbumes){
                 setDisplayAlbums();
             }
-            else if(displaySongsGroup.getMusics().equals(songs)){
+            else if(((DisplaySongsGroup)scrollPane).getMusics().equals(songs)){
                 setDisplaySongs(songs , true);
             }
             else if(((Song)(displaySongsGroup.getMusics().get(0))).getAlbume().equals(song.getAlbume()) && displaySongsGroup.getMusics().size() == song.getAlbume().getSongs().size()){
@@ -259,8 +263,8 @@ public class DisplayListsControl{
             e.printStackTrace();
         }
         this.clean();
-        this.displaySongsGroup = displaySongs;
-        this.mainGUI.add(this.displaySongsGroup, "Center");
+        this.scrollPane = displaySongs;
+        this.mainGUI.add(this.scrollPane , "Center");
         this.mainGUI.revalidate();
         this.mainGUI.repaint();
     }
@@ -270,11 +274,11 @@ public class DisplayListsControl{
      */
 
     public void clean() {
-        if (this.displaySongsGroup != null) {
-            this.mainGUI.remove(this.displaySongsGroup);
+        if (this.scrollPane != null) {
+            this.mainGUI.remove(this.scrollPane);
             this.mainGUI.revalidate();
             this.mainGUI.repaint();
-            this.displaySongsGroup = null;
+            this.scrollPane = null;
         }
 
     }
@@ -302,11 +306,11 @@ public class DisplayListsControl{
      */
 
     private void update(){
-        if(displaySongsGroup != null){
-            if(displaySongsGroup instanceof DisplayAlbumes){
+        if(scrollPane != null && scrollPane instanceof DisplaySongsGroup){
+            if(scrollPane instanceof DisplayAlbumes){
                 setDisplayAlbums();
             }
-            else if(displaySongsGroup.getMusics().size() == songs.size()){
+            else if(((DisplaySongsGroup)scrollPane).getMusics().size() == songs.size()){
                 setDisplaySongs(songs , true);
             }
         }
@@ -329,6 +333,15 @@ public class DisplayListsControl{
 
     public void deletAlbume(Albume albume){
         albumes.remove(albume);
+    }
+
+    public void setFriendsPlaylistsDisplay(User user){
+        clean();
+        scrollPane = new FriendsPlaylistsDisplay(user , this);
+        mainGUI.getContentPane().add(scrollPane);
+        mainGUI.add(scrollPane , BorderLayout.CENTER);
+        mainGUI.revalidate();
+        mainGUI.repaint();
     }
 
 }
