@@ -11,12 +11,21 @@ import music.PlaylistSituation;
 import music.Song;
 
 public class Friend implements Serializable {
+    private int port ;
     private String name;
     private PlayList sharedPlayList;
     private Song lastSong;
     private String lastTime;
     private int lasSongIndex;
     private int fileIndex;
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     public int getFileIndex() {
         return this.fileIndex;

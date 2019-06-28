@@ -155,6 +155,7 @@ public class PlayMusicGUI extends JPanel {
         middlePanel.add(middlePanelTop,BorderLayout.NORTH);
         middlePanel.add(middletPanelDown,BorderLayout.SOUTH);
 
+        //middlePanelTop.setLayout(new GridLayout(1,4,0,0));
         middlePanelTop.add(btnShuffle);
         middlePanelTop.add(btnPrevious);
         middlePanelTop.add(btnPlay);

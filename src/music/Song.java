@@ -21,6 +21,7 @@ public class Song extends Music implements Serializable {
     private String albumeName;
     private Albume albume;
     private String artist;
+    private byte[] songBytes ;
 
     /**
      * ،This constructor creates a song and sets name , albume name , artist and artwork of the song.
@@ -87,4 +88,24 @@ public class Song extends Music implements Serializable {
         this.albume = albume;
     }
 
+    public void convertToByteArray() throws IOException {
+        File file = new File(this.getFileAddress());
+        long length = file.length();
+        byte[] bytes = new byte[(int) length] ;
+        InputStream ins = new FileInputStream(file);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+
+        int count ;
+        while( (count = ins.read(bytes)) > 0){
+            byteArrayOutputStream.write(bytes,0,count);
+        }
+        songBytes = byteArrayOutputStream.toByteArray();
+        byteArrayOutputStream.close();
+        ins.close();
+
+    }
+
+    public byte[] getSongBytes() {
+        return songBytes;
+    }
 }

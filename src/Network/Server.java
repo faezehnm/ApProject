@@ -9,12 +9,13 @@ import java.util.ArrayList;
 public class Server extends Thread implements Serializable {
 
     private ServerSocket serverSocket;
-    //private ArrayList<Socket> clients = new ArrayList<>();
+   // static ArrayList<Socket> clients = new ArrayList<>();
 
 
     public Server(int port) throws IOException
     {
         serverSocket = new ServerSocket(port);
+     //   System.out.println(serverSocket.toString());
     }
 
     public void run()
@@ -27,9 +28,10 @@ public class Server extends Thread implements Serializable {
                 client = serverSocket.accept();
                 System.out.println("new client accepted!");
 
-//                clients.add(client);
+                //clients.add(client);
 
                 ClientHandler clientHandler = new ClientHandler(client);
+                //System.out.println(serverSocket.isClosed() + " " + serverSocket.toString());
                 clientHandler.start();
 
             } catch (IOException e)

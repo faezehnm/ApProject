@@ -43,13 +43,13 @@ public class Request extends JFrame implements ActionListener {
 
         Friend friend = new Friend(forServer.getUser().getName());
         jPotifyGUI.getUser().addFriend(friend);
+        jPotifyGUI.getUser().setCurrentFriend(friend);
+        convertAllSongsToMP3();
 
-        User user = new User(jPotifyGUI.getUser().getName(),friend.getName());
-        forServer = new ForServer(7,user);
+        forServer = new ForServer(7,jPotifyGUI.getUser());
         Network network = new Network(forServer);
         new Thread(network).start();
 
-        new SendSharedPlaylist(jPotifyGUI.getUser());
         //new SendLastSong(jPotifyGUI.getUser());
 
         setVisible(false);
@@ -84,6 +84,13 @@ public class Request extends JFrame implements ActionListener {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+        }
+    }
+
+    private void convertAllSongsToMP3() throws IOException
+    {
+        for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++ ){
+            jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();
         }
     }
 }

@@ -89,6 +89,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     public void creatFirendPanel()
     {
+        System.out.println("in creat friend Panel :" + user.getFriends().size());
         for( int i=current ; i<user.getFriends().size() ; i++ ){
             friendsPanel.add(new FriendPanel(user.getFriends().get(i)));
         }
