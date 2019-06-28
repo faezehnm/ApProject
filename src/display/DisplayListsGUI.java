@@ -471,4 +471,7 @@ public class DisplayListsGUI extends JScrollPane{
         friendsPlaylists.setForeground(Color.WHITE);
         playlistlbl.setForeground(Color.WHITE);
     }
+    public void setUser(User user){
+        this.user = user;
+    }
 }
