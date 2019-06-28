@@ -170,8 +170,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonPlay()
     {
-//        Thread currThread = Thread.currentThread();
-//        currThread.stop();
+
         if (!isItPlaying) {
             playEqualizer();
             getPlayButton().setIcon(imPause);
@@ -224,7 +223,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
     private void actionToButtonPlayAnotherSong()
     {
 
-        //setLastSong(this.song);
+        setLastSong(this.song);
         setchangeSong(false);
         isItPlaying = false ;
         firstTime = true ;

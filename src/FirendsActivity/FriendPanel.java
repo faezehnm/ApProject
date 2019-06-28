@@ -110,7 +110,12 @@ public class FriendPanel implements ActionListener{
         return mainPanel;
     }
 
+    public void updateLastSongInformaion(){
+        songInformaton.setText("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
     }
+
 }

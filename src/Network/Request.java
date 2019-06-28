@@ -50,7 +50,7 @@ public class Request extends JFrame implements ActionListener {
         Network network = new Network(forServer);
         new Thread(network).start();
 
-        //new SendLastSong(jPotifyGUI.getUser());
+        new SendLastSong(jPotifyGUI.getUser());
 
         setVisible(false);
     }

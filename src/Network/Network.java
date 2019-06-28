@@ -31,7 +31,6 @@ public class Network implements Runnable {
     public static JPotifyGUI jPotifyGUI;
     public static LogInGUI logInGUI;
     public static GoToJPotiy signUpGUI;
-    public static boolean isOnNetworkType2 = false;
     public static Friend friend;
 
     public Network(ForServer forServer) throws IOException {
@@ -46,21 +45,6 @@ public class Network implements Runnable {
         try {
             this.inputStream = new ObjectInputStream(this.client.getInputStream());
         } catch (IOException var8) {
-
-            Thread currThread = Thread.currentThread();
-            currThread.stop();
-            System.out.println("in var8 :  "+jPotifyGUI.getUser().getName());
-
-            ForServer forServer = new ForServer(13,jPotifyGUI.getUser());
-            Network network = null;
-            try {
-                network = new Network(forServer);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            new Thread(network).start();
-
-
 
             var8.printStackTrace();
         }
@@ -103,8 +87,9 @@ public class Network implements Runnable {
                     break;
 
                 case 12:
+                    System.out.println("we are seting last song of friend");
                     this.setLastSongOfFriend(forServer);
-                   // updateFriendPanel();
+                    updateFriendPanel(forServer);
                 }
             } catch (IOException var5) {
                 var5.printStackTrace();
@@ -205,6 +190,30 @@ public class Network implements Runnable {
             }
         }
 
+    }
+
+    private void updateFriendPanel(ForServer forServer)
+    {
+
+        for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
+            if( forServer.getUser().getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
+                jPotifyGUI.getUser().getFriends().get(i).setLasSongIndex(forServer.getUser().getLasSongIndex());
+                jPotifyGUI.getUser().getFriends().get(i).setLastSong();
+                findFriendPanel(forServer.getUser().getName());
+                break;
+            }
+        }
+    }
+
+    private void findFriendPanel(String friendName)
+    {
+
+        for( int i=0 ; i<jPotifyGUI.getFriendsActivityGUI().getFriendsPanel().size() ; i++ ){
+            if( jPotifyGUI.getFriendsActivityGUI().getFriendsPanel().get(i).getFriend().getName().equals(friendName) ){
+                jPotifyGUI.getFriendsActivityGUI().getFriendsPanel().get(i).updateLastSongInformaion();
+
+            }
+        }
     }
 
     private void creatFriendPanel()

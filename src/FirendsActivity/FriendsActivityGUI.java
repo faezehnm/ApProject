@@ -24,7 +24,6 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     private JPanel mainPanel;
     private ArrayList<FriendPanel> friendsPanel;
-
     private JPanel topPanel ;
     private JLabel jLabel;
     private ImageIcon imgAdd;
@@ -94,6 +93,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
             friendsPanel.add(new FriendPanel(user.getFriends().get(i)));
         }
         current=user.getFriends().size();
+
         addFriendsPanel();
     }
 
@@ -136,6 +136,11 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     public void setUser(User user) {
         this.user = user;
     }
+
+    public ArrayList<FriendPanel> getFriendsPanel() {
+        return friendsPanel;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e)

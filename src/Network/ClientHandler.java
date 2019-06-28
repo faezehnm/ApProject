@@ -145,7 +145,7 @@ public class ClientHandler extends Thread{
         for( int i=0 ; i<user.getFriends().size() ; i++ ){
             User hear = new User(user.getFriends().get(i).getName(),user.getName());
             ForServer forServer = new ForServer(12,user);
-            findUserSocket(hear).writeObject(hear);
+            findUserSocket(hear).writeObject(forServer);
             findUserSocket(hear).flush();
         }
     }

@@ -9,7 +9,6 @@ import java.io.*;
 
 /**
  * This class represents a single song. Each song has an address , album , artist , name and artwork.
- *
  * @author Seyedeh Fatemeh Ahmadzadeh
  * @version 1.0
  * @since 2019
@@ -88,6 +87,10 @@ public class Song extends Music implements Serializable {
         this.albume = albume;
     }
 
+    /**
+     * save song in byte array
+     * @throws IOException
+     */
     public void convertToByteArray() throws IOException {
         File file = new File(this.getFileAddress());
         long length = file.length();
