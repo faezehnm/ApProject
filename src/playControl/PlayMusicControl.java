@@ -30,8 +30,10 @@ public class PlayMusicControl implements ActionListener,Runnable {
 
     private PlayMusicGUI playMusicGUI ;
     private GraphicEqualizerPanel graphicEqualizerPanel;
+    private JButton lyric ;
     private JPanel leftPanel;
     private JPanel junk;
+    private JPanel junk2 ;
     private JButton btnPlay ;
     private JButton btnNext ;
     private JButton btnPrevious ;
@@ -73,9 +75,10 @@ public class PlayMusicControl implements ActionListener,Runnable {
      * @param imShuffle1 image of btnPlay when shuffle
      * @throws Exception if player is null
      */
-    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player , PlayMusicGUI playMusicGUI , ImageIcon imShuffle , ImageIcon imShuffle1, JPotifyGUI jPotifyGUI , GraphicEqualizerPanel graphicEqualizerPanel , JPanel leftPanel , JPanel junk) throws Exception
+    public PlayMusicControl(JButton btnPlay , JButton btnNext , JButton btnPrevious , JButton btnRepeat , JButton btnShuffle , ImageIcon imPause , ImageIcon imPlay , ImageIcon imRepeat , ImageIcon imRepeat1, PlaySlider playSlider, MusicPlayer player , PlayMusicGUI playMusicGUI , ImageIcon imShuffle , ImageIcon imShuffle1, JPotifyGUI jPotifyGUI , GraphicEqualizerPanel graphicEqualizerPanel , JPanel leftPanel , JPanel junk, JButton lyric,JPanel junk2) throws Exception
     {
         this.graphicEqualizerPanel = graphicEqualizerPanel;
+        this.lyric = lyric ;
         this.jPotifyGUI =jPotifyGUI ;
         this.playMusicGUI= playMusicGUI ;
         this.btnNext=btnNext ;
@@ -93,6 +96,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
         this.player=player ;
         this.junk = junk;
         this.leftPanel = leftPanel;
+        this.junk2 = junk2 ;
 
 
         btnShuffle.addActionListener(this);
@@ -114,6 +118,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
         actionToPlayerAnotherSong();
         actionToPlaySliderAnotherSong();
         actionToButtonPlayAnotherSong();
+        showLyric();
     }
 
     /**
@@ -374,6 +379,12 @@ public class PlayMusicControl implements ActionListener,Runnable {
 
     private void stopEqualizer(){
         junk.remove(graphicEqualizerPanel);
+        jPotifyGUI.revalidate();
+        jPotifyGUI.repaint();
+    }
+    private void showLyric(){
+        junk2.setLayout(new BorderLayout());
+        junk2.add(lyric,BorderLayout.CENTER);
         jPotifyGUI.revalidate();
         jPotifyGUI.repaint();
     }

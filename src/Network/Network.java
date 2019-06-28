@@ -10,13 +10,12 @@ import Welcome.GoToJPotiy;
 import Welcome.LogInGUI;
 import Welcome.SignUpGUI;
 import home.JPotifyGUI;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
+
+import java.io.*;
 import java.net.Socket;
+
+import music.Albume;
+import music.PlayList;
 import music.Song;
 
 public class Network implements Runnable {
@@ -171,7 +170,36 @@ public class Network implements Runnable {
     private void AcceptLoginRequest(ForServer forServer)
     {
         try {
-            jPotifyGUI = new JPotifyGUI(true);
+            File file = new File("src/jpotify.bin");
+            if (file.exists()){
+                JPotifyGUI jPotifyGUI = new JPotifyGUI(false);
+                FileInputStream fileIn = new FileInputStream(file.getPath());
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                int lastSongExists = in.readInt();
+                if(lastSongExists == 1){
+                    Song s = (Song) in.readObject();
+                    jPotifyGUI.getPlayMusicGUI().setSong(s);
+                }
+                int numberOfSongs = in.readInt();
+                for(int i = 0 ; i < numberOfSongs ; i++){
+                    Song s = (Song) in.readObject();
+                    jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addSong(s);
+                }
+                int numberOfAlbumes = in.readInt();
+                for(int i = 0 ; i < numberOfAlbumes ; i++){
+                    Albume a = (Albume) in.readObject();
+                    jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addAlbum(a);
+                }
+                int numberOfPlaylists = in.readInt();
+                for(int i = 0 ; i < numberOfPlaylists ; i++){
+                    PlayList p = (PlayList) in.readObject();
+                    jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addPlaylist(p);
+                }
+                in.close();
+            }
+            else {
+                JPotifyGUI jPotifyGUI = new JPotifyGUI(true);
+            }
             jPotifyGUI.setUser(forServer.getUser());
         } catch (Exception var3) {
             var3.printStackTrace();

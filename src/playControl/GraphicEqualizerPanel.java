@@ -5,7 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * A panel for displaying equalizer.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class GraphicEqualizerPanel extends JPanel {
+
+    /**
+     * Creates an object of class
+     */
 
     public GraphicEqualizerPanel() {
 

@@ -4,6 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * This class is for creating animating egulizer.
+ *
+ * @author Seyedeh Fatemeh Ahmadzadeh
+ * @since 2019
+ * @version 1.0
+ */
+
 public class GraphicEqualizer extends JComponent {
 
     private Rectangle rectangle1;
@@ -14,6 +22,10 @@ public class GraphicEqualizer extends JComponent {
     private Rectangle rectangle6;
     private Rectangle rectangle7;
 
+    /**
+     * Creates an object of class
+     */
+
     public GraphicEqualizer(){
         rectangle1 = new Rectangle(new Point(0 , 100));
         rectangle2 = new Rectangle(new Point(10 , 100));
@@ -23,6 +35,11 @@ public class GraphicEqualizer extends JComponent {
         rectangle6 = new Rectangle(new Point(50 , 100));
         rectangle7 = new Rectangle(new Point(60 , 100));
     }
+
+    /**
+     * draws shaps at first
+     * @param g
+     */
 
     public void paint(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
@@ -35,6 +52,10 @@ public class GraphicEqualizer extends JComponent {
         g2d.draw(rectangle6);
         g2d.draw(rectangle7);
     }
+
+    /**
+     * Chnges the position of shapes by random.
+     */
 
     public void move(){
 
