@@ -83,9 +83,9 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
             lbl.setForeground(Color.WHITE);
             pnl.add(lbl , innerGbc);
             friendsPanels.add(pnl);
-            panel.add(pnl , gbc);
             gbc.gridx = counter % 4;
             gbc.gridy = counter / 4;
+            panel.add(pnl , gbc);
             counter++;
         }
     }

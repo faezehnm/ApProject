@@ -34,11 +34,13 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     private AddFriendGUI addFriendGUI ;
     private int current = 0;
     private Border blackLine;
+    private JPotifyGUI jPotifyGUI;
 
-    public FriendsActivityGUI(User user , PlayMusicGUI playMusicGUI)
+    public FriendsActivityGUI(User user , PlayMusicGUI playMusicGUI , JPotifyGUI jPotifyGUI)
     {
         this.user = user ;
         this.playMusicGUI = playMusicGUI ;
+        this.jPotifyGUI = jPotifyGUI;
 
         junk = new JPanel();
         noline = new EmptyBorder(10, 10, 10, 10);
@@ -110,6 +112,8 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
             Border blueline = BorderFactory.createLineBorder(Color.CYAN);
             friendsPanel.get(i).getMainPanel().setBorder(blueline);
         }
+        jPotifyGUI.revalidate();
+        jPotifyGUI.repaint();
     }
 
     public void removeFrendsPanel()
