@@ -48,7 +48,6 @@ public class FriendPanel implements ActionListener{
         friendName.setBorder(noline);
 
         lastTime = new JLabel();
-        //lastTime.setForeground(Color.BLACK);
         lastTime.setForeground(Color.CYAN);
         setTimeIcon(lastTime);
 
@@ -114,12 +113,14 @@ public class FriendPanel implements ActionListener{
         return mainPanel;
     }
 
-    public void updateLastSongInformaion(){
+    public void updateLastSongInformaion()
+    {
         songInformaton.setText("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         if( e.getSource()== songInformaton ){
             try {
                 playMusicGUI.setSong(friend.getLastSong(),false);

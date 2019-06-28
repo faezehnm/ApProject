@@ -126,10 +126,6 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     public void ActionToAddFriend()
     {
         addFriendGUI = new AddFriendGUI(user);
-        //creatFirendPanel();
-        /*
-        action for network
-         */
     }
 
     public AddFriendGUI getAddFriendGUI() {

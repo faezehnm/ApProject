@@ -223,7 +223,6 @@ public class PlayMusicControl implements ActionListener,Runnable {
      * all actions that should happen when click on play button and music is changed
      */
     private void actionToButtonPlayAnotherSong()
-
     {
         if( mySong ) {
             setLastSong(this.song);

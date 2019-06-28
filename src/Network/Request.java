@@ -52,6 +52,8 @@ public class Request extends JFrame implements ActionListener {
 
         new SendLastSong(jPotifyGUI.getUser());
 
+        jPotifyGUI.getUser().removeFriend(friend);
+
         setVisible(false);
     }
 

@@ -172,9 +172,6 @@ public class Network implements Runnable {
         jPotifyGUI.getUser().addFriend(friend);
         setFrindSharePlaylist(forServer);
 
-        //new SendSharedPlaylist(jPotifyGUI.getUser());
-
-        //new SendLastSong(jPotifyGUI.getUser());
 
     }
 
@@ -269,6 +266,15 @@ public class Network implements Runnable {
             if( friendName.equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
                 jPotifyGUI.getUser().getFriends().get(i).addSongToSharedPlayList(song);
                 break;
+            }
+        }
+    }
+
+    private void convertAllSongsToMP3() throws IOException
+    {
+        if(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() !=0 ) {
+            for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
+                jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();
             }
         }
     }

@@ -16,15 +16,6 @@ public class User implements Serializable{
     private String password ;
     private ArrayList<Friend> friends = new ArrayList<>();
     private Friend currentFriend ;
-
-    public Friend getCurrentFriend() {
-        return currentFriend;
-    }
-
-    public void setCurrentFriend(Friend currentFriend) {
-        this.currentFriend = currentFriend;
-    }
-
     private PlayList sharedPlaylist ;
     private Song lastSong ;
     private String lastTime ;
@@ -73,6 +64,10 @@ public class User implements Serializable{
         return friends;
     }
 
+    public void removeFriend(Friend friend){
+        friends.remove(friend);
+    }
+
     private void timerOfLastSong()
     {
         /*
@@ -93,6 +88,12 @@ public class User implements Serializable{
         friends.add(friend);
     }
 
+    public Friend getCurrentFriend() {
+        return currentFriend;
+    }
 
+    public void setCurrentFriend(Friend currentFriend) {
+        this.currentFriend = currentFriend;
+    }
 
 }

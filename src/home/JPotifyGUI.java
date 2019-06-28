@@ -52,7 +52,7 @@ public class JPotifyGUI extends JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        friendsActivityGUI = new FriendsActivityGUI(user , playMusicGUI , this );
+        friendsActivityGUI = new FriendsActivityGUI(user , playMusicGUI,this );
 
         setTitle("JPotify");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
