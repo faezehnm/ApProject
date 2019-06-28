@@ -104,7 +104,7 @@ public class Network implements Runnable {
     private void AcceptLoginRequest(ForServer forServer)
     {
         try {
-            File file = new File("src/jpotify.bin");
+            File file = new File("src/" + forServer.getUser().getName() + ".bin");
             if (file.exists()){
                 JPotifyGUI jPotifyGUI = new JPotifyGUI(false);
                 FileInputStream fileIn = new FileInputStream(file.getPath());
@@ -135,6 +135,7 @@ public class Network implements Runnable {
                 JPotifyGUI jPotifyGUI = new JPotifyGUI(true);
             }
             jPotifyGUI.setUser(forServer.getUser());
+            jPotifyGUI.getDisplayListsGUI().setUser(forServer.getUser());
         } catch (Exception var3) {
             var3.printStackTrace();
         }
@@ -152,6 +153,7 @@ public class Network implements Runnable {
         try {
             jPotifyGUI = new JPotifyGUI(true);
             jPotifyGUI.setUser(forServer.getUser());
+            jPotifyGUI.getDisplayListsGUI().setUser(forServer.getUser());
         } catch (Exception var3) {
             var3.printStackTrace();
         }

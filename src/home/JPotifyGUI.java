@@ -86,7 +86,7 @@ public class JPotifyGUI extends JFrame {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                String fileName = "src/jpotify.bin";
+                String fileName = "src/" + user.getName() + ".bin";
                 FileOutputStream filleout = null;
                 try {
                     filleout = new FileOutputStream(fileName);

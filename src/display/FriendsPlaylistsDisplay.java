@@ -24,7 +24,7 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
 
     private User user;
     private JPanel panel;
-    private ArrayList<JPanel> friendsPanels;
+    private ArrayList<JPanel> friendsPanels ;
 
     /**
      * Creates an object of this class
@@ -33,7 +33,7 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
      */
 
     public FriendsPlaylistsDisplay(User user , DisplayListsControl displayListsControl){
-        this.user = user;
+
         panel = new JPanel();
         friendsPanels = new ArrayList<JPanel>();
         setViewportView(panel);
@@ -45,7 +45,10 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
         panel.setLayout(layout);
         panel.setBackground(Color.BLACK);
         int counter = 0;
-        for(Friend friend : user.getFriends()){
+        System.out.println(user.getFriends().size());
+        ArrayList<Friend> friends = user.getFriends();
+        for(Friend friend : friends){
+            System.out.println(friend.getName());
             PlayList playList = friend.getSharedPlayList();
             JPanel pnl = new JPanel();
             pnl.setBackground(Color.BLACK);

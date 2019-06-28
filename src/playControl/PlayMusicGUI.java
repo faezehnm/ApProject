@@ -336,7 +336,6 @@ public class PlayMusicGUI extends JPanel {
                 lyricFrame.setSize(500, 1500);
                 lyricFrame.getContentPane().setBackground(Color.BLACK);
                 lyricFrame.setForeground(Color.WHITE);
-                lyricFrame.setVisible(true);
                 String str = new String(song.getArtist());
                 str = str.replaceAll("\\s", "");
                 str = str.toLowerCase();
@@ -375,6 +374,7 @@ public class PlayMusicGUI extends JPanel {
                     lyricLabel.setText(lyricLabel.getText() + "\n" + line);
                 }
                 lyricFrame.add(lyricLabel , BorderLayout.CENTER);
+                lyricFrame.setVisible(true);
             }
         });
     }
