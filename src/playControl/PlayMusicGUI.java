@@ -218,10 +218,10 @@ public class PlayMusicGUI extends JPanel {
      * @param song a song that we want to play
      * @throws Exception if song is null
      */
-    public void setSong( Song song ) throws Exception
+    public void setSong( Song song , Boolean mySong ) throws Exception
     {
         this.song = song ;
-        playMusicControl.setSong(song);
+        playMusicControl.setSong(song , mySong);
         updateSongInformation();
     }
     /**

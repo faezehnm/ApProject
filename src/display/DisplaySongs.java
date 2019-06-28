@@ -76,7 +76,7 @@ public class DisplaySongs extends DisplaySongsGroup {
             public void actionPerformed(ActionEvent e) {
                 if(displaySongsSituation.equals(PLAYING)){
                     try {
-                        playMusicGUI.setSong(song);
+                        playMusicGUI.setSong(song,true);
                         displayListsControl.replace(song);
                     } catch (Exception e1) {
                         e1.printStackTrace();
@@ -138,7 +138,7 @@ public class DisplaySongs extends DisplaySongsGroup {
                                     }
                                     if(playMusicGUI.getSong().equals(song)){
                                         try {
-                                            playMusicGUI.setSong(null);
+                                            playMusicGUI.setSong(null,true);
                                         } catch (Exception e1) {
                                             e1.printStackTrace();
                                         }

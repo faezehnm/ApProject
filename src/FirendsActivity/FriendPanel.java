@@ -1,5 +1,7 @@
 package FirendsActivity;
 
+import playControl.PlayMusicGUI;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
@@ -10,6 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class FriendPanel implements ActionListener{
+
+    private PlayMusicGUI playMusicGUI ;
     private Friend friend ;
     private JPanel mainPanel ;
     private JPanel mainPanelUp;
@@ -20,11 +24,12 @@ public class FriendPanel implements ActionListener{
     private ImageIcon imSpeaker3;
     private Border noline;
 
-    public FriendPanel(Friend friend)
+    public FriendPanel(Friend friend , PlayMusicGUI playMusicGUI)
     {
         noline = new EmptyBorder(10, 10, 10, 10);
         imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
         this.friend= friend ;
+        this.playMusicGUI = playMusicGUI ;
 
 
         mainPanel = new JPanel();
@@ -47,7 +52,6 @@ public class FriendPanel implements ActionListener{
         lastTime.setForeground(Color.CYAN);
         setTimeIcon(lastTime);
 
-       // songInformaton = new JButton("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
         songInformaton = new JButton("null");
         songInformaton.setBackground(Color.BLACK);
         songInformaton.setForeground(Color.WHITE);
@@ -116,6 +120,13 @@ public class FriendPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if( e.getSource()== songInformaton ){
+            try {
+                playMusicGUI.setSong(friend.getLastSong(),false);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
 }

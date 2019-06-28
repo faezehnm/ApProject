@@ -21,7 +21,8 @@ public class AddFriendGUI extends JFrame implements ActionListener {
     private String friendName ;
     private User me ;
 
-    public AddFriendGUI(User me){
+    public AddFriendGUI(User me)
+    {
         super();
         setLayout(new GridLayout(4,1));
         setVisible(true);

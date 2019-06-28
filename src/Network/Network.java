@@ -33,7 +33,8 @@ public class Network implements Runnable {
     public static GoToJPotiy signUpGUI;
     public static Friend friend;
 
-    public Network(ForServer forServer) throws IOException {
+    public Network(ForServer forServer) throws IOException
+    {
         this.client = new Socket(this.serverName, this.port);
         this.outStream = new ObjectOutputStream(this.client.getOutputStream());
         this.outStream.writeObject(forServer);
@@ -111,7 +112,7 @@ public class Network implements Runnable {
                 int lastSongExists = in.readInt();
                 if(lastSongExists == 1){
                     Song s = (Song) in.readObject();
-                    jPotifyGUI.getPlayMusicGUI().setSong(s);
+                    jPotifyGUI.getPlayMusicGUI().setSong(s,true);
                 }
                 int numberOfSongs = in.readInt();
                 for(int i = 0 ; i < numberOfSongs ; i++){

@@ -3,6 +3,7 @@ package FirendsActivity;
 import Network.Network;
 import Network.User;
 import home.JPotifyGUI;
+import playControl.PlayMusicGUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,6 +18,7 @@ import java.util.HashMap;
 
 public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
+    private PlayMusicGUI playMusicGUI ;
     private GridBagConstraints gbc;
     private GridBagConstraints gbc2;
     private JPanel junk;
@@ -33,9 +35,10 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     private int current = 0;
     private Border blackLine;
 
-    public FriendsActivityGUI(User user)
+    public FriendsActivityGUI(User user , PlayMusicGUI playMusicGUI)
     {
         this.user = user ;
+        this.playMusicGUI = playMusicGUI ;
 
         junk = new JPanel();
         noline = new EmptyBorder(10, 10, 10, 10);
@@ -90,7 +93,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     {
         System.out.println("in creat friend Panel :" + user.getFriends().size());
         for( int i=current ; i<user.getFriends().size() ; i++ ){
-            friendsPanel.add(new FriendPanel(user.getFriends().get(i)));
+            friendsPanel.add(new FriendPanel(user.getFriends().get(i),playMusicGUI));
         }
         current=user.getFriends().size();
 
@@ -153,7 +156,7 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             if( e.getSource()== friendsPanel.get(i).getSongInformaton() ){
                 /*
-                play song
+
                  */
             }
             if( e.getSource()== friendsPanel.get(i).getFriendName()){

@@ -1,4 +1,5 @@
 package playControl;
+import Network.SendLastSong;
 import display.DisplaySongsGroup;
 import home.JPotifyGUI;
 import javazoom.jl.decoder.JavaLayerException;
@@ -26,8 +27,8 @@ import java.net.URISyntaxException;
  */
 public class PlayMusicControl implements ActionListener,Runnable {
 
+    private Boolean mySong ;
     private final Object lockA = new Object();
-
     private PlayMusicGUI playMusicGUI ;
     private GraphicEqualizerPanel graphicEqualizerPanel;
     private JButton lyric ;
@@ -112,8 +113,9 @@ public class PlayMusicControl implements ActionListener,Runnable {
      * set song( use when current song change)
      * @param song a song that is playing
      */
-    public void setSong(Song song )
+    public void setSong(Song song , Boolean mySong )
     {
+        this.mySong = mySong ;
         this.song = song ;
         actionToPlayerAnotherSong();
         actionToPlaySliderAnotherSong();
@@ -132,7 +134,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
             actionToButtonShuffle();
 
         if( e.getSource()==btnPrevious)
-            ctionToButtonPrevious();
+            actionToButtonPrevious();
 
         if( e.getSource()==btnPlay)
         {
@@ -221,9 +223,11 @@ public class PlayMusicControl implements ActionListener,Runnable {
      * all actions that should happen when click on play button and music is changed
      */
     private void actionToButtonPlayAnotherSong()
-    {
 
-        setLastSong(this.song);
+    {
+        if( mySong ) {
+            setLastSong(this.song);
+        }
         setchangeSong(false);
         isItPlaying = false ;
         firstTime = true ;
@@ -258,7 +262,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
             player.setShuffle(true);
             getBtnShuffle().setIcon(imShuffle1);
             try {
-                playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song),true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -276,7 +280,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
     private void actionToButtonNext()
     {
         try {
-            playMusicGUI.setSong(DisplaySongsGroup.returnNext(song));
+            playMusicGUI.setSong(DisplaySongsGroup.returnNext(song),mySong);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -285,10 +289,10 @@ public class PlayMusicControl implements ActionListener,Runnable {
     /**
      * all actions that should happen when click on Previous button
      */
-    private void ctionToButtonPrevious()
+    private void actionToButtonPrevious()
     {
         try {
-            playMusicGUI.setSong(DisplaySongsGroup.returnPrevious(song));
+            playMusicGUI.setSong(DisplaySongsGroup.returnPrevious(song),mySong);
         } catch (Exception e1) {
             e1.printStackTrace();
         }
@@ -334,10 +338,15 @@ public class PlayMusicControl implements ActionListener,Runnable {
         System.out.println(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size());
         for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++){
             if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).getFileAddress()) ){
-                System.out.println("exist");
+                System.out.println("exist in sharedPlayList");
                 jPotifyGUI.getUser().setLasSongIndex(i);
                 jPotifyGUI.getUser().setLastSong();
                 jPotifyGUI.getUser().setLastTime("0");
+                try {
+                    new SendLastSong(jPotifyGUI.getUser());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
         }
@@ -353,7 +362,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
                     break;
                 } else if (player.getPlayer().isComplete() && player.getShuffle() == true && player.getRepeat() == false) {
                     try {
-                        playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song));
+                        playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song),mySong);
                         break;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -383,7 +392,9 @@ public class PlayMusicControl implements ActionListener,Runnable {
         jPotifyGUI.revalidate();
         jPotifyGUI.repaint();
     }
-    private void showLyric(){
+
+    private void showLyric()
+    {
         junk2.setLayout(new BorderLayout());
         junk2.add(lyric,BorderLayout.CENTER);
         jPotifyGUI.revalidate();
