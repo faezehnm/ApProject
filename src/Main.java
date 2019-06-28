@@ -1,4 +1,3 @@
-import Network.Server;
 import Welcome.WelcomeGUI;
 import home.JPotifyGUI;
 import music.Albume;
@@ -46,6 +45,7 @@ public class Main {
 //        t.start();
         WelcomeGUI welcomeGUI  = new WelcomeGUI();
       //  WelcomeGUI welcomeGUI  = new WelcomeGUI();
+       // WelcomeGUI welcomeGUI  = new WelcomeGUI();
        // Warning warning = new Warning("khakk");
       //  Request request = new Request("gholi");
     }

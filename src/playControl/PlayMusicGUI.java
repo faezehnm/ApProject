@@ -5,8 +5,16 @@ import music.Song;
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
+import javax.xml.ws.Service;
 import java.awt.*;
-import java.io.Serializable;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 
 
 /**
@@ -22,6 +30,7 @@ public class PlayMusicGUI extends JPanel {
     private JPanel junk = new JPanel();
     private JPanel junk2 = new JPanel();
     private JPanel junk3 = new JPanel();
+    private JButton lyric;
 
     private MusicPlayer player = new MusicPlayer();
     private PlaySlider playSlider = new PlaySlider(player);
@@ -67,6 +76,8 @@ public class PlayMusicGUI extends JPanel {
     {
         super(new GridLayout(1,3));
 
+        lyric = new JButton("see the lyric");
+
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc2 = new GridBagConstraints();
@@ -85,6 +96,7 @@ public class PlayMusicGUI extends JPanel {
         setLeftPanelLayout();
         setMiddlePanelLayout();
         setRightPanelLayout();
+        setLyricButton();
 
         add(leftPanel);
         add(middlePanel);
@@ -92,7 +104,7 @@ public class PlayMusicGUI extends JPanel {
 
         this.jPotifyGUI = jPotifyGUI ;
 
-        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1,this.jPotifyGUI,graphicEqualizerPanel , leftPanel , junk3);
+        playMusicControl = new PlayMusicControl(btnPlay , btnNext , btnPrevious , btnRepeat , btnShuffle ,  imPause , imPlay , imRepeat , imRepeat1,playSlider,player ,this,imShuffle,imShuffle1,this.jPotifyGUI,graphicEqualizerPanel , leftPanel , junk3,lyric,junk);
 
     }
 
@@ -186,15 +198,9 @@ public class PlayMusicGUI extends JPanel {
         gbc2.insets = new Insets(10, 0, 0, 0);
         junk.setBackground(Color.BLACK);
         leftPanel.add(junk,gbc2);
+        //leftPanel.add(lyric,gbc2);
 
-        gbc2.gridx = 4;
-        gbc2.gridy = 0;
-        gbc2.ipady = 0;
-        gbc2.weighty = 1.0;
-        gbc2.anchor = GridBagConstraints.EAST;
-        gbc2.insets = new Insets(10, 0, 0, 0);
-        junk2.setBackground(Color.BLACK);
-        //leftPanel.add(junk2,gbc2);
+
 
         gbc2.gridx = 5;
         gbc2.gridy = 0;
@@ -204,7 +210,7 @@ public class PlayMusicGUI extends JPanel {
         gbc2.insets = new Insets(10, 0, 0, 0);
         junk3.setBackground(Color.BLACK);
         leftPanel.add(junk3,gbc2);
-        //leftPanel.add(graphicEqualizerPanel,gbc2);
+
     }
 
     /**
@@ -316,5 +322,60 @@ public class PlayMusicGUI extends JPanel {
 
     public Song getSong(){
         return song;
+    }
+
+    private void setLyricButton(){
+        lyric.setPreferredSize(new Dimension(100 , 50));
+        lyric.setBackground(Color.BLACK);
+        lyric.setForeground(Color.WHITE);
+        lyric.setBorder(blueLine);
+        lyric.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame lyricFrame = new JFrame(song.getName() + "lyric");
+                lyricFrame.setSize(500, 1500);
+                lyricFrame.getContentPane().setBackground(Color.BLACK);
+                lyricFrame.setForeground(Color.WHITE);
+                lyricFrame.setVisible(true);
+                String str = new String(song.getArtist());
+                str = str.replaceAll("\\s", "");
+                str = str.toLowerCase();
+                String urlStr;
+                String str2 = song.getName();
+                str2 = str2.replaceAll("\\s", "");
+                str2 = str2.toLowerCase();
+                urlStr = "https://www.azlyrics.com/lyrics/" + str + "/" + str2 + ".html";
+                System.out.println(urlStr);
+                ArrayList<String> lines = new ArrayList<String>();
+                try {
+                    URL url = new URL(urlStr);
+                    HttpURLConnection urlCon = (HttpURLConnection) url.openConnection();
+                    urlCon.setRequestMethod("GET");
+                    //urlCon.setDoOutput(false);
+                    //urlCon.setDoInput(true);
+                    urlCon.setReadTimeout(10000);
+                    urlCon.connect();
+                    //InputStream stream=urlCon.getInputStream();
+                    BufferedReader br = new BufferedReader(new InputStreamReader(urlCon.getInputStream()));
+                    String line;
+                    while((line = br.readLine()) != null){
+                        lines.add(line);
+                    }
+                    br.close();
+                } catch (MalformedURLException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                JLabel lyricLabel = new JLabel();
+                lyricLabel.setBackground(Color.BLACK);
+                lyricLabel.setForeground(Color.WHITE);
+                lyricLabel.setText("");
+                for(String line : lines){
+                    lyricLabel.setText(lyricLabel.getText() + "\n" + line);
+                }
+                lyricFrame.add(lyricLabel , BorderLayout.CENTER);
+            }
+        });
     }
 }
