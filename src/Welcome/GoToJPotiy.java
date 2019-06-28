@@ -1,7 +1,6 @@
 package Welcome;
 
 import Network.User;
-import Network.UserState;
 
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -15,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-
-import static Network.UserState.*;
 
 public abstract class GoToJPotiy extends JFrame implements ActionListener , Serializable {
 

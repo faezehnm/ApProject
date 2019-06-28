@@ -365,14 +365,16 @@ public class PlayMusicControl implements ActionListener,Runnable {
         notOnRepeat();
     }
 
-    private void playEqualizer(){
+    private void playEqualizer()
+    {
         junk.setLayout(new BorderLayout());
         junk.add(graphicEqualizerPanel , BorderLayout.CENTER);
         jPotifyGUI.revalidate();
         jPotifyGUI.repaint();
     }
 
-    private void stopEqualizer(){
+    private void stopEqualizer()
+    {
         junk.remove(graphicEqualizerPanel);
         jPotifyGUI.revalidate();
         jPotifyGUI.repaint();

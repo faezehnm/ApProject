@@ -89,8 +89,10 @@ public class Request extends JFrame implements ActionListener {
 
     private void convertAllSongsToMP3() throws IOException
     {
-        for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++ ){
-            jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();
+        if(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() !=0 ) {
+            for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
+                jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();
+            }
         }
     }
 }

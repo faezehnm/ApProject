@@ -9,7 +9,6 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static Network.UserState.ME;
 
 public class ClientHandler extends Thread{
 
@@ -144,7 +143,7 @@ public class ClientHandler extends Thread{
     private void sendLastSongToFriends(User user) throws IOException
     {
         for( int i=0 ; i<user.getFriends().size() ; i++ ){
-            User hear = new User(user.getFriends().get(i).getName(),"null");
+            User hear = new User(user.getFriends().get(i).getName(),user.getName());
             ForServer forServer = new ForServer(12,user);
             findUserSocket(hear).writeObject(hear);
             findUserSocket(hear).flush();

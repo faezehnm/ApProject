@@ -38,19 +38,6 @@ public class Network implements Runnable {
         this.outStream.flush();
     }
 
-    public Network(InputStream in, byte[] bytes) throws IOException {
-        this.client = new Socket(this.serverName, this.port);
-        this.out = this.client.getOutputStream();
-
-        int count;
-        while((count = in.read(bytes)) > 0) {
-            this.out.write(bytes, 0, count);
-        }
-
-        this.out.flush();
-        this.out.close();
-        in.close();
-    }
 
     public void run() {
         try {
@@ -98,7 +85,7 @@ public class Network implements Runnable {
 
                 case 12:
                     this.setLastSongOfFriend(forServer);
-                    this.creatFriendPanel();
+                   // updateFriendPanel();
                 }
             } catch (IOException var5) {
                 var5.printStackTrace();
@@ -109,7 +96,8 @@ public class Network implements Runnable {
         }
     }
 
-    private void AcceptLoginRequest(ForServer forServer) {
+    private void AcceptLoginRequest(ForServer forServer)
+    {
         try {
             jPotifyGUI = new JPotifyGUI(true);
             jPotifyGUI.setUser(forServer.getUser());
@@ -119,12 +107,14 @@ public class Network implements Runnable {
 
     }
 
-    private void NOTAcceptLoginRequest() {
+    private void NOTAcceptLoginRequest()
+    {
         logInGUI = new LogInGUI();
         this.warning = new Warning("incorrect pass");
     }
 
-    private void AcceptSignUpRequest(ForServer forServer) {
+    private void AcceptSignUpRequest(ForServer forServer)
+    {
         try {
             jPotifyGUI = new JPotifyGUI(true);
             jPotifyGUI.setUser(forServer.getUser());
@@ -166,7 +156,7 @@ public class Network implements Runnable {
                 break;
             }
         }
-        //jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+
     }
 
     private void creatFriendPanel()
@@ -191,7 +181,8 @@ public class Network implements Runnable {
         return result;
     }
 
-    private void setFrindSharePlaylist(ForServer forServer) throws Exception {
+    private void setFrindSharePlaylist(ForServer forServer) throws Exception
+    {
         String path = null;
         for (int i = 0; i < forServer.getUser().getSharedPlaylist().getSongs().size(); i++) {
             String friendName = new String(forServer.getUser().getName());
@@ -210,7 +201,9 @@ public class Network implements Runnable {
         }
         creatFriendPanel();
     }
-    private void addSongToFriendSharedPlaylist(String path , String friendName) throws Exception {
+
+    private void addSongToFriendSharedPlaylist(String path , String friendName) throws Exception
+    {
         Song song = new Song(path);
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ;i++ ){
             if( friendName.equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {

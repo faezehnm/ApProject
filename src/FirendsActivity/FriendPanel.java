@@ -28,26 +28,28 @@ public class FriendPanel implements ActionListener{
 
 
         mainPanel = new JPanel();
-        mainPanel.setBackground(Color.white);
+        mainPanel.setBackground(Color.BLACK);
         mainPanelUp = new JPanel();
-        mainPanelUp.setBackground(Color.white);
+        mainPanelUp.setBackground(Color.BLACK);
         mainPanelDown = new JPanel();
-        mainPanelDown.setBackground(Color.white);
+        mainPanelDown.setBackground(Color.BLACK);
 
         friendName = new JButton(friend.getName());
-        friendName.setForeground(Color.WHITE);
+        friendName.setForeground(Color.BLACK);
         friendName.setPreferredSize(new Dimension(140,30));
-        friendName.setBackground(Color.white);
+        friendName.setBackground(Color.BLACK);
+        friendName.setForeground(Color.WHITE);
         friendName.addActionListener(this);
         friendName.setBorder(noline);
 
         lastTime = new JLabel();
-        lastTime.setForeground(Color.WHITE);
+        //lastTime.setForeground(Color.BLACK);
+        lastTime.setForeground(Color.CYAN);
         setTimeIcon(lastTime);
 
        // songInformaton = new JButton("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
         songInformaton = new JButton("null");
-        songInformaton.setBackground(Color.white);
+        songInformaton.setBackground(Color.BLACK);
         songInformaton.setForeground(Color.WHITE);
         songInformaton.addActionListener(this);
         songInformaton.setBorder(noline);
