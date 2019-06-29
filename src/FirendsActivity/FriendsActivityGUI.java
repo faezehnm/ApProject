@@ -121,6 +121,14 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
      */
     private void addFriendsPanel()
     {
+        mainPanel.remove(junk);
+        gbc2.gridx = 0;
+        gbc2.gridy = 1+friendsPanel.size();
+        gbc2.ipady = 0;
+        gbc2.weighty = 1.0;
+        gbc2.anchor = GridBagConstraints.PAGE_END;
+        gbc2.insets = new Insets(10, 0, 0, 0);
+        mainPanel.add(junk,gbc2);
 
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
             gbc.gridx = 0;

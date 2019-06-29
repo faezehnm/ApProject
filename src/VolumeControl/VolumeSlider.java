@@ -50,7 +50,7 @@ public class VolumeSlider extends JPanel implements ChangeListener{
     }
 
     /**
-     * when state of knob change
+     * Changes the volum when the state of slider changes
      * @param e
      */
     @Override
