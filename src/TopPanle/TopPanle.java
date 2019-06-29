@@ -11,14 +11,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * This class represenrs the top panel and it;s components(name of user and and search part).
- *
+ * This class represenrs the top panel and it's components(name of user and and search part).
  * @author Seyedeh Fatemeh Ahmadzadeh & Faezeh Naeimi
  * @since 2019
  * @version 1.0
  */
 
 public class TopPanle extends JPanel {
+
     private JLabel jLabel ;
     private Border blueLIne ;
     private JPanel searchPanel;
@@ -29,7 +29,7 @@ public class TopPanle extends JPanel {
     private DisplayListsControl displayListsControl;
 
     /**
-     * Creates an object of this claa
+     * Creates an object of this class
      * @param displayListsControl is an Object of DisplayListsControl class that is controlling the left and center parts.
      */
 

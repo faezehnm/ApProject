@@ -324,7 +324,11 @@ public class PlayMusicGUI extends JPanel {
         return song;
     }
 
-    private void setLyricButton(){
+    /**
+     * set lyric button
+     */
+    private void setLyricButton()
+    {
         lyric.setPreferredSize(new Dimension(100 , 50));
         lyric.setBackground(Color.BLACK);
         lyric.setForeground(Color.WHITE);

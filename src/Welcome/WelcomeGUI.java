@@ -9,7 +9,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.Serializable;
 
-
+/**
+ * first window which displays to go in JPotify
+ * @author faezeh naeimi
+ * @version 1.0
+ * @since 2019
+ */
 public class WelcomeGUI extends JFrame implements ActionListener , Serializable {
 
 
@@ -22,7 +27,10 @@ public class WelcomeGUI extends JFrame implements ActionListener , Serializable 
     private JButton signUp ;
     private JButton logIn ;
 
-
+    /**
+     * creat WelcomeGUI
+     * @throws IOException
+     */
     public WelcomeGUI() throws IOException
     {
         super();
@@ -44,18 +52,28 @@ public class WelcomeGUI extends JFrame implements ActionListener , Serializable 
 
     }
 
+    /**
+     * action to log in
+     */
     private void actionToLogin()
     {
         logInGUI = new LogInGUI();
         setVisible(false);
     }
 
+    /**
+    action to sign up
+     */
     private void actionToSignup()
     {
         signUpGUI = new SignUpGUI();
         setVisible(false);
     }
 
+    /**
+     * action to buttons
+     * @param e when click on buttons
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {

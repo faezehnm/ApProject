@@ -351,6 +351,9 @@ public class PlayMusicControl implements ActionListener,Runnable {
         }
     }
 
+    /**
+     * if player is not on repeat button , action proper to buttons .
+     */
     private void notOnRepeat()
     {
         synchronized(lockA) {
@@ -372,11 +375,17 @@ public class PlayMusicControl implements ActionListener,Runnable {
         }
     }
 
+    /**
+     * thread to call "notOnRepeat" method
+     */
     @Override
     public void run() {
         notOnRepeat();
     }
 
+    /**
+     * display Equalizer when press button play
+     */
     private void playEqualizer()
     {
         junk.setLayout(new BorderLayout());
@@ -385,6 +394,9 @@ public class PlayMusicControl implements ActionListener,Runnable {
         jPotifyGUI.repaint();
     }
 
+    /**
+     * stop Equalizer when press button play
+     */
     private void stopEqualizer()
     {
         junk.remove(graphicEqualizerPanel);
@@ -392,6 +404,9 @@ public class PlayMusicControl implements ActionListener,Runnable {
         jPotifyGUI.repaint();
     }
 
+    /**
+     * show lyric of song
+     */
     private void showLyric()
     {
         junk2.setLayout(new BorderLayout());

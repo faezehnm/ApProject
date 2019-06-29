@@ -16,7 +16,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/**
+ * control volume of JPotify
+ * @author Seyedeh Fatemeh Ahmadzadeh & Faezeh Naeimi
+ * @since 2019
+ * @version 1.0
+ */
 public class VolumeSlider extends JPanel implements ChangeListener{
+
     private JSlider jSlider;
     private ImageIcon imSpeaker0 =new ImageIcon("src/Icons/speaker0.png");
     private ImageIcon imSpeaker1 =new ImageIcon("src/Icons/speaker1.png");
@@ -24,6 +31,9 @@ public class VolumeSlider extends JPanel implements ChangeListener{
     private ImageIcon imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
     private JLabel jLabel = new JLabel();
 
+    /**
+     * creat volume slider
+     */
     public VolumeSlider()
     {
         jSlider = new JSlider(JSlider.HORIZONTAL , 0 , 100 , 50);
@@ -39,6 +49,10 @@ public class VolumeSlider extends JPanel implements ChangeListener{
         jSlider.setBackground(Color.BLACK);
     }
 
+    /**
+     * when state of knob change
+     * @param e
+     */
     @Override
     public void stateChanged(ChangeEvent e)
     {
@@ -58,6 +72,9 @@ public class VolumeSlider extends JPanel implements ChangeListener{
         updateImage();
     }
 
+    /**
+     * when knob change update image
+     */
     public void updateImage()
     {
         boolean zero = false ;
@@ -86,6 +103,8 @@ public class VolumeSlider extends JPanel implements ChangeListener{
             jLabel.setIcon(imSpeaker3);
 
     }
+
+
     private static float limit(FloatControl control,float level)
     { return Math.min(control.getMaximum(), Math.max(control.getMinimum(), level)); }
 
