@@ -172,50 +172,50 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonPlay()
     {
+        if( song != null ) {
+            if (!isItPlaying) {
+                playEqualizer();
+                getPlayButton().setIcon(imPause);
+                isItPlaying = true;
+                if (firstTime) {
+                    firstTime = false;
+                    try {
+                        player.play(song.getFileAddress());
+                        playSlider.play();
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (JavaLayerException e2) {
+                        e2.printStackTrace();
+                    } catch (IOException e3) {
+                        e3.printStackTrace();
+                    } catch (URISyntaxException e4) {
+                        e4.printStackTrace();
+                    }
+                } else {
+                    try {
+                        player.resume();
+                        playSlider.resume();
+                    } catch (FileNotFoundException e1) {
+                        e1.printStackTrace();
+                    } catch (JavaLayerException e2) {
+                        e2.printStackTrace();
+                    } catch (IOException e3) {
+                        e3.printStackTrace();
+                    } catch (URISyntaxException e4) {
+                        e4.printStackTrace();
+                    }
 
-        if (!isItPlaying) {
-            playEqualizer();
-            getPlayButton().setIcon(imPause);
-            isItPlaying=true ;
-            if( firstTime ) {
-                firstTime=false ;
-                try {
-                    player.play(song.getFileAddress());
-                    playSlider.play();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (JavaLayerException e2) {
-                    e2.printStackTrace();
-                } catch (IOException e3) {
-                    e3.printStackTrace();
-                } catch (URISyntaxException e4) {
-                    e4.printStackTrace();
                 }
-            }
-            else{
-                try {
-                    player.resume();
-                    playSlider.resume();
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (JavaLayerException e2) {
-                    e2.printStackTrace();
-                } catch (IOException e3) {
-                    e3.printStackTrace();
-                } catch (URISyntaxException e4) {
-                    e4.printStackTrace();
-                }
 
+            } else {
+                stopEqualizer();
+                getPlayButton().setIcon(imPlay);
+                player.pause();
+                playSlider.pause();
+                isItPlaying = false;
             }
-
-        } else {
-            stopEqualizer();
-            getPlayButton().setIcon(imPlay);
-            player.pause();
-            playSlider.pause();
-            isItPlaying= false ;
+            new Thread(this).start();
         }
-        new Thread(this).start();
 
     }
 
@@ -224,14 +224,16 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonPlayAnotherSong()
     {
-        if( mySong ) {
-            setLastSong(this.song);
+        if( song != null ) {
+            if (mySong) {
+                setLastSong(this.song);
+            }
+            setchangeSong(false);
+            isItPlaying = false;
+            firstTime = true;
+            playSlider.actionAfterStop();
+            actionToButtonPlay();
         }
-        setchangeSong(false);
-        isItPlaying = false ;
-        firstTime = true ;
-        playSlider.actionAfterStop();
-        actionToButtonPlay();
     }
 
     /**
@@ -239,16 +241,16 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonRepeat()
     {
-
-        if( player.getRepeat()==false) {
-            player.setRepeat(true);
-            playSlider.setRepeat(true);
-            getRepeatButton().setIcon(imRepeat);
-        }
-        else if(player.getRepeat()== true){
-            player.setRepeat(false);
-            playSlider.setRepeat(false);
-            getRepeatButton().setIcon(imRepeat1);
+        if( song != null ) {
+            if (player.getRepeat() == false) {
+                player.setRepeat(true);
+                playSlider.setRepeat(true);
+                getRepeatButton().setIcon(imRepeat);
+            } else if (player.getRepeat() == true) {
+                player.setRepeat(false);
+                playSlider.setRepeat(false);
+                getRepeatButton().setIcon(imRepeat1);
+            }
         }
     }
 
@@ -257,19 +259,20 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonShuffle()
     {
-        if( player.getShuffle()== false ){
-            player.setShuffle(true);
-            getBtnShuffle().setIcon(imShuffle1);
-            try {
-                playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song),true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        if( song != null ) {
+            if (player.getShuffle() == false) {
+                player.setShuffle(true);
+                getBtnShuffle().setIcon(imShuffle1);
+                try {
+                    playMusicGUI.setSong(DisplaySongsGroup.returnShuffle(song), true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-        }
-        else if( player.getShuffle()== true ){
-            player.setShuffle(false);
-            getBtnShuffle().setIcon(imShuffle);
+            } else if (player.getShuffle() == true) {
+                player.setShuffle(false);
+                getBtnShuffle().setIcon(imShuffle);
+            }
         }
     }
 
@@ -278,10 +281,12 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonNext()
     {
-        try {
-            playMusicGUI.setSong(DisplaySongsGroup.returnNext(song),mySong);
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        if( song != null ) {
+            try {
+                playMusicGUI.setSong(DisplaySongsGroup.returnNext(song), mySong);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
@@ -290,10 +295,12 @@ public class PlayMusicControl implements ActionListener,Runnable {
      */
     private void actionToButtonPrevious()
     {
-        try {
-            playMusicGUI.setSong(DisplaySongsGroup.returnPrevious(song),mySong);
-        } catch (Exception e1) {
-            e1.printStackTrace();
+        if( song != null ) {
+            try {
+                playMusicGUI.setSong(DisplaySongsGroup.returnPrevious(song), mySong);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

@@ -358,6 +358,11 @@ public class Network implements Runnable {
         }
     }
 
+    /**
+     * when friend add a music to her sharedPlaylist
+     * @param forServer message from server
+     * @throws Exception
+     */
     private void receiveNewSongFromFriend(ForServer forServer) throws Exception
     {
 
