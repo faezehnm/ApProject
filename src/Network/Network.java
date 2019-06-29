@@ -33,7 +33,7 @@ public class Network implements Runnable {
     public static JPotifyGUI jPotifyGUI;
     public static LogInGUI logInGUI;
     public static GoToJPotiy signUpGUI;
-    public static Friend friend;
+  //  public static Friend friend;
 
     /**
      * creat Network (when want to connect to server and send message )
@@ -301,17 +301,16 @@ public class Network implements Runnable {
      * find friend with her userName in my friends list
      * @return friend
      */
-    private Friend findFriend()
+    private Friend findFriend(String name )
     {
-        Friend result = null ;
-        for( int i=0 ; i< jPotifyGUI.getUser().getFriends().size() ; i++ ){
-            if( friend.getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName()) ){
-                result = jPotifyGUI.getUser().getFriends().get(i) ;
+        Friend res = null ;
+        for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
+            if( name.equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
+                res = jPotifyGUI.getUser().getFriends().get(i) ;
                 break;
             }
         }
-
-        return result;
+        return  res ;
     }
 
     /**
@@ -362,11 +361,11 @@ public class Network implements Runnable {
     private void receiveNewSongFromFriend(ForServer forServer) throws Exception
     {
 
-        Friend friend = new Friend(forServer.getUser().getName());
         String path = null;
         String friendName = new String(forServer.getUser().getName());
+        int index = findFriend(friendName).getSharedPlayList().getSongs().size() ;
 
-        path = new String("src\\songs\\" + friendName + findFriend().getSharedPlayList().getSongs().size() + ".mp3");
+        path = new String("src\\songs\\" + friendName + index + ".mp3");
         File f = new File(path);
         f.createNewFile();
         FileOutputStream fos = new FileOutputStream(f);
