@@ -334,19 +334,21 @@ public class PlayMusicControl implements ActionListener,Runnable {
     private void setLastSong(Song song)
     {
         System.out.println("set last song");
-        System.out.println(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size());
-        for( int i=0 ; i<jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() ; i++){
-            if(song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).getFileAddress()) ){
-                System.out.println("exist in sharedPlayList");
-                jPotifyGUI.getUser().setLasSongIndex(i);
-                jPotifyGUI.getUser().setLastSong();
-                jPotifyGUI.getUser().setLastTime("0");
-                try {
-                    new SendLastSong(jPotifyGUI.getUser());
-                } catch (IOException e) {
-                    e.printStackTrace();
+        //System.out.println(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size());
+        if(jPotifyGUI.getUser().getSharedPlaylist() != null) {
+            for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
+                if (song.getFileAddress().equals(jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).getFileAddress())) {
+                    System.out.println("exist in sharedPlayList");
+                    jPotifyGUI.getUser().setLasSongIndex(i);
+                    jPotifyGUI.getUser().setLastSong();
+                    jPotifyGUI.getUser().setLastTime("0");
+                    try {
+                        new SendLastSong(jPotifyGUI.getUser());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 }
-                break;
             }
         }
     }

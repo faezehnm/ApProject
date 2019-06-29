@@ -106,7 +106,7 @@ public class Network implements Runnable {
         try {
             File file = new File("src/" + forServer.getUser().getName() + ".bin");
             if (file.exists()){
-                JPotifyGUI jPotifyGUI = new JPotifyGUI(false);
+                jPotifyGUI = new JPotifyGUI(false);
                 FileInputStream fileIn = new FileInputStream(file.getPath());
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 int lastSongExists = in.readInt();
@@ -129,13 +129,25 @@ public class Network implements Runnable {
                     PlayList p = (PlayList) in.readObject();
                     jPotifyGUI.getDisplayListsGUI().getDisplayListsControl().addPlaylist(p);
                 }
+                if (in.readBoolean()){
+                    Song song = (Song) in.readObject();
+                    forServer.getUser().setLastSong(song);
+                }
+                int friendsNumber = in.readInt();
+                for(int i = 0; i < friendsNumber; i++){
+                    forServer.getUser().addFriend((Friend) in.readObject());
+                }
                 in.close();
             }
             else {
-                JPotifyGUI jPotifyGUI = new JPotifyGUI(true);
+                 jPotifyGUI = new JPotifyGUI(true);
             }
             jPotifyGUI.setUser(forServer.getUser());
             jPotifyGUI.getDisplayListsGUI().setUser(forServer.getUser());
+            jPotifyGUI.getFriendsActivityGUI().creatFirendPanel();
+            for( int i=0 ; i<jPotifyGUI.getFriendsActivityGUI().getFriendsPanel().size() ; i++ ){
+                jPotifyGUI.getFriendsActivityGUI().getFriendsPanel().get(i).updateLastSongInformaion();
+            }
         } catch (Exception var3) {
             var3.printStackTrace();
         }

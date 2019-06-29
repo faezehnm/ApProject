@@ -95,5 +95,8 @@ public class User implements Serializable{
     public void setCurrentFriend(Friend currentFriend) {
         this.currentFriend = currentFriend;
     }
+    public void setLastSong(Song song){
+        this.lastSong = song;
+    }
 
 }

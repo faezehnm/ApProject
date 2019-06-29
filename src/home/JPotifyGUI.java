@@ -100,24 +100,47 @@ public class JPotifyGUI extends JFrame {
                     e1.printStackTrace();
                 }
                 try {
-                    if(getPlayMusicGUI().getSong() == null){
+                    if (getPlayMusicGUI().getSong() == null) {
                         out.writeInt(0);
-                    }
-                    else {
+                    } else {
                         out.writeInt(1);
                         out.writeObject(getPlayMusicGUI().getSong());
                     }
                     out.writeInt(displayListsGUI.getDisplayListsControl().getSongs().size());
-                    for (Song s : displayListsGUI.getDisplayListsControl().getSongs()){
+                    for (Song s : displayListsGUI.getDisplayListsControl().getSongs()) {
                         out.writeObject(s);
                     }
                     out.writeInt(getDisplayListsGUI().getDisplayListsControl().getAlbumes().size());
-                    for(Albume a : getDisplayListsGUI().getDisplayListsControl().getAlbumes()){
+                    for (Albume a : getDisplayListsGUI().getDisplayListsControl().getAlbumes()) {
                         out.writeObject(a);
                     }
                     out.writeInt(getDisplayListsGUI().getDisplayListsControl().getPlaylists().size());
-                    for(PlayList p : getDisplayListsGUI().getDisplayListsControl().getPlaylists()){
+                    for (PlayList p : getDisplayListsGUI().getDisplayListsControl().getPlaylists()) {
                         out.writeObject(p);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    out.flush();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    if (user.getLastSong() != null) {
+                        out.writeBoolean(true);
+                        out.writeObject(user.getLastSong());
+                    }
+                    else{
+                        out.writeBoolean(false);
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+                try {
+                    out.writeInt(user.getFriends().size());
+                    for(Friend f : user.getFriends()){
+                        out.writeObject(f);
                     }
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -129,7 +152,7 @@ public class JPotifyGUI extends JFrame {
                 }
             }
 
-            @Override
+                @Override
             public void windowClosed(WindowEvent e) {
 
             }
