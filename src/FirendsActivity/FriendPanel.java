@@ -11,7 +11,9 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FriendPanel implements ActionListener{
+import static java.lang.Thread.sleep;
+
+public class FriendPanel implements ActionListener,Runnable{
 
     private PlayMusicGUI playMusicGUI ;
     private Friend friend ;
@@ -23,11 +25,14 @@ public class FriendPanel implements ActionListener{
     private JButton songInformaton ;
     private ImageIcon imSpeaker3;
     private Border noline;
+    private long startTime ;
+    private long endTime ;
+    private int counter ;
 
     public FriendPanel(Friend friend , PlayMusicGUI playMusicGUI)
     {
         noline = new EmptyBorder(10, 10, 10, 10);
-        imSpeaker3 =new ImageIcon("src/Icons/speaker3.png");
+        imSpeaker3 =new ImageIcon("src/Icons/speaker4.png");
         this.friend= friend ;
         this.playMusicGUI = playMusicGUI ;
 
@@ -49,7 +54,9 @@ public class FriendPanel implements ActionListener{
 
         lastTime = new JLabel();
         lastTime.setForeground(Color.CYAN);
-        setTimeIcon(lastTime);
+
+        lastTime.setIcon(imSpeaker3);
+
 
         songInformaton = new JButton("null");
         songInformaton.setBackground(Color.BLACK);
@@ -100,12 +107,32 @@ public class FriendPanel implements ActionListener{
         return songInformaton;
     }
 
-    public void setTimeIcon(JLabel jLabel)
+    public void setTimeIcon()
     {
-       // if( friend.getLastTime().equals("0"))
-            jLabel.setIcon(imSpeaker3);
-//        else
-//            jLabel.setText(friend.getLastTime());
+        endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+
+
+        if( duration/1000000000 <= 180 ) {
+            lastTime.setIcon(imSpeaker3);
+        }
+
+        else  {
+            lastTime.setIcon(null);
+
+               int time = (int) (duration/1000000000);
+               int timeInMin = time/60 ;
+
+               if( timeInMin <60 )
+                    lastTime.setText(timeInMin+ "m");
+               else if( timeInMin>= 60) {
+                   int timeInHour = timeInMin / 60;
+                   lastTime.setText(timeInHour+ "h");
+               }
+
+        }
+
+
     }
 
     public JPanel getMainPanel()
@@ -113,10 +140,17 @@ public class FriendPanel implements ActionListener{
         return mainPanel;
     }
 
+
     public void updateLastSongInformaion()
     {
+        startTime = System.nanoTime();
+
         songInformaton.setText("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
+        lastTime.setIcon(imSpeaker3);
+
+        new Thread(this).start();
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e)
@@ -130,4 +164,16 @@ public class FriendPanel implements ActionListener{
         }
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                sleep(1000);
+                setTimeIcon();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 }

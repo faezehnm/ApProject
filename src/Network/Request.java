@@ -53,7 +53,6 @@ public class Request extends JFrame implements ActionListener {
         new SendLastSong(jPotifyGUI.getUser());
 
         jPotifyGUI.getUser().removeFriend(friend);
-
         setVisible(false);
     }
 
@@ -91,6 +90,7 @@ public class Request extends JFrame implements ActionListener {
 
     private void convertAllSongsToMP3() throws IOException
     {
+
         if(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() !=0 ) {
             for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
                 jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();

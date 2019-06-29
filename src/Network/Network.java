@@ -93,7 +93,9 @@ public class Network implements Runnable {
                     updateFriendPanel(forServer);
                 }
             } catch (IOException var5) {
-                var5.printStackTrace();
+                System.out.println("::::::in vsr 5");
+                break;
+                //var5.printStackTrace();
             } catch (ClassNotFoundException var6) {
                 var6.printStackTrace();
             }
@@ -194,7 +196,6 @@ public class Network implements Runnable {
 
     private void updateFriendPanel(ForServer forServer)
     {
-
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
             if( forServer.getUser().getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
                 jPotifyGUI.getUser().getFriends().get(i).setLasSongIndex(forServer.getUser().getLasSongIndex());

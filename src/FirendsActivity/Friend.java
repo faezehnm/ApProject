@@ -13,6 +13,7 @@ import music.Song;
 public class Friend implements Serializable {
     private int port ;
     private String name;
+
     private PlayList sharedPlayList;
     private Song lastSong;
     private String lastTime;
