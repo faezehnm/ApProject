@@ -129,6 +129,7 @@ public class FriendPanel implements ActionListener,Runnable{
 
 
         if( duration/1000000000 <= 180 ) {
+            lastTime.setText("");
             lastTime.setIcon(imSpeaker3);
         }
 
