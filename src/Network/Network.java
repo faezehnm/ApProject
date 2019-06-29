@@ -1,8 +1,3 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package Network;
 
 import FirendsActivity.Friend;
@@ -21,6 +16,7 @@ import music.Song;
 import org.omg.CORBA.Environment;
 
 public class Network implements Runnable {
+
     private Socket client;
     private int port = 2000 ;
     private String serverName = "localhost";

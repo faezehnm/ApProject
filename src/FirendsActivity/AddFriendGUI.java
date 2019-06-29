@@ -12,15 +12,25 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.Serializable;
 
+/**
+ * when want to add friend this panel whil show
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class AddFriendGUI extends JFrame implements ActionListener {
-    private static final int WIDTH = 400 , HEIGHT = 200;
 
+    private static final int WIDTH = 400 , HEIGHT = 200;
     private JLabel jLabelName;
     private JTextField jTextFieldName;
     private JButton jButton ;
     private String friendName ;
     private User me ;
 
+    /**
+     * creat AddFriendGUI
+     * @param me the user who wants to send request to friends
+     */
     public AddFriendGUI(User me)
     {
         super();
@@ -44,7 +54,12 @@ public class AddFriendGUI extends JFrame implements ActionListener {
 
     }
 
-    private void actionToDo() throws Exception {
+    /**
+     * send fridn name & request to server
+     * @throws Exception
+     */
+    private void actionToDo() throws Exception
+    {
 
         friendName = jTextFieldName.getText() ;
         User user = new User(friendName,me.getName());
@@ -53,24 +68,18 @@ public class AddFriendGUI extends JFrame implements ActionListener {
         Network network22 = new Network(forServer);
         new Thread(network22).start();
 
-        //network.sendFile(forServer);
-        //Friend friend = new Friend(friendName);
-        //friendsActivityGUI.getUser().getFriends(friend);
-
-        /*
-        set last song for friend
-         */
-
-//        Song song = new Song("src/songs/Happier.mp3");
-//        friend.setLastSong(song);
 
         setVisible(false);
 
     }
 
-
+    /**
+     * when click on button
+     * @param e
+     */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         try {
             actionToDo();
         } catch (Exception e1) {
@@ -78,7 +87,11 @@ public class AddFriendGUI extends JFrame implements ActionListener {
         }
     }
 
-    KeyListener listener = new KeyListener() {
+    /**
+     * when pres keyBoard enter
+     */
+    KeyListener listener = new KeyListener()
+    {
         @Override
         public void keyTyped(KeyEvent e) { }
 

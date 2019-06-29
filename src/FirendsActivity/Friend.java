@@ -1,32 +1,24 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package FirendsActivity;
 
 import java.io.Serializable;
 import music.PlayList;
 import music.PlaylistSituation;
 import music.Song;
-
+/**
+ *  each friend inforamtion that should show in FriendActivityGUI
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class Friend implements Serializable {
-    private int port ;
-    private String name;
 
+    private String name;
     private PlayList sharedPlayList;
     private Song lastSong;
     private String lastTime;
     private int lasSongIndex;
     private int fileIndex;
 
-    public int getPort() {
-        return port;
-    }
-
-    public void setPort(int port) {
-        this.port = port;
-    }
 
     public int getFileIndex() {
         return this.fileIndex;
@@ -47,7 +39,11 @@ public class Friend implements Serializable {
         return this.lastSong;
     }
 
-    public void setLastSong() {
+    /**
+     * with index of lastFile find last song of friend which exist in her sharedPlaylist
+     */
+    public void setLastSong()
+    {
         this.lastSong = (Song)this.sharedPlayList.getSongs().get(this.lasSongIndex);
     }
 
@@ -63,6 +59,10 @@ public class Friend implements Serializable {
         return this.sharedPlayList;
     }
 
+    /**
+     * add a song to friedn sharedPlaylist
+     * @param song a song which should add to friend playList
+     */
     public void addSongToSharedPlayList(Song song) {
         this.sharedPlayList.addSong(song);
     }

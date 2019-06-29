@@ -13,6 +13,13 @@ import java.util.ArrayList;
 
 import static java.lang.Thread.sleep;
 
+
+/**
+ *  each friend panel that should shows in FriendActivityGUI
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class FriendPanel implements ActionListener,Runnable{
 
     private PlayMusicGUI playMusicGUI ;
@@ -29,6 +36,11 @@ public class FriendPanel implements ActionListener,Runnable{
     private long endTime ;
     private int counter ;
 
+    /**
+     * creat friend panel
+     * @param friend  owner of this panel
+     * @param playMusicGUI south panel of JPotifyGUI
+     */
     public FriendPanel(Friend friend , PlayMusicGUI playMusicGUI)
     {
         noline = new EmptyBorder(10, 10, 10, 10);
@@ -107,6 +119,9 @@ public class FriendPanel implements ActionListener,Runnable{
         return songInformaton;
     }
 
+    /**
+     * set last time of last song which exist in friend's sharedPlay list and friend listend that
+     */
     public void setTimeIcon()
     {
         endTime = System.nanoTime();
@@ -140,7 +155,9 @@ public class FriendPanel implements ActionListener,Runnable{
         return mainPanel;
     }
 
-
+    /**
+     * update informaton of friend's last song
+     */
     public void updateLastSongInformaion()
     {
         startTime = System.nanoTime();
@@ -151,7 +168,10 @@ public class FriendPanel implements ActionListener,Runnable{
         new Thread(this).start();
     }
 
-
+    /**
+     * play frind's last song when click on that
+     * @param e click on friend's last song information's button
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -164,8 +184,12 @@ public class FriendPanel implements ActionListener,Runnable{
         }
     }
 
+    /**
+     * update last song's time
+     */
     @Override
-    public void run() {
+    public void run()
+    {
         while (true) {
             try {
                 sleep(1000);

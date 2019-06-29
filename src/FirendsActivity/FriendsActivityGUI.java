@@ -16,6 +16,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ *  right panel in JPotifyGUI which show activity of all friends
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     private PlayMusicGUI playMusicGUI ;
@@ -23,7 +29,6 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     private GridBagConstraints gbc2;
     private JPanel junk;
     private Border noline;
-
     private JPanel mainPanel;
     private ArrayList<FriendPanel> friendsPanel;
     private JPanel topPanel ;
@@ -36,6 +41,12 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
     private Border blackLine;
     private JPotifyGUI jPotifyGUI;
 
+    /**
+     * creat FriendsActivityGUI
+     * @param user owner of JPotifyGUI
+     * @param playMusicGUI south panle in JPotifyGUI
+     * @param jPotifyGUI jPotify GUI :)
+     */
     public FriendsActivityGUI(User user , PlayMusicGUI playMusicGUI , JPotifyGUI jPotifyGUI)
     {
         this.user = user ;
@@ -91,6 +102,9 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
 
     }
 
+    /**
+     * creat panel of each friend
+     */
     public void creatFirendPanel()
     {
         System.out.println("in creat friend Panel :" + user.getFriends().size());
@@ -102,6 +116,9 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         addFriendsPanel();
     }
 
+    /**
+     * add friend panle to FriendsActivityGUI's main panel
+     */
     private void addFriendsPanel()
     {
 
@@ -116,6 +133,9 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         jPotifyGUI.repaint();
     }
 
+    /**
+     * remove all panel of friend (using when want to refresh page )
+     */
     public void removeFrendsPanel()
     {
         for( int i=0 ; i<friendsPanel.size() ; i++ ){
@@ -123,6 +143,9 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         }
     }
 
+    /**
+     * when click on add friend button
+     */
     public void ActionToAddFriend()
     {
         addFriendGUI = new AddFriendGUI(user);
@@ -144,7 +167,10 @@ public class FriendsActivityGUI extends JScrollPane implements ActionListener{
         return friendsPanel;
     }
 
-
+    /**
+     * when click on buttons
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
