@@ -57,7 +57,8 @@ public class Request extends JFrame implements ActionListener {
     {
 
         Friend friend = new Friend(forServer.getUser().getName());
-        jPotifyGUI.getUser().addFriend(friend);
+       // jPotifyGUI.getUser().addFriend(friend);
+        jPotifyGUI.getUser().addFollower(friend);
         jPotifyGUI.getUser().setCurrentFriend(friend);
         convertAllSongsToByte();
 

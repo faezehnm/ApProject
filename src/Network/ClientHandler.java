@@ -181,8 +181,9 @@ public class ClientHandler extends Thread{
      */
     private void sendLastSongToFriends(User user) throws IOException
     {
-        for( int i=0 ; i<user.getFriends().size() ; i++ ){
-            User hear = new User(user.getFriends().get(i).getName(),user.getName());
+        for( int i=0 ; i<user.getFolowers().size() ; i++ ){
+            //User hear = new User(user.getFriends().get(i).getName(),user.getName());
+            User hear = new User(user.getFolowers().get(i).getName(),user.getName());
             ForServer forServer = new ForServer(12,user);
             findUserSocket(hear).writeObject(forServer);
             findUserSocket(hear).flush();

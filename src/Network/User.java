@@ -20,6 +20,7 @@ public class User implements Serializable{
     private String name ;
     private String password ;
     private ArrayList<Friend> friends = new ArrayList<>();
+    private ArrayList<Friend> folowers = new ArrayList<>();
     private Friend currentFriend ;
     private PlayList sharedPlaylist ;
     private Song lastSong  = null ;
@@ -27,6 +28,7 @@ public class User implements Serializable{
     private String lastTime ;
     private int lasSongIndex  ;
     private boolean noLastSong = true;
+
     /**
      * creat a user
      * @param name user name
@@ -114,5 +116,13 @@ public class User implements Serializable{
 
     public void setNewSongInSharedPlaylist(Song newSongSharedPlaylist) {
         this.newSongInSharedPlaylist = newSongSharedPlaylist;
+    }
+
+    public void addFollower(Friend follower){
+        folowers.add(follower);
+    }
+
+    public ArrayList<Friend> getFolowers() {
+        return folowers;
     }
 }
