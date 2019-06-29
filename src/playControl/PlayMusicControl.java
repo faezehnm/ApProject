@@ -342,7 +342,7 @@ public class PlayMusicControl implements ActionListener,Runnable {
                     jPotifyGUI.getUser().setLasSongIndex(i);
                     jPotifyGUI.getUser().setLastSong();
                     try {
-                        System.out.println("send for server");
+                        System.out.println("send last song for server");
                         new SendLastSong(jPotifyGUI.getUser());
                     } catch (IOException e) {
                         e.printStackTrace();

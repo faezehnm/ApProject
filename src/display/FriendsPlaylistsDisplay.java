@@ -61,32 +61,34 @@ public class FriendsPlaylistsDisplay extends JScrollPane {
             innerGbc.gridx = 0;
             innerGbc.gridy = 0;
             JButton btn = new JButton();
-            Image resizedImg = playList.getSongs().get(0).scaledImage(370, 370);
-            ImageIcon resizedIcon = new ImageIcon(resizedImg);
-            btn.setIcon(resizedIcon);
-            btn.setBorder(blueLIne);
-            btn.setBackground(Color.BLACK);
-            btn.setForeground(Color.WHITE);
-            btn.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    displayListsControl.setDisplaySongs(friend.getSharedPlayList().getSongs() , false);
-                }
-            });
-            pnl.add(btn , innerGbc);
-            JLabel lbl = new JLabel(friend.getName() + "'s shared playlist");
-            lbl.setBackground(Color.BLACK);
-            lbl.setPreferredSize(new Dimension(370, 50));
-            lbl.setBorder(blueLIne);
-            innerGbc.gridy = 1;
-            innerGbc.gridx = 0;
-            lbl.setForeground(Color.WHITE);
-            pnl.add(lbl , innerGbc);
-            friendsPanels.add(pnl);
-            gbc.gridx = counter % 4;
-            gbc.gridy = counter / 4;
-            panel.add(pnl , gbc);
-            counter++;
+            if( playList.getSongs().size() != 0 ) {
+                Image resizedImg = playList.getSongs().get(0).scaledImage(370, 370);
+                ImageIcon resizedIcon = new ImageIcon(resizedImg);
+                btn.setIcon(resizedIcon);
+                btn.setBorder(blueLIne);
+                btn.setBackground(Color.BLACK);
+                btn.setForeground(Color.WHITE);
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        displayListsControl.setDisplaySongs(friend.getSharedPlayList().getSongs(), false);
+                    }
+                });
+                pnl.add(btn, innerGbc);
+                JLabel lbl = new JLabel(friend.getName() + "'s shared playlist");
+                lbl.setBackground(Color.BLACK);
+                lbl.setPreferredSize(new Dimension(370, 50));
+                lbl.setBorder(blueLIne);
+                innerGbc.gridy = 1;
+                innerGbc.gridx = 0;
+                lbl.setForeground(Color.WHITE);
+                pnl.add(lbl, innerGbc);
+                friendsPanels.add(pnl);
+                gbc.gridx = counter % 4;
+                gbc.gridy = counter / 4;
+                panel.add(pnl, gbc);
+                counter++;
+            }
         }
     }
 }

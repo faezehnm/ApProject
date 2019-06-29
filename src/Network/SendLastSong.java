@@ -16,18 +16,23 @@ public class SendLastSong {
      */
     public SendLastSong(User user) throws IOException
     {
+        if(user.getSharedPlaylist() != null) {
+            for (int i = 0; i < user.getSharedPlaylist().getSongs().size(); i++) {
+                if(user.getLastSong() != null ) {
+                    if (user.getLastSong().getFileAddress().equals(user.getSharedPlaylist().getSongs().get(i).getFileAddress())) {
+                        System.out.println("yeap it is in sharePlayList");
+                        user.setLasSongIndex(i);
 
-        for( int i=0 ; i< user.getSharedPlaylist().getSongs().size() ; i++ ){
-            if( user.getLastSong().getFileAddress().equals(user.getSharedPlaylist().getSongs().get(i).getFileAddress())) {
-                System.out.println("yeap it is in sharePlayList");
-                user.setLasSongIndex(i);
-                break;
+                        ForServer forServer = new ForServer(11,user);
+                        Network network = new Network(forServer);
+                        new Thread(network).start();
+
+                        break;
+                    }
+                }
             }
         }
 
-        ForServer forServer = new ForServer(11,user);
-        Network network = new Network(forServer);
-        new Thread(network).start();
 
     }
 }

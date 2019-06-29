@@ -22,10 +22,10 @@ public class User implements Serializable{
     private ArrayList<Friend> friends = new ArrayList<>();
     private Friend currentFriend ;
     private PlayList sharedPlaylist ;
-    private Song lastSong ;
+    private Song lastSong  = null ;
     private String lastTime ;
-    private int lasSongIndex  = 0;
-
+    private int lasSongIndex  ;
+    private boolean noLastSong = true;
     /**
      * creat a user
      * @param name user name
@@ -43,6 +43,11 @@ public class User implements Serializable{
 
     public void setLasSongIndex(int lasSongIndex) {
         this.lasSongIndex = lasSongIndex;
+        noLastSong = false ;
+    }
+
+    public boolean isNoLastSong() {
+        return noLastSong;
     }
 
     public PlayList getSharedPlaylist() {

@@ -92,7 +92,7 @@ public class Song extends Music implements Serializable {
      * save song in byte array
      * @throws IOException
      */
-    public void convertToByteArray() throws IOException {
+    public void toByteArray() throws IOException {
         File file = new File(this.getFileAddress());
         long length = file.length();
         byte[] bytes = new byte[(int) length] ;

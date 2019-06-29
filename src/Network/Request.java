@@ -59,7 +59,7 @@ public class Request extends JFrame implements ActionListener {
         Friend friend = new Friend(forServer.getUser().getName());
         jPotifyGUI.getUser().addFriend(friend);
         jPotifyGUI.getUser().setCurrentFriend(friend);
-        convertAllSongsToMP3();
+        convertAllSongsToByte();
 
         forServer = new ForServer(7,jPotifyGUI.getUser());
         Network network = new Network(forServer);
@@ -115,12 +115,13 @@ public class Request extends JFrame implements ActionListener {
      * when accept follow requst , prepare all songs in shredPlaylist to send
      * @throws IOException
      */
-    private void convertAllSongsToMP3() throws IOException
+    private void convertAllSongsToByte() throws IOException
     {
-
-        if(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() !=0 ) {
-            for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
-                jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();
+        if(jPotifyGUI.getUser().getSharedPlaylist() != null) {
+            if (jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() != 0) {
+                for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
+                    jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).toByteArray();
+                }
             }
         }
     }

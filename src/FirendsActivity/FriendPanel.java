@@ -67,10 +67,12 @@ public class FriendPanel implements ActionListener,Runnable{
         lastTime = new JLabel();
         lastTime.setForeground(Color.CYAN);
 
-        lastTime.setIcon(imSpeaker3);
 
 
-        songInformaton = new JButton("null");
+        lastTime.setText("");
+
+
+        songInformaton = new JButton("...no song yet...");
         songInformaton.setBackground(Color.BLACK);
         songInformaton.setForeground(Color.WHITE);
         songInformaton.addActionListener(this);
@@ -161,12 +163,13 @@ public class FriendPanel implements ActionListener,Runnable{
      */
     public void updateLastSongInformaion()
     {
-        startTime = System.nanoTime();
+        if( friend.getLastSong() != null ) {
+            startTime = System.nanoTime();
+            songInformaton.setText("<html>" + friend.getLastSong().getName() + "<br>" + friend.getLastSong().getArtist() + "<br>" + friend.getLastSong().getAlbumeName() + "<html>");
+            lastTime.setIcon(imSpeaker3);
 
-        songInformaton.setText("<html>"+friend.getLastSong().getName()+"<br>"+friend.getLastSong().getArtist()+"<br>"+friend.getLastSong().getAlbumeName()+"<html>");
-        lastTime.setIcon(imSpeaker3);
-
-        new Thread(this).start();
+            new Thread(this).start();
+        }
     }
 
     /**

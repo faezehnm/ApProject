@@ -234,9 +234,11 @@ public class Network implements Runnable {
     {
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
             if( forServer.getUser().getName().equals(jPotifyGUI.getUser().getFriends().get(i).getName())) {
-                jPotifyGUI.getUser().getFriends().get(i).setLasSongIndex(forServer.getUser().getLasSongIndex());
-                jPotifyGUI.getUser().getFriends().get(i).setLastSong();
-                break;
+                if( forServer.getUser().isNoLastSong() ==  false) {
+                    jPotifyGUI.getUser().getFriends().get(i).setLasSongIndex(forServer.getUser().getLasSongIndex());
+                    jPotifyGUI.getUser().getFriends().get(i).setLastSong();
+                    break;
+                }
             }
         }
 
@@ -310,20 +312,22 @@ public class Network implements Runnable {
     private void setFrindSharePlaylist(ForServer forServer) throws Exception
     {
         String path = null;
-        for (int i = 0; i < forServer.getUser().getSharedPlaylist().getSongs().size(); i++) {
-            String friendName = new String(forServer.getUser().getName());
+        if(forServer.getUser().getSharedPlaylist() != null) {
+            for (int i = 0; i < forServer.getUser().getSharedPlaylist().getSongs().size(); i++) {
+                String friendName = new String(forServer.getUser().getName());
 
-            path = new String("src\\songs\\" + friendName + i + ".mp3");
-            File f = new File(path);
-            f.createNewFile();
-            FileOutputStream fos = new FileOutputStream(f);
+                path = new String("src\\songs\\" + friendName + i + ".mp3");
+                File f = new File(path);
+                f.createNewFile();
+                FileOutputStream fos = new FileOutputStream(f);
 
-            fos.write(forServer.getUser().getSharedPlaylist().getSongs().get(i).getSongBytes());
-            fos.flush();
-            fos.close();
+                fos.write(forServer.getUser().getSharedPlaylist().getSongs().get(i).getSongBytes());
+                fos.flush();
+                fos.close();
 
-            addSongToFriendSharedPlaylist(path,friendName);
+                addSongToFriendSharedPlaylist(path, friendName);
 
+            }
         }
         creatFriendPanel();
     }

@@ -44,7 +44,10 @@ public class Friend implements Serializable {
      */
     public void setLastSong()
     {
-        this.lastSong = (Song)this.sharedPlayList.getSongs().get(this.lasSongIndex);
+        System.out.println(getSharedPlayList().getSongs().size());
+        if( getSharedPlayList() != null && sharedPlayList.getSongs().size()!=0 ) {
+            this.lastSong = (Song) this.sharedPlayList.getSongs().get(this.lasSongIndex);
+        }
     }
 
     public void setLasSongIndex(int lasSongIndex) {
