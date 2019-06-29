@@ -1,5 +1,6 @@
 package display;
 
+import Network.SendNewSongInSharedPlaylist;
 import home.JPotifyGUI;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
@@ -115,6 +116,11 @@ public class DisplaySongs extends DisplaySongsGroup {
                             displayListsControl.addSongToPlaylist(song , "Shared Playlist");
                             mainGUI.getUser().setSharedPlaylist(displayListsControl.getPlaylists().get(0));
                            //System.out.println(mainGUI.getUser().getSharedPlaylist().getSongs().size());
+                            try {
+                                new SendNewSongInSharedPlaylist(song ,mainGUI) ;
+                            } catch (IOException e1) {
+                                e1.printStackTrace();
+                            }
                         }
                     });
                     if(deletable) {
