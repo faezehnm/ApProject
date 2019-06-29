@@ -96,6 +96,8 @@ public class DisplayListsGUI extends JScrollPane{
         createPlaylistPanel = new JPanel();
         finishedCooshingBtn = new JButton("choosing finished");
         ImageIcon image = new ImageIcon("src/Icons/plus (1).png");
+        ImageIcon image4 = new ImageIcon("src/Icons/friend playlist.png");
+        friendsPlaylists.setIcon(image4);
         addNewMusic.setIcon(image);
         addNewPlaylist.setIcon(image);
         newPlaylistFrame = new JFrame("create new playlist");
@@ -167,7 +169,6 @@ public class DisplayListsGUI extends JScrollPane{
         createNewPlaylistbtn.setBackground(Color.BLACK);
         cancelAddingPlaylist.setBackground(Color.BLACK);
 
-        addNewMusic.setBorder(blackLine);
     }
 
     /**
@@ -191,7 +192,7 @@ public class DisplayListsGUI extends JScrollPane{
     }
 
     /**
-     * sets the color of all components on the panel
+     * sets the size of all components on the panel
      */
 
     private void setSize(){
@@ -424,6 +425,16 @@ public class DisplayListsGUI extends JScrollPane{
                     mainGUI.repaint();
                 }
             });
+        }
+        else if(playList.getPlayListName().equals("Favorite Songs")){
+            ImageIcon image2 = new ImageIcon("src/Icons/favorite.png");
+            playlistbtn.setIcon(image2);
+            System.out.println("favorite");
+        }
+        else if(playList.getPlayListName().equals("Shared Playlist")){
+            ImageIcon image3 = new ImageIcon("src/Icons/shared playlist.png");
+            playlistbtn.setIcon(image3);
+            System.out.println("Shared");
         }
         playlistbtn.setBackground(Color.BLACK);
         playlistbtn.setForeground(Color.WHITE);
