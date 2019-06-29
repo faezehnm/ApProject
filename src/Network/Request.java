@@ -9,6 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ *  when user receive a follow request form other user
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class Request extends JFrame implements ActionListener {
     private static final int WIDTH = 500 , HEIGHT = 200;
     private JLabel jLabel ;
@@ -17,6 +23,11 @@ public class Request extends JFrame implements ActionListener {
     private ForServer forServer;
     private JPotifyGUI jPotifyGUI ;
 
+    /**
+     * creat Request panel
+     * @param forServer message from server
+     * @param jPotifyGUI JPotify GUI
+     */
     public Request(ForServer forServer, JPotifyGUI jPotifyGUI)
     {
         super();
@@ -38,6 +49,10 @@ public class Request extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * accept follow request of a user
+     * @throws IOException
+     */
     private void acceptAction() throws IOException
     {
 
@@ -52,10 +67,14 @@ public class Request extends JFrame implements ActionListener {
 
         new SendLastSong(jPotifyGUI.getUser());
 
-        jPotifyGUI.getUser().removeFriend(friend);
+       // jPotifyGUI.getUser().removeFriend(friend);
         setVisible(false);
     }
 
+    /**
+     * reject follow request of a user
+     * @throws IOException
+     */
     private void rejectAction() throws IOException
     {
         User user = new User(jPotifyGUI.getUser().getName(),"null");
@@ -68,6 +87,10 @@ public class Request extends JFrame implements ActionListener {
         setVisible(false);
     }
 
+    /**
+     * action to buttons
+     * @param e when click on buttons
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -88,6 +111,10 @@ public class Request extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * when accept follow requst , prepare all songs in shredPlaylist to send
+     * @throws IOException
+     */
     private void convertAllSongsToMP3() throws IOException
     {
 

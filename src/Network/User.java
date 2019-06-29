@@ -9,7 +9,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
-
+/**
+ *  user of JPotify
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class User implements Serializable{
 
     private String name ;
@@ -21,6 +26,11 @@ public class User implements Serializable{
     private String lastTime ;
     private int lasSongIndex  = 0;
 
+    /**
+     * creat a user
+     * @param name user name
+     * @param password user password
+     */
     public User(String name, String password )
     {
         this.name = name ;
@@ -66,14 +76,6 @@ public class User implements Serializable{
 
     public void removeFriend(Friend friend){
         friends.remove(friend);
-    }
-
-    private void timerOfLastSong()
-    {
-        /*
-        have a timer in 5 minute to set last time playing
-        if set last song during 5 minutes didn't change
-         */
     }
 
     public String getLastTime() {

@@ -2,8 +2,18 @@ package Network;
 
 import java.io.*;
 
+/**
+ *  when user is listening to a song which exist in her sharedPlaylist send it to all her friends
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class SendLastSong {
-
+    /**
+     * creat an object of SendLastSong
+     * @param user owner of JPotify
+     * @throws IOException
+     */
     public SendLastSong(User user) throws IOException
     {
 

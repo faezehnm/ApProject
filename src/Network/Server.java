@@ -6,18 +6,30 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ *  server runnig on special port
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class Server extends Thread implements Serializable {
 
     private ServerSocket serverSocket;
-   // static ArrayList<Socket> clients = new ArrayList<>();
 
-
+    /**
+     * creat a server
+     * @param port port of server
+     * @throws IOException
+     */
     public Server(int port) throws IOException
     {
         serverSocket = new ServerSocket(port);
      //   System.out.println(serverSocket.toString());
     }
 
+    /**
+     * listen to clients f
+     */
     public void run()
     {
         while (true)
@@ -27,8 +39,6 @@ public class Server extends Thread implements Serializable {
             {
                 client = serverSocket.accept();
                 System.out.println("new client accepted!");
-
-                //clients.add(client);
 
                 ClientHandler clientHandler = new ClientHandler(client);
                 //System.out.println(serverSocket.isClosed() + " " + serverSocket.toString());
@@ -45,8 +55,8 @@ public class Server extends Thread implements Serializable {
 
     }
 
-
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         int port = 2000;
         try
         {

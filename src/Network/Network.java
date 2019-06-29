@@ -15,6 +15,12 @@ import music.PlayList;
 import music.Song;
 import org.omg.CORBA.Environment;
 
+/**
+ *  send & recive message betwen client and server
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class Network implements Runnable {
 
     private Socket client;
@@ -29,6 +35,11 @@ public class Network implements Runnable {
     public static GoToJPotiy signUpGUI;
     public static Friend friend;
 
+    /**
+     * creat Network (when want to connect to server and send message )
+     * @param forServer transfer messages between client and server
+     * @throws IOException
+     */
     public Network(ForServer forServer) throws IOException
     {
         this.client = new Socket(this.serverName, this.port);
@@ -37,7 +48,9 @@ public class Network implements Runnable {
         this.outStream.flush();
     }
 
-
+    /**
+     * listen to server's messages
+     */
     public void run() {
         try {
             this.inputStream = new ObjectInputStream(this.client.getInputStream());
@@ -99,6 +112,10 @@ public class Network implements Runnable {
         }
     }
 
+    /**
+     * accept ligin requust from server( when password is correct )
+     * @param forServer
+     */
     private void AcceptLoginRequest(ForServer forServer)
     {
         try {
@@ -140,12 +157,19 @@ public class Network implements Runnable {
 
     }
 
+    /**
+     * reject ligin requust from server( when password is not correct )
+     */
     private void NOTAcceptLoginRequest()
     {
         logInGUI = new LogInGUI();
         this.warning = new Warning("incorrect pass");
     }
 
+    /**
+     * accept SignUp requust from server( if there is no user whih my userName )
+     * @param forServer
+     */
     private void AcceptSignUpRequest(ForServer forServer)
     {
         try {
@@ -158,12 +182,20 @@ public class Network implements Runnable {
 
     }
 
+    /**
+     * accept SignUp requust from server( if there is already a user whih my userName )
+     */
     private void NOTAcceptSignUpRequest()
     {
         signUpGUI = new SignUpGUI();
         this.warning = new Warning("have this user already");
     }
 
+    /**
+     * when frind accept my request
+     * @param forServer server mesaag
+     * @throws Exception
+     */
     private void freiendAccept(ForServer forServer) throws Exception
     {
         Friend friend = new Friend(forServer.getUser().getName());
@@ -173,11 +205,19 @@ public class Network implements Runnable {
 
     }
 
+    /**
+     * when a user send me a request
+     * @param forServer message from server
+     */
     private void request(ForServer forServer)
     {
         this.warning = new Warning(forServer.getUser().getPassword() + " request to follow you . if you accept press ok !");
     }
 
+    /**
+     * when friend update her last song
+     * @param forServer message from server
+     */
     private void  setLastSongOfFriend(ForServer forServer)
     {
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
@@ -190,6 +230,10 @@ public class Network implements Runnable {
 
     }
 
+    /**
+     * update friend panle when a user send her last song to all her firends
+     * @param forServer message from user
+     */
     private void updateFriendPanel(ForServer forServer)
     {
         for( int i=0 ; i<jPotifyGUI.getUser().getFriends().size() ; i++ ){
@@ -202,6 +246,10 @@ public class Network implements Runnable {
         }
     }
 
+    /**
+     * find friend's panel
+     * @param friendName message from user
+     */
     private void findFriendPanel(String friendName)
     {
 
@@ -213,6 +261,9 @@ public class Network implements Runnable {
         }
     }
 
+    /**
+     * creat friend's panel when accept my requst
+     */
     private void creatFriendPanel()
     {
         System.out.println("in netWork"+ jPotifyGUI.getUser().getFriends().size());
@@ -222,6 +273,10 @@ public class Network implements Runnable {
 //        }
     }
 
+    /**
+     * find friend with her userName in my friends list
+     * @return friend
+     */
     private Friend findFriend()
     {
         Friend result = null ;
@@ -235,6 +290,11 @@ public class Network implements Runnable {
         return result;
     }
 
+    /**
+     * set friend's sharedPlaylist when accept my request
+     * @param forServer message from server
+     * @throws Exception
+     */
     private void setFrindSharePlaylist(ForServer forServer) throws Exception
     {
         String path = null;
@@ -256,6 +316,12 @@ public class Network implements Runnable {
         creatFriendPanel();
     }
 
+    /**
+     * add songs of friend to her sharedPlaylist
+     * @param path adress of song which download from frind's sharedPlaylist
+     * @param friendName frind name
+     * @throws Exception
+     */
     private void addSongToFriendSharedPlaylist(String path , String friendName) throws Exception
     {
         Song song = new Song(path);
@@ -267,12 +333,5 @@ public class Network implements Runnable {
         }
     }
 
-    private void convertAllSongsToMP3() throws IOException
-    {
-        if(jPotifyGUI.getUser().getSharedPlaylist().getSongs().size() !=0 ) {
-            for (int i = 0; i < jPotifyGUI.getUser().getSharedPlaylist().getSongs().size(); i++) {
-                jPotifyGUI.getUser().getSharedPlaylist().getSongs().get(i).convertToByteArray();
-            }
-        }
-    }
+
 }

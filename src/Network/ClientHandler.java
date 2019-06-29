@@ -9,7 +9,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ *  hanld clients of server
+ *  @author faezeh naeimi
+ *  @version 1.0
+ *  @since 2019
+ */
 public class ClientHandler extends Thread{
 
     private Socket socket;
@@ -19,7 +24,11 @@ public class ClientHandler extends Thread{
     static ArrayList<User> users = new ArrayList<User>();
     static HashMap<User,ObjectOutputStream> usersMap = new HashMap<User, ObjectOutputStream>();
 
-
+    /**
+     * creat client handler
+     * @param client client which connected to server
+     * @throws Exception
+     */
     public ClientHandler(Socket client ) throws Exception
     {
         if (client == null) throw new Exception("client can't be null");
@@ -38,9 +47,6 @@ public class ClientHandler extends Thread{
             if( fromClient.getType() == 11)
                 sendLastSongToFriends(user);
 
-            else if( fromClient.getType()== 8)
-                rejectFriend();
-
             else if( fromClient.getType()== 7)
                 acceptFriend(user);
 
@@ -57,10 +63,11 @@ public class ClientHandler extends Thread{
 
     }
 
-    public void run ()
-    {
-    }
-
+    /**
+     * check if we have already a user with this userName
+     * @param user client's userName
+     * @throws IOException
+     */
     private void checkUserName (User user) throws IOException
     {
 
@@ -85,6 +92,11 @@ public class ClientHandler extends Thread{
 
     }
 
+    /**
+     * check passWord of user
+     * @param user client's userName
+     * @throws IOException
+     */
     private void checkPass(User user) throws IOException
     {
         boolean flag = false ;
@@ -103,6 +115,11 @@ public class ClientHandler extends Thread{
         }
     }
 
+    /**
+     * send request to friend
+     * @param user client's userName
+     * @throws IOException
+     */
     private void sendRequestToFriend(User user) throws IOException
     {
         ForServer fromServer = new ForServer(6,new User(user.getPassword(),null) );
@@ -110,6 +127,11 @@ public class ClientHandler extends Thread{
         findUserSocket(user).flush();
     }
 
+    /**
+     * find user socket with her name
+     * @param user client's userName
+     * @return ObjectOutputStream of user's socket
+     */
     private ObjectOutputStream findUserSocket(User user)
     {
 
@@ -123,6 +145,11 @@ public class ClientHandler extends Thread{
         return result;
     }
 
+    /**
+     * when a friend accpeted request of other friend
+     * @param user client's userName( who accepted request )
+     * @throws IOException
+     */
     private void acceptFriend(User user) throws IOException
     {
 
@@ -133,13 +160,11 @@ public class ClientHandler extends Thread{
         findUserSocket(friend).flush();
     }
 
-    private void rejectFriend()
-    {
-        /*
-        :)
-         */
-    }
-
+    /**
+     * when a user listen to song which exist in her sharedPlaylist , send it for all her friends.
+     * @param user
+     * @throws IOException
+     */
     private void sendLastSongToFriends(User user) throws IOException
     {
         for( int i=0 ; i<user.getFriends().size() ; i++ ){
@@ -150,5 +175,6 @@ public class ClientHandler extends Thread{
         }
     }
 
+    public void run () {}
 
 }

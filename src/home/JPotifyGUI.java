@@ -38,10 +38,9 @@ public class JPotifyGUI extends JFrame {
     private TopPanle topPanle;
 
     /**
-     * Crates an oject of this class
+     * Creates JPotifyGUI
      * @param setPlaylists
      */
-
     public JPotifyGUI(boolean setPlaylists) {
         super();
 
