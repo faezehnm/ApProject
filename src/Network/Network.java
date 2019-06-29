@@ -100,13 +100,24 @@ public class Network implements Runnable {
                     System.out.println("we are seting last song of friend");
                     this.setLastSongOfFriend(forServer);
                     updateFriendPanel(forServer);
+                    break;
+
+                case 14:
+                    System.out.println("receiving new file");
+                    receiveNewSongFromFriend(forServer);
+                    break;
+
                 }
+
+
             } catch (IOException var5) {
                 System.out.println("::::::in vsr 5");
                 break;
                 //var5.printStackTrace();
             } catch (ClassNotFoundException var6) {
                 var6.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -213,7 +224,6 @@ public class Network implements Runnable {
         Friend friend = new Friend(forServer.getUser().getName());
         jPotifyGUI.getUser().addFriend(friend);
         setFrindSharePlaylist(forServer);
-
 
     }
 
@@ -347,6 +357,28 @@ public class Network implements Runnable {
                 break;
             }
         }
+    }
+
+    private void receiveNewSongFromFriend(ForServer forServer) throws Exception
+    {
+
+        Friend friend = new Friend(forServer.getUser().getName());
+        String path = null;
+        String friendName = new String(forServer.getUser().getName());
+
+        path = new String("src\\songs\\" + friendName + findFriend().getSharedPlayList().getSongs().size() + ".mp3");
+        File f = new File(path);
+        f.createNewFile();
+        FileOutputStream fos = new FileOutputStream(f);
+
+        fos.write(forServer.getUser().getNewSongInSharedPlaylist().getSongBytes());
+        fos.flush();
+        fos.close();
+
+
+        addSongToFriendSharedPlaylist(path, friendName);
+
+
     }
 
 

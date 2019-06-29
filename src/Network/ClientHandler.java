@@ -43,8 +43,10 @@ public class ClientHandler extends Thread{
 
             System.out.println(fromClient.getType());
 
+            if( fromClient.getType() == 13 )
+                sendNewSongForFriend(user);
 
-            if( fromClient.getType() == 11)
+            else if( fromClient.getType() == 11)
                 sendLastSongToFriends(user);
 
             else if( fromClient.getType()== 7)
@@ -60,6 +62,18 @@ public class ClientHandler extends Thread{
                 checkPass(user);
 
 
+
+    }
+
+    private void sendNewSongForFriend(User user) throws IOException
+    {
+
+        for( int i=0 ; i<user.getFriends().size() ; i++ ){
+            User hear = new User(user.getFriends().get(i).getName(),user.getName());
+            ForServer forServer = new ForServer(14,user);
+            findUserSocket(hear).writeObject(forServer);
+            findUserSocket(hear).flush();
+        }
 
     }
 

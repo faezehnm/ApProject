@@ -23,6 +23,7 @@ public class User implements Serializable{
     private Friend currentFriend ;
     private PlayList sharedPlaylist ;
     private Song lastSong  = null ;
+    private Song newSongInSharedPlaylist ;
     private String lastTime ;
     private int lasSongIndex  ;
     private boolean noLastSong = true;
@@ -102,8 +103,16 @@ public class User implements Serializable{
     public void setCurrentFriend(Friend currentFriend) {
         this.currentFriend = currentFriend;
     }
+
     public void setLastSong(Song song){
         this.lastSong = song;
     }
 
+    public Song getNewSongInSharedPlaylist() {
+        return newSongInSharedPlaylist;
+    }
+
+    public void setNewSongInSharedPlaylist(Song newSongSharedPlaylist) {
+        this.newSongInSharedPlaylist = newSongSharedPlaylist;
+    }
 }
